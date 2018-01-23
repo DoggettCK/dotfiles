@@ -1,51 +1,24 @@
 export ZSH=~/.oh-my-zsh
-
-# If you want to hide the user, set DEFAULT_USER in .zprofile
-ZSH_THEME="gentoo"
+export ZSH_THEME="gentoo"
+export EDITOR='vim'
+export LANG=en_US.UTF-8
+export DEFAULT_USER=`whoami`
 
 if [[ $(uname) == 'Linux' ]]; then
     export TERM=xterm-256color
 fi
 
-EDITOR='vim'
-alias v='vim'
+plugins=(bundler jump encode64 httpie rails urltools web-search)
 
-ssh-add -L &> /dev/null
-if [ $? -eq 1 ]; then
-  ssh-add
-fi
-
-# Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(bundler git jump encode64 httpie rails urltools web-search)
-
+# requires 'jump' plugin above
 alias j='jump'
-alias q='exit'
-alias quit='exit'
 
 # User configuration
 source $ZSH/oh-my-zsh.sh
 
-export LANG=en_US.UTF-8
-
-DEFAULT_USER=`whoami`
-
 if which git-number > /dev/null; then
 	alias gn='git number --column'
-	alias ga='git number add'
-fi
-
-alias gcv='git commit -v' # Commit with editor to see changes
-alias gsb='git checkout -' # Switch to previous branch
-alias gnb='git checkout -b' # Create new branch
-alias glp='git log -p'
-alias gpo='git pull origin --ff-only'
-
-if [[ -d $HOME/.rbenv ]]; then
-  eval "$(rbenv init -)"
-fi
-
-if which thefuck > /dev/null; then
-  eval "$(thefuck --alias)"
+	alias gna='git number add'
 fi
 
 if which tmate > /dev/null; then
@@ -74,5 +47,9 @@ if which xml2 > /dev/null; then
   alias pod_adventurezone="podcast_rss_to_curl 'http://adventurezone.libsyn.com/rss'"
 fi
 
-export ERL_AFLAGS="-kernel shell_history enabled"
+source $HOME/.dotfiles/zsh/config.sh
+source $HOME/.dotfiles/zsh/aliases.sh
+source $HOME/.dotfiles/zsh/functions.sh
+source $HOME/.dotfiles/shared/aliases.sh
+source $HOME/.dotfiles/shared/functions.sh
 

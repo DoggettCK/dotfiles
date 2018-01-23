@@ -7,45 +7,63 @@ end
 
 " Set the path to install plugins
 call plug#begin('~/.vim.local/bundle')
-
-" Define bundles via Github repos
-Plug 'ctrlpvim/ctrlp.vim'
-Plug 'rizzatti/dash.vim'
-Plug 'git://github.com/godlygeek/tabular.git'
-Plug 'git://github.com/jgdavey/tslime.vim.git'
-Plug 'kchmck/vim-coffee-script'
-Plug 'pbrisbin/vim-mkdir'
-" Plug 'scrooloose/syntastic'
-" Plug 'slim-template/vim-slim'
-Plug 'git://github.com/vim-airline/vim-airline.git'
-Plug 'git://github.com/vim-airline/vim-airline-themes.git'
-Plug 'tpope/vim-bundler'
-Plug 'tpope/vim-dispatch'
+" Elixir
+Plug 'slashmili/alchemist.vim'
 Plug 'elixir-lang/vim-elixir'
+Plug 'msanders/snipmate.vim'
+Plug 'carlosgaldino/elixir-snippets'
+
+" Ruby
+Plug 'vim-ruby/vim-ruby'
 Plug 'tpope/vim-endwise'
-Plug 'tpope/vim-eunuch'
-Plug 'tpope/vim-fugitive'
-Plug 'airblade/vim-gitgutter'
-Plug 'fatih/vim-go'
+Plug 'ngmy/vim-rubocop'
+Plug 'kchmck/vim-coffee-script'
 Plug 'tpope/vim-projectionist'
+Plug 'tpope/vim-bundler'
 Plug 'tpope/vim-rails'
 Plug 'tpope/vim-rake'
+
+" Elm
+Plug 'elmcast/elm-vim'
+
+" File management/search
+Plug 'kien/ctrlp.vim'
+Plug 'mileszs/ack.vim'
+
+" Git
+Plug 'tpope/vim-fugitive'
+Plug 'airblade/vim-gitgutter'
+Plug 'baroldgene/vim-github-links'
+
+" UI
+Plug 'bling/vim-airline'
+Plug 'scrooloose/nerdtree'
+
+" Editing
+Plug 'AndrewRadev/splitjoin.vim'
+Plug 'Raimondi/delimitMate'
+Plug 'SirVer/ultisnips'
+Plug 'adelarsq/vim-matchit'
+Plug 'godlygeek/tabular'
+Plug 'gorodinskiy/vim-coloresque'
+Plug 'janko-m/vim-test'
+Plug 'jgdavey/tslime.vim'
+Plug 'kana/vim-textobj-user'
+Plug 'mattn/emmet-vim'
+Plug 'nelstrom/vim-textobj-rubyblock'
+Plug 'ngmy/vim-rubocop'
+Plug 'rizzatti/dash.vim'
+Plug 'scrooloose/nerdcommenter'
+Plug 'scy/vim-mkdir-on-right'
+Plug 'sjl/gundo.vim'
+Plug 'terryma/vim-multiple-cursors'
+Plug 'tpope/vim-abolish'
+Plug 'tpope/vim-dispatch'
+Plug 'tpope/vim-eunuch'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
-Plug 'vim-ruby/vim-ruby'
-Plug 'git://github.com/kana/vim-textobj-user.git'
-Plug 'git://github.com/nelstrom/vim-textobj-rubyblock.git'
 Plug 'tpope/vim-unimpaired'
-" Plug 'vim-scripts/tComment'
-Plug 'baroldgene/vim-github-links'
-Plug 'terryma/vim-multiple-cursors'
-Plug 'janko-m/vim-test'
-Plug 'ngmy/vim-rubocop'
-Plug 'git://github.com/AndrewRadev/splitjoin.vim.git'
-" Elm support
-Plug 'elmcast/elm-vim'
-" code snippets
-Plug 'SirVer/ultisnips'
+Plug 'will133/vim-dirdiff'
 
 if filereadable(expand("~/.vimrc.bundles.local"))
   source ~/.vimrc.bundles.local
