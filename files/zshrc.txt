@@ -1,0 +1,78 @@
+export ZSH=~/.oh-my-zsh
+
+# If you want to hide the user, set DEFAULT_USER in .zprofile
+ZSH_THEME="gentoo"
+
+if [[ $(uname) == 'Linux' ]]; then
+    export TERM=xterm-256color
+fi
+
+EDITOR='vim'
+alias v='vim'
+
+ssh-add -L &> /dev/null
+if [ $? -eq 1 ]; then
+  ssh-add
+fi
+
+# Example format: plugins=(rails git textmate ruby lighthouse)
+plugins=(bundler git jump encode64 httpie rails urltools web-search)
+
+alias j='jump'
+alias q='exit'
+alias quit='exit'
+
+# User configuration
+source $ZSH/oh-my-zsh.sh
+
+export LANG=en_US.UTF-8
+
+DEFAULT_USER=`whoami`
+
+if which git-number > /dev/null; then
+	alias gn='git number --column'
+	alias ga='git number add'
+fi
+
+alias gcv='git commit -v' # Commit with editor to see changes
+alias gsb='git checkout -' # Switch to previous branch
+alias gnb='git checkout -b' # Create new branch
+alias glp='git log -p'
+alias gpo='git pull origin --ff-only'
+
+if [[ -d $HOME/.rbenv ]]; then
+  eval "$(rbenv init -)"
+fi
+
+if which thefuck > /dev/null; then
+  eval "$(thefuck --alias)"
+fi
+
+if which tmate > /dev/null; then
+  alias tmlink="tmate show-messages | grep 'ssh session: ssh -p' | tail -1 | sed -e 's/^.*session: //' | pbcopy"
+fi
+
+if [[ -e /usr/local/bin/emacs ]]; then
+  alias emacs='/usr/local/bin/emacs -nw'
+fi
+
+if [[ -e $HOME/Applications/exercism ]]; then
+  alias exercism='$HOME/Applications/exercism'
+fi
+
+if which xml2 > /dev/null; then
+  function podcast_rss_to_curl() {
+    curl -s $1 |
+    xml2 |
+    grep 'enclosure/@url' |
+    cut -d'=' -f2 |
+    sed 's/\(.*\)/curl -LO \1/'
+  }
+
+  alias pod_nerdist="podcast_rss_to_curl 'http://nerdist.libsyn.com/rss'"
+  alias pod_mbmbam="podcast_rss_to_curl 'https://feeds.feedburner.com/mbmbam'"
+  alias pod_adventurezone="podcast_rss_to_curl 'http://adventurezone.libsyn.com/rss'"
+fi
+
+export ERL_AFLAGS="-kernel shell_history enabled"
+
