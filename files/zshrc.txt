@@ -49,15 +49,16 @@ if [[ -e $HOME/Applications/exercism ]]; then
 fi
 
 if which xml2 > /dev/null; then
-  function podcast_rss_to_curl() {
+  function podcast() {
     curl -s $1 |
       xml2 |
       grep 'enclosure/@url' |
       cut -d'=' -f2 |
-      sed 's/\(.*\)/curl -LO \1/'
+      sed 's/\(.*\)/curl -LO \1/' |
+      sed 's/\?dest-id$//g'
   }
 
-  alias pod_nerdist="podcast_rss_to_curl 'http://nerdist.libsyn.com/rss'"
-  alias pod_mbmbam="podcast_rss_to_curl 'https://feeds.feedburner.com/mbmbam'"
-  alias pod_adventurezone="podcast_rss_to_curl 'http://adventurezone.libsyn.com/rss'"
+  alias nerdist="podcast 'http://nerdist.libsyn.com/rss'"
+  alias mbmbam="podcast 'https://feeds.feedburner.com/mbmbam'"
+  alias adventurezone="podcast 'http://adventurezone.libsyn.com/rss'"
 fi
