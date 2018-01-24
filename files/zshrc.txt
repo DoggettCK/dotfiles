@@ -10,19 +10,34 @@ fi
 
 plugins=(bundler jump encode64 httpie rails urltools web-search)
 
-# requires 'jump' plugin above
-alias j='jump'
-
-# User configuration
 source $ZSH/oh-my-zsh.sh
+
+# Common user configuration
+source $HOME/.dotfiles/zsh/config.sh
+source $HOME/.dotfiles/zsh/functions.sh
+source $HOME/.dotfiles/shared/functions.sh
+source $HOME/.dotfiles/zsh/aliases.sh
+source $HOME/.dotfiles/shared/aliases.sh
+
+# My aliases
+
+if which jump > /dev/null; then
+  alias j='jump'
+fi
 
 if which git-number > /dev/null; then
 	alias gn='git number --column'
-	alias gna='git number add'
+	alias ga='git number add'
 fi
 
 if which tmate > /dev/null; then
-  alias tmlink="tmate show-messages | grep 'ssh session: ssh -p' | tail -1 | sed -e 's/^.*session: //' | pbcopy"
+  function tmlink() {
+    tmate show-messages |
+      grep 'ssh session: ssh -p' |
+      tail -1 |
+      sed -e 's/^.*session: //' |
+      pbcopy
+  }
 fi
 
 if [[ -e /usr/local/bin/emacs ]]; then
@@ -36,20 +51,13 @@ fi
 if which xml2 > /dev/null; then
   function podcast_rss_to_curl() {
     curl -s $1 |
-    xml2 |
-    grep 'enclosure/@url' |
-    cut -d'=' -f2 |
-    sed 's/\(.*\)/curl -LO \1/'
+      xml2 |
+      grep 'enclosure/@url' |
+      cut -d'=' -f2 |
+      sed 's/\(.*\)/curl -LO \1/'
   }
 
   alias pod_nerdist="podcast_rss_to_curl 'http://nerdist.libsyn.com/rss'"
   alias pod_mbmbam="podcast_rss_to_curl 'https://feeds.feedburner.com/mbmbam'"
   alias pod_adventurezone="podcast_rss_to_curl 'http://adventurezone.libsyn.com/rss'"
 fi
-
-source $HOME/.dotfiles/zsh/config.sh
-source $HOME/.dotfiles/zsh/aliases.sh
-source $HOME/.dotfiles/zsh/functions.sh
-source $HOME/.dotfiles/shared/aliases.sh
-source $HOME/.dotfiles/shared/functions.sh
-
