@@ -26,6 +26,10 @@
     :link_from: gitshrc.txt
     :link_to: .gitshrc
   -
+    :description: ZSH configuration
+    :link_from: zshrc.txt
+    :link_to: .zshrc
+  -
     :description: IRB configuration
     :link_from: irbrc.txt
     :link_to: .irbrc

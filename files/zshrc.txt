@@ -25,6 +25,12 @@ if which jump > /dev/null; then
   alias j='jump'
 fi
 
+if [[ -e $HOME/git-number ]]; then
+  if ! which git-number > /dev/null; then
+    export PATH=$PATH:$HOME/git-number
+  fi
+fi
+
 if which git-number > /dev/null; then
 	alias gn='git number --column'
 	alias ga='git number add'
