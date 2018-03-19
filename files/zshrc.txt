@@ -68,3 +68,5 @@ if which xml2 > /dev/null; then
   alias mbmbam="podcast 'https://feeds.feedburner.com/mbmbam'"
   alias adventurezone="podcast 'http://adventurezone.libsyn.com/rss'"
 fi
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

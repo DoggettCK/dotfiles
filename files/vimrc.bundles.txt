@@ -44,7 +44,6 @@ Plug 'scrooloose/nerdtree'
 " Editing
 Plug 'AndrewRadev/splitjoin.vim'
 Plug 'Raimondi/delimitMate'
-Plug 'SirVer/ultisnips'
 Plug 'adelarsq/vim-matchit'
 Plug 'godlygeek/tabular'
 Plug 'gorodinskiy/vim-coloresque'
@@ -62,6 +61,7 @@ Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-unimpaired'
 Plug 'will133/vim-dirdiff'
+Plug 'christianrondeau/vim-base64'
 
 if filereadable(expand("~/.vimrc.bundles.local"))
   source ~/.vimrc.bundles.local

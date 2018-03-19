@@ -108,8 +108,10 @@ nmap <leader>q ysiw)iunquote<ESC>
 
 " misc mappings
 nmap <leader>~ g~iw
+nmap <leader>o O<ESC>jo<ESC>k
 nmap <leader>p gqap
 imap <leader>mc <ESC>ysiw`ela
+nnoremap <leader>az aABCDEFGHIJKLMNOPQRSTUVWXYZ<ESC>
 
 nmap <silent> <leader>` :call g:WorkaroundNERDTreeToggle()<CR>
 function! g:WorkaroundNERDTreeToggle()
@@ -130,10 +132,10 @@ nnoremap N Nzz
 let g:DirDiffExcludes = ".git,vendor" 
 
 " Make it obvious where 80 characters is
-highlight OverLength ctermbg=yellow ctermfg=white guibg=#592929
-match OverLength /\%81v.\+/
-highlight ColorColumn ctermbg=yellow " set to whatever you like
-call matchadd('ColorColumn', '\%81v', 100) "set column nr
+"highlight OverLength ctermbg=yellow ctermfg=white guibg=#592929
+"match OverLength /\%81v.\+/
+"highlight ColorColumn ctermbg=yellow " set to whatever you like
+"call matchadd('ColorColumn', '\%81v', 100) "set column nr
 
 " autoreload config changes :D
 augroup myvimrc
