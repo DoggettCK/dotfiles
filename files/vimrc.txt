@@ -1,19 +1,91 @@
-" Bundles are configured in ~/.vimrc.bundles
-" Local config is setup in ~/.vimrc.local
-""""""""""""""""""""""""""""""""""""""""""""""""
-" Vim Command to install plugins is :PlugInstall
-""""""""""""""""""""""""""""""""""""""""""""""""
-if filereadable($HOME."/.vimrc.bundles")
-  source ~/.vimrc.bundles
+set nocompatible
+syntax on
+filetype plugin indent on
+" Open splits to the bottom/right
+set splitright
+set splitbelow
+
+" Package management
+packadd minpac
+call minpac#init()
+
+" Update package manager itself
+call minpac#add('k-takata/minpac', {'type': 'opt'})
+
+" General
+call minpac#add('tpope/vim-unimpaired') " Buffer/option toggling
+call minpac#add('tpope/vim-obsession') " Session management
+call minpac#add('mhinz/vim-grepper') " File search with ripgrep, ag, grep
+call minpac#add('Raimondi/delimitMate') " Auto-close quotes/parens/brackets
+call minpac#add('adelarsq/vim-matchit') " Better matching with '%'
+call minpac#add('mattn/emmet-vim') " Expand CSS selector to HTML with <C-y>,
+call minpac#add('scrooloose/nerdcommenter') " Easy commenting
+call minpac#add('pbrisbin/vim-mkdir') " Ensure directory created before file save
+call minpac#add('tpope/vim-abolish') " snake_case (crs) to MixedCase (crm) conversion
+call minpac#add('tpope/vim-dispatch') " Async jobs
+call minpac#add('radenling/vim-dispatch-neovim') " NVIM-specific async jobs
+call minpac#add('tpope/vim-eunuch') " Unix command wrapper (:Delete, :SudoWrite, :Move)
+call minpac#add('tpope/vim-repeat') " Repeat macros/complex plugin commands
+call minpac#add('tpope/vim-surround') " Surround objects with chars using motions (e.g. ysiw')
+call minpac#add('msanders/snipmate.vim') " Snippets
+call minpac#add('tpope/vim-endwise') " Intelligently add 'end' to blocks
+call minpac#add('kana/vim-textobj-user') " Custom text objects
+
+" Git
+call minpac#add('tpope/vim-fugitive') " Git commands
+call minpac#add('tpope/vim-rhubarb') " Github commands
+call minpac#add('airblade/vim-gitgutter') " Git status in left gutter
+
+" UI
+call minpac#add('vim-airline/vim-airline') " Better status line
+call minpac#add('vim-airline/vim-airline-themes') " Airline themes
+call minpac#add('scrooloose/nerdtree') " File/directory tree
+
+" Elixir
+" TODO: Check out language server
+call minpac#add('slashmili/alchemist.vim') " Elixir project helpers
+call minpac#add('elixir-lang/vim-elixir') " Elixir support
+call minpac#add('carlosgaldino/elixir-snippets') " Elixir snippets
+call minpac#add('andyl/vim-textobj-elixir') " Elixir block motion support
+
+" Ruby
+call minpac#add('vim-ruby/vim-ruby') " Ruby support
+call minpac#add('tpope/vim-rails') " Rails support
+call minpac#add('kchmck/vim-coffee-script') " CoffeeScript support
+call minpac#add('ngmy/vim-rubocop') " Rubocop support
+call minpac#add('tpope/vim-rake') " Rake support
+call minpac#add('nelstrom/vim-textobj-rubyblock') " Ruby block motion support
+
+command! UpdatePackage call minpac#update()
+command! CleanPackage call minpac#clean()
+
+" Store undo files under $VIMDATA/undo, unless it's regular Vim
+set undofile
+if !has('nvim')
+  set undodir=~/.vim/undo
 endif
 
-set nocompatible " We're running Vim, not Vi!
+augroup vimrc
+  autocmd!
+  " No undo files for /tmp directory, to prevent password manager caching
+  autocmd BufWritePre /tmp/* setlocal noundofile
+  " Reload .vimrc on write
+  autocmd BufWritePost .vimrc source %
+  " Remove trailing whitespace on save for Ruby/Elixir
+  autocmd BufWritePre *.rb,*.ex,*.exs :%s/\s\+$//e
+  " Wrap the quickfix window
+  autocmd FileType qf setlocal wrap linebreak
+augroup END
+
+" Generic settings
+set nowrap
+set hidden " Allow multiple buffers at the same time
 set nobackup
 set noswapfile
-set hidden
-set number "after relativenumber, enables current line number
-set noeol
-set scrolloff=3
+set number
+set fixeol
+set scrolloff=10
+set sidescrolloff=20
 set shiftwidth=2
 set tabstop=2
 set softtabstop=2
@@ -28,8 +100,8 @@ set smarttab
 set expandtab
 set hlsearch
 set incsearch
-set numberwidth=5 "left-hand padding for number gutter
-set laststatus=2 "airline support
+set numberwidth=5
+set laststatus=2
 set history=1000
 set undolevels=1000
 set novisualbell
@@ -39,79 +111,104 @@ set lazyredraw
 set showmatch
 set enc=utf-8
 set cursorline
-
-" Make backspace behave in a sane manner.
 set backspace=indent,eol,start
-
-" don't outdent hashes
-inoremap # #
-
 set whichwrap+=<,>,h,l,[,]
 set t_Co=256
+set updatetime=100
 
-let g:airline#extensions#tabline#enabled = 1
-let g:airline_section_c = airline#section#create_left(['%{getcwd()}', '%f'])
-
+" Mappings
 let mapleader=","
 let maplocalleader="\\"
+let g:grepper = {}
+let g:grepper.tools = ['rg', 'ag', 'grep']
 
-" Quickly edit the vimrc file
-nnoremap <silent> <leader>ev :e $MYVIMRC<CR>
+" Tab-switching
+nmap <silent> <leader><Tab> ]b
+nmap <silent> <leader><S-Tab> [b
 
-" Easy window navigation
-noremap <C-h> <C-w>h
-noremap <C-j> <C-w>j
-noremap <C-k> <C-w>k
-noremap <C-l> <C-w>l
-nnoremap <silent> <leader><Tab> :bnext<CR>
-nnoremap <silent> <leader><S-Tab> :bprev<CR>
-
+" Save file
 nnoremap <silent> <leader>s :w<CR>
-nnoremap <silent> <leader>w :bd<CR>
+" Close file
+nnoremap <silent> <leader>w :bd!<CR>
+" Unhighlight search
 nnoremap <silent> <leader>h :nohlsearch<CR>
 
-inoremap jf <esc>
+" Easy escape to normal mode
+inoremap jf <Esc><Esc>
 
-" Highlight last inserted text
-nnoremap <leader>v `[v`]
+" Don't outdent hashes
+inoremap # #
 
-" The Silver Searcher
-if executable('ag')
-  " Use ag over grep
-  let g:ackprg = 'ag --vimgrep --ignore-dir=vendor --ignore-dir=.git'
+" Search for files with FZF
+nnoremap <C-p> :<C-u>FZF<CR>
 
-  " ag is fast enough that CtrlP doesn't need to cache
-  let g:ctrlp_use_caching = 0
+" Search for current word
+nnoremap <Leader>f :Grepper<CR>
+nnoremap <Leader>F :Grepper -cword -noprompt<CR>
+
+" Search by motion (gf$, gfiw, gfa{, etc...)
+nmap gf <plug>(GrepperOperator)
+xmap gf <plug>(GrepperOperator)
+
+" Alt + direction swaps windows
+nnoremap <M-h> <C-w>h
+nnoremap <M-j> <C-w>j
+nnoremap <M-k> <C-w>k
+nnoremap <M-l> <C-w>l
+
+" Terminal-mode (NVIM) settings
+if has('nvim')
+  " Different color for terminal mode cursor
+  highlight! TermCursorNC guibg=red guifg=white ctermbg=1 ctermfg=15
+
+  tnoremap <Esc> <C-\><C-n>
+  tnoremap jf <C-\><C-n>
+  tnoremap <C-v><Esc> <Esc>
+
+  " Alt + direction swaps windows
+  tnoremap <M-h> <C-\><C-n><C-w>h
+  tnoremap <M-j> <C-\><C-n><C-w>j
+  tnoremap <M-k> <C-\><C-n><C-w>k
+  tnoremap <M-l> <C-\><C-n><C-w>l
+
+  " Open a terminal with leader, then '|' or '-'
+  map <leader><bar> :vsplit \| terminal<CR>
+  map <leader>- :split \| terminal<CR>
+
+  augroup terminal_mode
+    autocmd!
+    " Don't set line numbers in terminal mode
+    autocmd TermOpen * setlocal nonumber
+  augroup END
 endif
-cnoreabbrev Ack Ack!
-nnoremap <leader>f :Ack! 
-nnoremap <leader>F :Ack! <c-r><c-w> 
 
-" CtrlP settings
-let g:ctrlp_custom_ignore = {
-\ 'dir': '\v[\/](vendor|deps|\.(git|svn|hg)|_build)',
-\ 'file': '\*\.(beam)'
-\ }
-let g:ctrlp_match_window = 'bottom,order:ttb'
-let g:ctrlp_switch_buffer = 0
-let g:ctrlp_working_path_mode = 0
+" Miscellaneous mappings
+" Insert alphabet
+nnoremap <leader>az aABCDEFGHIJKLMNOPQRSTUVWXYZ<ESC>
+
+" Redact current word
+nnoremap <leader>* Viwr*
+
+" Make life easier by remapping ; to : for commands
+nnoremap ; :
+vnoremap ; :
+
+" NERDCommenter settings
+" Add spaces after comment delimiters by default
+let g:NERDSpaceDelims = 1
+" Use compact syntax for prettified multi-line comments
+let g:NERDCompactSexyComs = 1
+
+" GitGutter settings
+set signcolumn=yes
+" let g:gitgutter_highlight_lines=1
+
+" Airline settings
+let g:airline_theme='bubblegum'
+let g:airline#extensions#tabline#enabled=1
 
 " NERDTree settings
-let NERDTreeIgnore=['vendor$', 'deps$', '.git$', '.svn$', '.hg$', '_build$']
-
-" vim-surround mappings
-nmap <silent> <leader>" cs'"
-nmap <silent> <leader>' cs"'
-
-" unquote mappings
-nmap <leader>q ysiw)iunquote<ESC>
-
-" misc mappings
-nmap <leader>~ g~iw
-nmap <leader>o O<ESC>jo<ESC>k
-nmap <leader>p gqap
-imap <leader>mc <ESC>ysiw`ela
-nnoremap <leader>az aABCDEFGHIJKLMNOPQRSTUVWXYZ<ESC>
+let NERDTreeIgnore=['vendor$', 'deps$', '.git$', '.svn$', '.hg$', '_build$', 'node_modules']
 
 nmap <silent> <leader>` :call g:WorkaroundNERDTreeToggle()<CR>
 function! g:WorkaroundNERDTreeToggle()
@@ -122,113 +219,10 @@ function! g:WorkaroundNERDTreeToggle()
   endtry
 endfunction
 
-" redact current word
-map <leader>* Viwr*
-
-" center search result on screen
-nnoremap n nzz
-nnoremap N Nzz
-
-let g:DirDiffExcludes = ".git,vendor" 
+" vim-surround mappings
+nmap <silent> <leader>" cs'"
+nmap <silent> <leader>' cs"'
 
 " Make it obvious where 80 characters is
-"highlight OverLength ctermbg=yellow ctermfg=white guibg=#592929
-"match OverLength /\%81v.\+/
-"highlight ColorColumn ctermbg=yellow " set to whatever you like
-"call matchadd('ColorColumn', '\%81v', 100) "set column nr
-
-" autoreload config changes :D
-augroup myvimrc
-  au!
-  au BufWritePost .vimrc,_vimrc,vimrc,.gvimrc,_gvimrc,gvimrc so $MYVIMRC | if has('gui_running') | so $MYGVIMRC | endif
-augroup END
-
-function! NumberToggle()
-  if(&relativenumber == 1)
-    set norelativenumber
-    set number
-    highlight LineNr ctermfg=green
-  else
-    set nonumber
-    set relativenumber
-    set number "enables current line number
-    highlight LineNr ctermfg=yellow
-  endif
-endfunc
-
-" Ctrl-n : toggle numbers between classic and relative
-inoremap <leader>n <ESC>:call NumberToggle()<cr>a
-nnoremap <leader>n :call NumberToggle()<cr>
-
-if has("autocmd")
-  " Enable filetype detection
-  filetype plugin indent on
-
-  " Restore cursor position
-  autocmd BufReadPost *
-    \ if line("'\"") > 1 && line("'\"") <= line("$") |
-    \   exe "normal! g`\"" |
-    \ endif
-endif
-
-if &t_Co > 2 || has("gui_running")
-  " Enable syntax highlighting
-  syntax on
-endif
-
-" treat .md files as markdown
-au BufNewFile,BufFilePre,BufRead *.md set filetype=markdown
-" Format xml files
-au FileType xml exe ":silent 1,$!xmllint --format --recover - 2>/dev/null"
-
-" Alignment macros
-nmap <Leader>a= :Tabularize /=\(>\)\@!<CR>
-vmap <Leader>a= :Tabularize /=\(>\)\@!<CR>
-nmap <Leader>a> :Tabularize /=><CR>
-vmap <Leader>a> :Tabularize /=><CR>
-nmap <Leader>a: :Tabularize /:\zs<CR>
-vmap <Leader>a: :Tabularize /:\zs<CR>
-nmap <Leader>a{ :Tabularize / \zs{<CR>
-vmap <Leader>a{ :Tabularize / \zs{<CR>
-nmap <Leader>a<Bar> :Tabularize/\|/l1<CR>
-vmap <Leader>a<Bar> :Tabularize/\|/l1<CR>
-
-" tslime / vim-rspec setup
-let g:rspec_command = 'call Send_to_Tmux("rspec {spec}\n")'
-
-" include the matchit plugin to use % to jump between
-" def/end, class/end, do/end, etc
-runtime macros/matchit.vim
-
-" Highlight the status line
-highlight StatusLine ctermfg=blue ctermbg=yellow
-set showcmd " display incomplete commands
-
-" Remove trailing whitespace on save for ruby/elixir files.
-au BufWritePre *.rb :%s/\s\+$//e
-au BufWritePre *.ex :%s/\s\+$//e
-au BufWritePre *.exs :%s/\s\+$//e
-
-" Follow Rails indentation convention for 'private' tags, etc
-let g:ruby_indent_access_modifier_style="indent"
-
-" Without this, vim breaks in the middle of words when wrapping
-autocmd FileType markdown setlocal nolist wrap lbr
-
-" Wrap the quickfix window
-autocmd FileType qf setlocal wrap linebreak
-
-" make life easier by remapping ; to : for commands
-nnoremap ; :
-vnoremap ; :
-
-" gb now blames
-imap <leader>gb :Gblame<CR>
-nmap <leader>gb :Gblame<CR>
-vmap <leader>gb :Gblame<CR>
-
-" prettify json files
-nmap <silent> <leader>json :%!python -m json.tool<CR>
-
-" elm support
-let g:elm_format_autosave = 1
+set colorcolumn=121
+highlight ColorColumn ctermbg=0 guibg=lightgrey

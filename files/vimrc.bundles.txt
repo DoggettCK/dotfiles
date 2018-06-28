@@ -13,20 +13,12 @@ Plug 'elixir-lang/vim-elixir'
 Plug 'msanders/snipmate.vim'
 Plug 'carlosgaldino/elixir-snippets'
 Plug 'andyl/vim-textobj-elixir'
+Plug 'mhinz/vim-mix-format'
 
 " Ruby
 Plug 'vim-ruby/vim-ruby'
 Plug 'tpope/vim-endwise'
 Plug 'ngmy/vim-rubocop'
-Plug 'kchmck/vim-coffee-script'
-Plug 'tpope/vim-projectionist'
-Plug 'tpope/vim-bundler'
-Plug 'tpope/vim-rails'
-Plug 'tpope/vim-rake'
-Plug 'nelstrom/vim-textobj-rubyblock'
-
-" Elm
-Plug 'elmcast/elm-vim'
 
 " File management/search
 Plug 'kien/ctrlp.vim'
@@ -62,6 +54,10 @@ Plug 'tpope/vim-surround'
 Plug 'tpope/vim-unimpaired'
 Plug 'will133/vim-dirdiff'
 Plug 'christianrondeau/vim-base64'
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf.vim'
+Plug 'kurkale6ka/vim-swap'
+Plug 'tpope/vim-rsi'
 
 if filereadable(expand("~/.vimrc.bundles.local"))
   source ~/.vimrc.bundles.local
