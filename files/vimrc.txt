@@ -40,6 +40,8 @@ call minpac#add('airblade/vim-gitgutter') " Git status in left gutter
 call minpac#add('vim-airline/vim-airline') " Better status line
 call minpac#add('vim-airline/vim-airline-themes') " Airline themes
 call minpac#add('scrooloose/nerdtree') " File/directory tree
+call minpac#add('unkiwii/vim-nerdtree-sync') " Sync NERDTree to current file
+call minpac#add('jistr/vim-nerdtree-tabs') " NERDTree tabs
 
 " Elixir
 " TODO: Check out language server
@@ -161,7 +163,7 @@ if has('nvim')
   " Different color for terminal mode cursor
   highlight! TermCursorNC guibg=red guifg=white ctermbg=1 ctermfg=15
 
-  tnoremap <Esc> <C-\><C-n>
+  " tnoremap <Esc> <C-\><C-n>
   tnoremap jf <C-\><C-n>
   tnoremap <C-v><Esc> <Esc>
 
@@ -210,14 +212,13 @@ let g:airline#extensions#tabline#enabled=1
 " NERDTree settings
 let NERDTreeIgnore=['vendor$', 'deps$', '.git$', '.svn$', '.hg$', '_build$', 'node_modules']
 
-nmap <silent> <leader>` :call g:WorkaroundNERDTreeToggle()<CR>
-function! g:WorkaroundNERDTreeToggle()
-  try
-    NERDTreeToggle
-  catch
-    silent! NERDTree
-  endtry
-endfunction
+let g:nerdtree_sync_cursorline=1
+let g:NERDTreeHighlightCursorLine=1
+
+let g:nerdtree_tabs_focus_on_files=1
+let g:nerdtree_tabs_autofind=1
+
+nmap <Leader>` <Plug>NERDTreeTabsToggle<CR><M-l>
 
 " vim-surround mappings
 nmap <silent> <leader>" cs'"
