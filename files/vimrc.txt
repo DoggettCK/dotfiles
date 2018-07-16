@@ -1,4 +1,7 @@
-set nocompatible
+if &compatible
+  set nocompatible
+endif
+
 syntax on
 filetype plugin indent on
 " Open splits to the bottom/right
@@ -6,7 +9,16 @@ set splitright
 set splitbelow
 
 " Package management
-packadd minpac
+
+" Try to load minpac
+silent! packadd minpac
+
+if !exists('*minpac#init')
+  silent call !mkdir -p $HOME . '.vim/pack/minpac/opt'
+  silent call !git clone 'https://github.com/k-takata/minpac.git' $HOME . '.vim/pack/minpac/opt/minpac'
+  packadd minpac
+endif
+
 call minpac#init()
 
 " Update package manager itself
