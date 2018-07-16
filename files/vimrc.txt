@@ -14,8 +14,14 @@ set splitbelow
 silent! packadd minpac
 
 if !exists('*minpac#init')
-  silent call !mkdir -p $HOME . '.vim/pack/minpac/opt'
-  silent call !git clone 'https://github.com/k-takata/minpac.git' $HOME . '.vim/pack/minpac/opt/minpac'
+  let minpac_dir = $HOME . '/.vim/pack/minpac/opt'
+  let minpac_install = 'git clone "https://github.com/k-takata/minpac.git" "' . minpac_dir . '/minpac"'
+
+  echom('Unable to find minpac package manager. Creating ' . minpac_dir)
+  call mkdir(minpac_dir, 'p')
+  echom('Installing minpac with: ' . minpac_install)
+  call system(minpac_install)
+  echom('Reloading minpac')
   packadd minpac
 endif
 
