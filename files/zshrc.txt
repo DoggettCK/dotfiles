@@ -65,9 +65,11 @@ if which xml2 > /dev/null; then
       sed 's/\?dest-id$//g'
   }
 
-  alias nerdist="podcast 'http://nerdist.libsyn.com/rss'"
   alias mbmbam="podcast 'https://feeds.feedburner.com/mbmbam'"
   alias adventurezone="podcast 'http://adventurezone.libsyn.com/rss'"
+  alias beastcast="podcast 'https://www.giantbomb.com/podcast-xml/beastcast/'"
+  alias giantbomb="podcast 'https://www.giantbomb.com/feeds/podcast/'"
+  alias occultae="podcast 'http://ovpod.libsyn.com/rss'"
 fi
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
