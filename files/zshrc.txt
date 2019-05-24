@@ -47,29 +47,4 @@ if which tmate > /dev/null; then
   }
 fi
 
-if [[ -e /usr/local/bin/emacs ]]; then
-  alias emacs='/usr/local/bin/emacs -nw'
-fi
-
-if [[ -e $HOME/Applications/exercism ]]; then
-  alias exercism='$HOME/Applications/exercism'
-fi
-
-if which xml2 > /dev/null; then
-  function podcast() {
-    curl -s $1 |
-      xml2 |
-      grep 'enclosure/@url' |
-      cut -d'=' -f2 |
-      sed 's/\(.*\)/curl -LO \1/' |
-      sed 's/\?dest-id$//g'
-  }
-
-  alias mbmbam="podcast 'https://feeds.feedburner.com/mbmbam'"
-  alias adventurezone="podcast 'http://adventurezone.libsyn.com/rss'"
-  alias beastcast="podcast 'https://www.giantbomb.com/podcast-xml/beastcast/'"
-  alias giantbomb="podcast 'https://www.giantbomb.com/feeds/podcast/'"
-  alias occultae="podcast 'http://ovpod.libsyn.com/rss'"
-fi
-
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

@@ -147,9 +147,12 @@ nmap <silent> <leader><Tab> ]b
 nmap <silent> <leader><S-Tab> [b
 
 " Save file
-nnoremap <silent> <leader>s :w<CR>
+nnoremap <silent> <leader>s :write<CR>
 " Close file
-nnoremap <silent> <leader>w :bd!<CR>
+nnoremap <silent> <leader>w :bdelete<CR>
+" Force close file without saving
+nnoremap <silent> <leader>W :bdelete!<CR>
+
 " Unhighlight search
 nnoremap <silent> <leader>h :nohlsearch<CR>
 
@@ -228,7 +231,7 @@ let g:airline_theme='bubblegum'
 let g:airline#extensions#tabline#enabled=1
 
 " NERDTree settings
-let NERDTreeIgnore=['vendor$', 'deps$', '.git$', '.svn$', '.hg$', '_build$', 'node_modules']
+let NERDTreeIgnore=['vendor$', 'deps$', '.git$', '.svn$', '.hg$', '_build$', 'node_modules', 'schema_documentation']
 
 let g:nerdtree_sync_cursorline=1
 let g:NERDTreeHighlightCursorLine=1
