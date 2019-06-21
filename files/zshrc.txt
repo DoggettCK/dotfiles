@@ -1,3 +1,6 @@
+alias trim="awk '{\$1=\$1};1'"
+alias strip_colors="perl -pe 's/\e\[?.*?[\@-~]//g'"
+
 export ZSH=~/.oh-my-zsh
 export ZSH_THEME="gentoo"
 export EDITOR='vim'
@@ -21,6 +24,22 @@ source $HOME/.dotfiles/zsh/aliases.sh
 source $HOME/.dotfiles/shared/aliases.sh
 
 # My aliases
+
+alias trim="awk '{\$1=\$1};1'"
+alias strip_colors="perl -pe 's/\e\[?.*?[\@-~]//g'"
+
+function git_nuke() {
+  branch=${1:-master}
+  echo -n "Are you sure you want to delete all git branches except \"$branch\"? " 
+  read -k1
+  echo
+  if [[ $REPLY =~ ^[Yy]$ ]]; then
+    echo "git checkout $branch"
+    git checkout $branch
+    echo "git branch | strip_colors | trim | grep -v $branch | xargs git branch -D"
+    git branch | strip_colors | trim | grep -v $branch | xargs git branch -D
+  fi
+}
 
 if which jump > /dev/null; then
   alias j='jump'

@@ -31,6 +31,7 @@ call minpac#init()
 call minpac#add('k-takata/minpac', {'type': 'opt'})
 
 " General
+call minpac#add('altercation/vim-colors-solarized')
 call minpac#add('tpope/vim-unimpaired') " Buffer/option toggling
 call minpac#add('tpope/vim-obsession') " Session management
 call minpac#add('mhinz/vim-grepper') " File search with ripgrep, ag, grep
@@ -143,8 +144,8 @@ let g:grepper = {}
 let g:grepper.tools = ['rg', 'ag', 'grep']
 
 " Tab-switching
-nmap <silent> <leader><Tab> ]b
-nmap <silent> <leader><S-Tab> [b
+nmap <silent> <Tab> ]b
+nmap <silent> <S-Tab> [b
 
 " Save file
 nnoremap <silent> <leader>s :write<CR>
@@ -212,6 +213,9 @@ nnoremap <leader>az aABCDEFGHIJKLMNOPQRSTUVWXYZ<ESC>
 " Redact current word
 nnoremap <leader>* Viwr*
 
+" Clear current line
+nnoremap <leader><BS> 0C<ESC>
+
 " Make life easier by remapping ; to : for commands
 nnoremap ; :
 vnoremap ; :
@@ -248,3 +252,15 @@ nmap <silent> <leader>' cs"'
 " Make it obvious where 80 characters is
 set colorcolumn=121
 highlight ColorColumn ctermbg=0 guibg=lightgrey
+
+function! FormatXml()
+  set ft=xml
+  normal! gg0d/<$T>d$jdd<CR>
+  s#\\\\#\\#g
+  s#\\\\#\\#g
+  s#\\"#"#g
+  s#><#>\r<#g
+  normal! gg=G
+endfunction
+
+set background=light
