@@ -12,7 +12,8 @@ if [[ $(uname) == 'Linux' ]]; then
     export TERM=xterm-256color
 fi
 
-plugins=(bundler jump encode64 httpie rails urltools web-search)
+# Completion plugins
+plugins=(jump encode64 httpie urltools web-search)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -27,6 +28,10 @@ source $HOME/.dotfiles/shared/aliases.sh
 
 alias trim="awk '{\$1=\$1};1'"
 alias strip_colors="perl -pe 's/\e\[?.*?[\@-~]//g'"
+
+function git_reset() {
+  git rev-parse --abbrev-ref --symbolic-full-name @{u} | xargs git reset --hard
+}
 
 function git_nuke() {
   branch=${1:-master}

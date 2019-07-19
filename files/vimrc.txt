@@ -31,6 +31,7 @@ call minpac#init()
 call minpac#add('k-takata/minpac', {'type': 'opt'})
 
 " General
+call minpac#add('junegunn/fzf.vim')
 call minpac#add('altercation/vim-colors-solarized')
 call minpac#add('tpope/vim-unimpaired') " Buffer/option toggling
 call minpac#add('tpope/vim-obsession') " Session management
@@ -76,6 +77,10 @@ call minpac#add('kchmck/vim-coffee-script') " CoffeeScript support
 call minpac#add('ngmy/vim-rubocop') " Rubocop support
 call minpac#add('tpope/vim-rake') " Rake support
 call minpac#add('nelstrom/vim-textobj-rubyblock') " Ruby block motion support
+
+" Rust
+call minpac#add('rust-lang/rust.vim')
+call minpac#add('racer-rust/vim-racer')
 
 command! UpdatePackage call minpac#update()
 command! CleanPackage call minpac#clean()
@@ -163,8 +168,15 @@ inoremap jf <Esc><Esc>
 " Don't outdent hashes
 inoremap # #
 
-" Search for files with FZF
-nnoremap <C-p> :<C-u>FZF<CR>
+" Use FZF for files and tags if available
+let g:fzf_command_prefix = 'Fzf'
+let g:fzf_layout = { 'down': '~40%' }
+if executable('fzf')
+  nnoremap <C-p> :FzfFiles<CR>
+  nnoremap <leader>u :FzfTags<CR>
+  nnoremap <leader>j :call fzf#vim#tags("'".expand('<cword>'))<CR>
+endif
+
 
 " Search for current word
 nnoremap <Leader>f :Grepper<CR>
@@ -256,11 +268,48 @@ highlight ColorColumn ctermbg=0 guibg=lightgrey
 function! FormatXml()
   set ft=xml
   normal! gg0d/<$T>d$jdd<CR>
-  s#\\\\#\\#g
-  s#\\\\#\\#g
-  s#\\"#"#g
-  s#><#>\r<#g
+  silent! s#\\\\#\\#g
+  silent! s#\\\\#\\#g
+  silent! s#\\"#"#g
+  silent! s#><#>\r<#g
   normal! gg=G
 endfunction
 
 set background=light
+
+" Rust/Racer setup
+let g:racer_experimental_completer = 1
+let g:racer_insert_paren = 1
+
+au FileType rust nmap gd <Plug>(rust-def)
+au FileType rust nmap gs <Plug>(rust-def-split)
+au FileType rust nmap gx <Plug>(rust-def-vertical)
+au FileType rust nmap <leader>gd <Plug>(rust-doc)
+
+" Session management
+function! SaveSession()
+  let b:sessiondir = $HOME . "/.vim/sessions" . getcwd()
+  let b:sessionfile = b:sessiondir . '/session.vim'
+
+  if (filewritable(b:sessiondir) != 2)
+    exe 'silent !mkdir -p ' b:sessiondir
+    redraw!
+  endif
+
+  exe "mksession! " . b:sessionfile
+  echo "Session saved!"
+endfunction
+
+function! LoadSession()
+  let b:sessiondir = $HOME . "/.vim/sessions" . getcwd()
+  let b:sessionfile = b:sessiondir . '/session.vim'
+
+  if (filereadable(b:sessionfile))
+    exe 'source ' b:sessionfile
+  else
+    echo "No session loaded."
+  endif
+endfunction
+
+nnoremap <silent> <F5> :call SaveSession()<CR>
+nnoremap <silent> <F9> :call LoadSession()<CR>
