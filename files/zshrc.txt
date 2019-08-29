@@ -33,6 +33,10 @@ function git_reset() {
   git rev-parse --abbrev-ref --symbolic-full-name @{u} | xargs git reset --hard
 }
 
+function git_submodule_reset() {
+  rm -rf submodules && git submodule init & git submodule update
+}
+
 function git_nuke() {
   branch=${1:-master}
   echo -n "Are you sure you want to delete all git branches except \"$branch\"? " 
@@ -72,3 +76,14 @@ if which tmate > /dev/null; then
 fi
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+if which iex > /dev/null; then
+  alias ism='iex -S mix'
+  alias ismt='MIX_ENV=test iex -S mix'
+fi
+
+if which mix > /dev/null; then
+  alias mt='mix test'
+  alias mtw='mix test.watch'
+fi
+export PATH="/usr/local/sbin:$PATH"
