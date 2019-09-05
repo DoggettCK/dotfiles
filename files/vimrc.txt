@@ -160,7 +160,7 @@ nnoremap <silent> <leader>w :bdelete<CR>
 nnoremap <silent> <leader>W :bdelete!<CR>
 
 " Unhighlight search
-nnoremap <silent> <leader>h :nohlsearch<CR>
+nnoremap <silent> <leader><leader> :nohlsearch<CR>
 
 " Easy escape to normal mode
 inoremap jf <Esc><Esc>
