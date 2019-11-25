@@ -50,6 +50,10 @@ function git_nuke() {
   fi
 }
 
+function git_contributors() {
+  git shortlog --summary --numbered --email --all
+}
+
 if which jump > /dev/null; then
   alias j='jump'
 fi
@@ -87,3 +91,8 @@ if which mix > /dev/null; then
   alias mtw='mix test.watch'
 fi
 export PATH="/usr/local/sbin:$PATH"
+
+alias today='date +%Y%m%d'
+alias now='date +%Y%m%d_%H%M%S'
+alias sos='mkdir -p ~/notes/scrum_of_scrums && $EDITOR ~/notes/scrum_of_scrums/$(today)_delivery_coordination'
+alias todo='mkdir -p ~/notes && $EDITOR ~/notes/todo'
