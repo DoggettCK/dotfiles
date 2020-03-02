@@ -90,9 +90,15 @@ if which mix > /dev/null; then
   alias mt='mix test'
   alias mtw='mix test.watch'
 fi
+
 export PATH="/usr/local/sbin:$PATH"
 
 alias today='date +%Y%m%d'
 alias now='date +%Y%m%d_%H%M%S'
 alias sos='mkdir -p ~/notes/scrum_of_scrums && $EDITOR ~/notes/scrum_of_scrums/$(today)_delivery_coordination'
+alias refine='mkdir -p ~/notes/refinement && $EDITOR ~/notes/refinement/$(today)'
 alias todo='mkdir -p ~/notes && $EDITOR ~/notes/todo'
+
+. $HOME/.asdf/asdf.sh
+
+. $HOME/.asdf/completions/asdf.bash

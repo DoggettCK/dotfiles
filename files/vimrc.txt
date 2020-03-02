@@ -1,9 +1,18 @@
+" Things you should have installed first:
+" git
+" rg (ripgrep) or ag (silver-searcher)
+" fzf (fuzzy finder)
+
 if &compatible
   set nocompatible
 endif
 
+set rtp+=/usr/local/opt/fzf
+
+" Enable syntax highlighting and indentation
 syntax on
 filetype plugin indent on
+
 " Open splits to the bottom/right
 set splitright
 set splitbelow
@@ -13,6 +22,9 @@ set splitbelow
 " Try to load minpac
 silent! packadd minpac
 
+
+" Attempt to automatically install minpac package manager via git if its
+" directory doesn't exist
 if !exists('*minpac#init')
   let minpac_dir = $HOME . '/.vim/pack/minpac/opt'
   let minpac_install = 'git clone "https://github.com/k-takata/minpac.git" "' . minpac_dir . '/minpac"'
@@ -25,6 +37,7 @@ if !exists('*minpac#init')
   packadd minpac
 endif
 
+" Plugin initialization and installation
 call minpac#init()
 
 " Update package manager itself
@@ -82,6 +95,7 @@ call minpac#add('nelstrom/vim-textobj-rubyblock') " Ruby block motion support
 call minpac#add('rust-lang/rust.vim')
 call minpac#add('racer-rust/vim-racer')
 
+" Call these with ':' to udpate/clean plugins
 command! UpdatePackage call minpac#update()
 command! CleanPackage call minpac#clean()
 
@@ -148,7 +162,7 @@ let maplocalleader="\\"
 let g:grepper = {}
 let g:grepper.tools = ['rg', 'ag', 'grep']
 
-" Tab-switching
+" Tab-switching with Tab key in normal mode
 nmap <silent> <Tab> ]b
 nmap <silent> <S-Tab> [b
 
@@ -162,20 +176,22 @@ nnoremap <silent> <leader>W :bdelete!<CR>
 " Unhighlight search
 nnoremap <silent> <leader><leader> :nohlsearch<CR>
 
-" Easy escape to normal mode
+" Easy escape to normal mode. No english words contain 'jf', and they're
+" typically the keys with raised bumps on them, so typing them without a bit
+" of a delay between them in insert mode will escape out to normal mode.
 inoremap jf <Esc><Esc>
 
 " Don't outdent hashes
 inoremap # #
 
+" If fuzzy finder is installed, map Ctrl-P to a file finder
 let g:fzf_command_prefix = 'Fzf'
 let g:fzf_layout = { 'down': '~40%' }
 if executable('fzf')
   nnoremap <C-p> :FzfFiles<CR>
 endif
 
-
-" Search for current word
+" Search for current word under cursor
 nnoremap <Leader>f :Grepper<CR>
 nnoremap <Leader>F :Grepper -cword -noprompt<CR>
 
@@ -252,36 +268,18 @@ let g:NERDTreeHighlightCursorLine=1
 let g:nerdtree_tabs_focus_on_files=1
 let g:nerdtree_tabs_autofind=1
 
+" Open file/directory tree sidebar
 nmap <Leader>` <Plug>NERDTreeTabsToggle<CR><M-l>
 
 " vim-surround mappings
 nmap <silent> <leader>" cs'"
 nmap <silent> <leader>' cs"'
 
-" Make it obvious where 80 characters is
+" Make it obvious where 120 characters is
 set colorcolumn=121
 highlight ColorColumn ctermbg=0 guibg=lightgrey
 
-function! FormatXml()
-  set ft=xml
-  normal! gg0d/<$T>d$jdd<CR>
-  silent! s#\\\\#\\#g
-  silent! s#\\\\#\\#g
-  silent! s#\\"#"#g
-  silent! s#><#>\r<#g
-  normal! gg=G
-endfunction
-
 set background=light
-
-" Rust/Racer setup
-let g:racer_experimental_completer = 1
-let g:racer_insert_paren = 1
-
-au FileType rust nmap gd <Plug>(rust-def)
-au FileType rust nmap gs <Plug>(rust-def-split)
-au FileType rust nmap gx <Plug>(rust-def-vertical)
-au FileType rust nmap <leader>gd <Plug>(rust-doc)
 
 " Session management
 function! SaveSession()
@@ -308,5 +306,13 @@ function! LoadSession()
   endif
 endfunction
 
+" F5 will quick-save your current open files, F9 will reload them on a
+" per-working-directory basis.
 nnoremap <silent> <F5> :call SaveSession()<CR>
 nnoremap <silent> <F9> :call LoadSession()<CR>
+
+" CTRL + movement keys switches between windows in normal mode
+nnoremap <C-h> <C-W>h
+nnoremap <C-j> <C-W>j
+nnoremap <C-k> <C-W>k
+nnoremap <C-l> <C-W>l
