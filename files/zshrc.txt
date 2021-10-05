@@ -1,0 +1,129 @@
+# enable control-s and control-q
+stty start undef
+stty stop undef
+setopt noflowcontrol
+
+HISTORY_IGNORE="(jrnl *)"
+
+# Add ssh keys
+if which ssh-add > /dev/null; then
+  ssh-add -L &> /dev/null
+  if [ $? -eq 1 ]; then
+    ssh-add
+  fi 
+fi
+
+# enable 'complete' support for autocompletion
+if which compdef > /dev/null; then
+  autoload bashcompinit
+  bashcompinit
+fi
+
+alias trim="awk '{\$1=\$1};1'"
+alias strip_colors="perl -pe 's/\e\[?.*?[\@-~]//g'"
+
+export ZSH=~/.oh-my-zsh
+export ZSH_THEME="gentoo"
+export EDITOR='vim'
+export LANG=en_US.UTF-8
+export DEFAULT_USER=`whoami`
+export FZF_DEFAULT_COMMAND='rg --files'
+
+if [[ $(uname) == 'Linux' ]]; then
+    export TERM=xterm-256color
+fi
+
+# Completion plugins
+plugins=(jump encode64 httpie urltools web-search)
+
+source $ZSH/oh-my-zsh.sh
+
+alias trim="awk '{\$1=\$1};1'"
+alias strip_colors="perl -pe 's/\e\[?.*?[\@-~]//g'"
+
+function git_reset() {
+  git rev-parse --abbrev-ref --symbolic-full-name @{u} | xargs git reset --hard
+}
+
+function git_submodule_reset() {
+  rm -rf submodules && git submodule init & git submodule update
+}
+
+function git_nuke() {
+  branch=${1:-master}
+  echo -n "Are you sure you want to delete all git branches except \"$branch\"? " 
+  read -k1
+  echo
+  if [[ $REPLY =~ ^[Yy]$ ]]; then
+    echo "git checkout $branch"
+    git checkout $branch
+    echo "git branch | strip_colors | trim | grep -v $branch | xargs git branch -D"
+    git branch | strip_colors | trim | grep -v $branch | xargs git branch -D
+  fi
+}
+
+function git_contributors() {
+  git shortlog --summary --numbered --email --all
+}
+
+if which jump > /dev/null; then
+  alias j='jump'
+fi
+
+if [[ -e $HOME/git-number ]]; then
+  if ! which git-number > /dev/null; then
+    export PATH=$PATH:$HOME/git-number
+  fi
+fi
+
+if which git-number > /dev/null; then
+	alias gn='git number --column'
+	alias ga='git number add'
+fi
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+complete -F _fzf_path_completion -o default -o zshdefault nano
+
+if which iex > /dev/null; then
+  alias ism='iex -S mix'
+  alias ismt='MIX_ENV=test iex -S mix'
+fi
+
+if which mix > /dev/null; then
+  alias mt='mix test'
+  alias mtw='mix test.watch'
+fi
+
+export PATH="/usr/local/sbin:$PATH"
+
+if [[ -d $HOME/.asdf ]]; then
+  . $HOME/.asdf/asdf.sh
+  . $HOME/.asdf/completions/asdf.bash
+fi
+
+if which brew > /dev/null; then
+  export RUBY_CONFIGURE_OPTS="--with-openssl-dir=$(brew --prefix openssl@1.1)"
+fi
+
+if which rbenv > /dev/null; then
+  eval "$(rbenv init -)"
+  export PATH="~/.rbenv/shims:$PATH"
+fi
+
+export PATH="/usr/local/sbin:$PATH"
+
+if which kitty > /dev/null; then
+  alias theme-reset="kitty @set-colors --reset"
+  alias theme="cd ~/.config/kitty/themes && fzf --preview 'head -n 40 {} && kitty @set-colors -a -c {}'; cd -"
+  alias icat="kitty +kitten icat --align=left"
+fi
+
+alias gco='git checkout'
+alias gcv='git commit -v' # Commit with editor to see changes
+alias gd='git diff'
+alias gfp='git push -f origin $(git rev-parse --abbrev-ref HEAD)'
+alias glp='git log -p'
+alias gnb='git checkout -b' # Create new branch
+alias gpo='git pull origin --ff-only'
+alias gpu='git push -u'
+alias gsb='git checkout -' # Switch to previous branch
