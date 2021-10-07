@@ -33,7 +33,7 @@ Linking /Users/cdoggett/.zshrc to /Users/cdoggett/dotfiles/files/zshrc.txt
 ## Adding New Dotfiles
 
 Simply add a file or directory to the `files/` path, and then add it to the
-`config.txt`, with the values separated by the pipe ('|') character.
+`config.psv`, with the values separated by the pipe ('|') character.
 
 The first field should be a simple text description of what is being installed,
 followed by the file name under the `/files` directory, then the name of the

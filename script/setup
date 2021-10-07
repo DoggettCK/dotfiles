@@ -4,7 +4,7 @@ script_path=$(realpath $0)
 script_dir=$(dirname $script_path)
 project_root=$(dirname $script_dir)
 
-config_path="$project_root/config.txt"
+config_path="$project_root/config.psv"
 
 link_from_path () {
   echo "$HOME/$1"
@@ -20,9 +20,19 @@ tail -n +2 $config_path | while IFS='|' read -r description to from post_run; do
 
   echo "Installing $description"
 
-  if [ -L $link_from ]; then
+  if ! [[ -d $(dirname $link_from) ]]; then
+    echo "Creating directory $(dirname $link_from) for $from"
+    mkdir -p $(dirname $link_from)
+  fi
+
+  if [[ -L $link_from ]]; then
     echo "Unlinking existing $from"
     unlink $link_from
+  fi
+
+  if [[ -e $link_from ]]; then
+    echo "Backing up existing $from to $from.old"
+    mv $link_from "$link_from.old"
   fi
 
   echo "Linking $link_from to $link_to"

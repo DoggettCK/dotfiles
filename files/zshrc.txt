@@ -127,3 +127,5 @@ alias gnb='git checkout -b' # Create new branch
 alias gpo='git pull origin --ff-only'
 alias gpu='git push -u'
 alias gsb='git checkout -' # Switch to previous branch
+
+alias rm='rm -iv'

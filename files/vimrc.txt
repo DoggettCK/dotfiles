@@ -3,10 +3,6 @@
 " rg (ripgrep) or ag (silver-searcher)
 " fzf (fuzzy finder)
 
-if &compatible
-  set nocompatible
-endif
-
 set rtp+=/usr/local/opt/fzf
 
 " Enable syntax highlighting and indentation
@@ -280,3 +276,10 @@ nnoremap <leader>d "=strftime("%Y-%m-%d")<CR>p
 nnoremap <leader>I "zyiwoIO.inspect<space><c-r>z,<space>label:<space>"<c-r>z"<esc>==$
 
 let g:github_enterprise_urls = ['https://git.innova-partners.com']
+
+xnoremap @ :<C-u>call ExecuteMacroOverVisualRange()<CR>
+
+function! ExecuteMacroOverVisualRange()
+  echo "@".getcmdline()
+  execute ":'<,'>normal @".nr2char(getchar())
+endfunction
