@@ -94,8 +94,6 @@ if which mix > /dev/null; then
   alias mtw='mix test.watch'
 fi
 
-export PATH="/usr/local/sbin:$PATH"
-
 if [[ -d $HOME/.asdf ]]; then
   . $HOME/.asdf/asdf.sh
   . $HOME/.asdf/completions/asdf.bash
@@ -104,13 +102,6 @@ fi
 if which brew > /dev/null; then
   export RUBY_CONFIGURE_OPTS="--with-openssl-dir=$(brew --prefix openssl@1.1)"
 fi
-
-if which rbenv > /dev/null; then
-  eval "$(rbenv init -)"
-  export PATH="~/.rbenv/shims:$PATH"
-fi
-
-export PATH="/usr/local/sbin:$PATH"
 
 if which kitty > /dev/null; then
   alias theme-reset="kitty @set-colors --reset"

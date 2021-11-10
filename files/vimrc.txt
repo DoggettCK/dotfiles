@@ -218,6 +218,7 @@ let g:NERDTreeHighlightCursorLine=1
 
 let g:nerdtree_tabs_focus_on_files=1
 let g:nerdtree_tabs_autofind=1
+let g:NERDTreeWinPos = "right"
 
 " Open file/directory tree sidebar
 nmap <Leader>` <Plug>NERDTreeTabsToggle<CR><M-l>
