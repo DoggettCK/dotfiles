@@ -87,6 +87,7 @@ complete -F _fzf_path_completion -o default -o zshdefault nano
 if which iex > /dev/null; then
   alias ism='iex -S mix'
   alias ismt='MIX_ENV=test iex -S mix'
+  alias phx='iex -S mix phx.server'
 fi
 
 if which mix > /dev/null; then
@@ -109,6 +110,10 @@ if which kitty > /dev/null; then
   alias icat="kitty +kitten icat --align=left"
 fi
 
+if [[ -f $HOME/antigen/antigen.zsh ]]; then
+  . $HOME/antigen/antigen.zsh
+fi
+
 alias gco='git checkout'
 alias gcv='git commit -v' # Commit with editor to see changes
 alias gd='git diff'
@@ -117,6 +122,7 @@ alias glp='git log -p'
 alias gnb='git checkout -b' # Create new branch
 alias gpo='git pull origin --ff-only'
 alias gpu='git push -u'
+alias grim='git rebase -i master'
 alias gsb='git checkout -' # Switch to previous branch
 
 alias rm='rm -iv'
