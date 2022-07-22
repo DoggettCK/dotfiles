@@ -104,12 +104,6 @@ if which brew > /dev/null; then
   export RUBY_CONFIGURE_OPTS="--with-openssl-dir=$(brew --prefix openssl@1.1)"
 fi
 
-if which kitty > /dev/null; then
-  alias theme-reset="kitty @set-colors --reset"
-  alias theme="cd ~/.config/kitty/themes && fzf --preview 'head -n 40 {} && kitty @set-colors -a -c {}'; cd -"
-  alias icat="kitty +kitten icat --align=left"
-fi
-
 if [[ -f $HOME/antigen/antigen.zsh ]]; then
   . $HOME/antigen/antigen.zsh
 fi
@@ -126,3 +120,12 @@ alias grim='git rebase -i master'
 alias gsb='git checkout -' # Switch to previous branch
 
 alias rm='rm -iv'
+
+function mv_md5() {
+  md5sum $1 | awk -F'[ ]{2,}|[.]' '{
+  if (NF == 2)
+    print "mv -iv \"" $2 "\" " $1
+  else
+    print "mv -iv \"" $2 "." $3 "\" " $1 "." tolower($3)
+  }' | sh
+}

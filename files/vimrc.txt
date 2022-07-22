@@ -55,6 +55,7 @@ call minpac#add('tpope/vim-surround') " Surround objects with chars using motion
 call minpac#add('msanders/snipmate.vim') " Snippets
 call minpac#add('tpope/vim-endwise') " Intelligently add 'end' to blocks
 call minpac#add('kana/vim-textobj-user') " Custom text objects
+call minpac#add('unblevable/quick-scope') " Highlight f, F, t, T targets
 
 " Git
 call minpac#add('tpope/vim-fugitive') " Git commands
@@ -275,6 +276,7 @@ nnoremap <leader>u yyp<S-v>r-<CR>
 nnoremap <leader>U yyp<S-v>r=<CR>
 nnoremap <leader>d "=strftime("%Y-%m-%d")<CR>p
 nnoremap <leader>I "zyiwoIO.inspect<space><c-r>z,<space>label:<space>"<c-r>z"<esc>==$
+nnoremap <leader>n :enew<CR>
 
 let g:github_enterprise_urls = ['https://git.innova-partners.com']
 
@@ -284,3 +286,6 @@ function! ExecuteMacroOverVisualRange()
   echo "@".getcmdline()
   execute ":'<,'>normal @".nr2char(getchar())
 endfunction
+
+" Trigger a highlight in the appropriate direction when pressing these keys:
+let g:qs_highlight_on_keys = ['f', 'F', 't', 'T']
