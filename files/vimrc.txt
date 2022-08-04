@@ -39,10 +39,12 @@ call minpac#init()
 call minpac#add('k-takata/minpac', {'type': 'opt'})
 
 " General
+call minpac#add('junegunn/fzf')
 call minpac#add('junegunn/fzf.vim')
 call minpac#add('altercation/vim-colors-solarized')
 call minpac#add('tpope/vim-unimpaired') " Buffer/option toggling
 call minpac#add('tpope/vim-obsession') " Session management
+call minpac#add('tpope/vim-speeddating') " Better date incrementing
 call minpac#add('mhinz/vim-grepper') " File search with ripgrep, ag, grep
 call minpac#add('Raimondi/delimitMate') " Auto-close quotes/parens/brackets
 call minpac#add('adelarsq/vim-matchit') " Better matching with '%'
@@ -52,14 +54,18 @@ call minpac#add('pbrisbin/vim-mkdir') " Ensure directory created before file sav
 call minpac#add('tpope/vim-abolish') " snake_case (crs) to MixedCase (crm) conversion
 call minpac#add('tpope/vim-repeat') " Repeat macros/complex plugin commands
 call minpac#add('tpope/vim-surround') " Surround objects with chars using motions (e.g. ysiw')
-call minpac#add('msanders/snipmate.vim') " Snippets
+call minpac#add('marcweber/vim-addon-mw-utils') " required for snippets
+call minpac#add('tomtom/tlib_vim') " required for snippets
+call minpac#add('garbas/vim-snipmate') " snippets
 call minpac#add('tpope/vim-endwise') " Intelligently add 'end' to blocks
 call minpac#add('kana/vim-textobj-user') " Custom text objects
-call minpac#add('unblevable/quick-scope') " Highlight f, F, t, T targets
+call minpac#add('glts/vim-magnum') " required for vim-radical
+call minpac#add('glts/vim-radical') " Convert numbers to decimal, hex, octal, binary with cr[dxob]
+call minpac#add('tpope/vim-dadbod') " DB client 
+call minpac#add('kristijanhusak/vim-dadbod-ui') " DB UI client
 
 " Git
 call minpac#add('tpope/vim-fugitive') " Git commands
-call minpac#add('tpope/vim-rhubarb') " Github commands
 call minpac#add('airblade/vim-gitgutter') " Git status in left gutter
 
 " UI
@@ -70,21 +76,13 @@ call minpac#add('unkiwii/vim-nerdtree-sync') " Sync NERDTree to current file
 call minpac#add('jistr/vim-nerdtree-tabs') " NERDTree tabs
 
 " Elixir
-call minpac#add('slashmili/alchemist.vim') " Elixir project helpers
-call minpac#add('elixir-lang/vim-elixir') " Elixir support
+call minpac#add('elixir-editors/vim-elixir') " Elixir support
 call minpac#add('carlosgaldino/elixir-snippets') " Elixir snippets
 call minpac#add('andyl/vim-textobj-elixir') " Elixir block motion support
-
 
 " Call these with ':' to udpate/clean plugins
 command! UpdatePackage call minpac#update()
 command! CleanPackage call minpac#clean()
-
-" Store undo files under $VIMDATA/undo, unless it's regular Vim
-set undofile
-if !has('nvim')
-  set undodir=~/.vim/undo
-endif
 
 augroup vimrc
   autocmd!
@@ -137,18 +135,27 @@ set whichwrap+=<,>,h,l,[,]
 set t_Co=256
 set updatetime=100
 
+silent !mkdir ~/.vim/undo > /dev/null 2>&1
+set undodir=~/.vim/undo
+set undofile
+
 " Mappings
 let mapleader=","
 let maplocalleader="\\"
+
+let g:snipMate = { 'snippet_version' : 1 }                                                                           
+
+" Grepper config
 let g:grepper = {}
 let g:grepper.tools = ['rg', 'ag', 'grep']
 
-" Tab-switching with Tab key in normal mode
+" Tab-switching with Tab key in normal mode (requires vim-unimpaired)  
 nmap <silent> <Tab> ]b
 nmap <silent> <S-Tab> [b
 
-" Save file
+" Save file(s)
 nnoremap <silent> <leader>s :write<CR>
+nnoremap <silent> <leader>S :wall<CR>
 " Close file
 nnoremap <silent> <leader>w :bdelete<CR>
 " Force close file without saving
@@ -167,7 +174,7 @@ inoremap # #
 
 " If fuzzy finder is installed, map Ctrl-P to a file finder
 let g:fzf_command_prefix = 'Fzf'
-let g:fzf_layout = { 'down': '~40%' }
+let g:fzf_layout = { 'down': '~20%' }
 if executable('fzf')
   nnoremap <C-p> :FzfFiles<CR>
 endif
@@ -186,13 +193,6 @@ nnoremap <M-j> <C-w>j
 nnoremap <M-k> <C-w>k
 nnoremap <M-l> <C-w>l
 
-" Miscellaneous mappings
-" Insert alphabet
-nnoremap <leader>az aABCDEFGHIJKLMNOPQRSTUVWXYZ<ESC>
-
-" Redact current word
-nnoremap <leader>* Viwr*
-
 " Make life easier by remapping ; to : for commands
 nnoremap ; :
 vnoremap ; :
@@ -205,10 +205,10 @@ let g:NERDCompactSexyComs = 1
 
 " GitGutter settings
 set signcolumn=yes
-" let g:gitgutter_highlight_lines=1
+let g:gitgutter_highlight_lines=1
 
 " Airline settings
-let g:airline_theme='bubblegum'
+let g:airline_theme='base16_3024'
 let g:airline#extensions#tabline#enabled=1
 
 " NERDTree settings
@@ -219,7 +219,6 @@ let g:NERDTreeHighlightCursorLine=1
 
 let g:nerdtree_tabs_focus_on_files=1
 let g:nerdtree_tabs_autofind=1
-let g:NERDTreeWinPos = "right"
 
 " Open file/directory tree sidebar
 nmap <Leader>` <Plug>NERDTreeTabsToggle<CR><M-l>
@@ -275,10 +274,7 @@ nnoremap <C-l> <C-W>l
 nnoremap <leader>u yyp<S-v>r-<CR>
 nnoremap <leader>U yyp<S-v>r=<CR>
 nnoremap <leader>d "=strftime("%Y-%m-%d")<CR>p
-nnoremap <leader>I "zyiwoIO.inspect<space><c-r>z,<space>label:<space>"<c-r>z"<esc>==$
 nnoremap <leader>n :enew<CR>
-
-let g:github_enterprise_urls = ['https://git.innova-partners.com']
 
 xnoremap @ :<C-u>call ExecuteMacroOverVisualRange()<CR>
 
@@ -286,6 +282,3 @@ function! ExecuteMacroOverVisualRange()
   echo "@".getcmdline()
   execute ":'<,'>normal @".nr2char(getchar())
 endfunction
-
-" Trigger a highlight in the appropriate direction when pressing these keys:
-let g:qs_highlight_on_keys = ['f', 'F', 't', 'T']

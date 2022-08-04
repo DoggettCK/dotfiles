@@ -70,6 +70,10 @@ if which jump > /dev/null; then
   alias j='jump'
 fi
 
+if which kitty > /dev/null; then
+  alias theme='kitty +kitten themes'
+fi
+
 if [[ -e $HOME/git-number ]]; then
   if ! which git-number > /dev/null; then
     export PATH=$PATH:$HOME/git-number
