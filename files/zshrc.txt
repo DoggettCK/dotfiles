@@ -1,9 +1,9 @@
-# enable control-s and control-q
+#! /bin/bash
 stty start undef
 stty stop undef
 setopt noflowcontrol
 
-HISTORY_IGNORE="(jrnl *)"
+export HISTORY_IGNORE="(jrnl *)"
 
 # Add ssh keys
 if which ssh-add > /dev/null; then
@@ -19,14 +19,12 @@ if which compdef > /dev/null; then
   bashcompinit
 fi
 
-alias trim="awk '{\$1=\$1};1'"
-alias strip_colors="perl -pe 's/\e\[?.*?[\@-~]//g'"
-
 export ZSH=~/.oh-my-zsh
 export ZSH_THEME="gentoo"
 export EDITOR='vim'
 export LANG=en_US.UTF-8
-export DEFAULT_USER=`whoami`
+DEFAULT_USER=$(whoami)
+export DEFAULT_USER
 export FZF_DEFAULT_COMMAND='rg --files'
 
 if [[ $(uname) == 'Linux' ]]; then
@@ -35,14 +33,12 @@ fi
 
 # Completion plugins
 plugins=(jump encode64 httpie urltools web-search)
+export plugins
 
-source $ZSH/oh-my-zsh.sh
-
-alias trim="awk '{\$1=\$1};1'"
-alias strip_colors="perl -pe 's/\e\[?.*?[\@-~]//g'"
+source "$ZSH/oh-my-zsh.sh"
 
 function git_reset() {
-  git rev-parse --abbrev-ref --symbolic-full-name @{u} | xargs git reset --hard
+  git rev-parse --abbrev-ref --symbolic-full-name @\{u\} | xargs git reset --hard
 }
 
 function git_submodule_reset() {
@@ -52,13 +48,13 @@ function git_submodule_reset() {
 function git_nuke() {
   branch=${1:-master}
   echo -n "Are you sure you want to delete all git branches except \"$branch\"? " 
-  read -k1
+  read -r -k1
   echo
   if [[ $REPLY =~ ^[Yy]$ ]]; then
     echo "git checkout $branch"
-    git checkout $branch
-    echo "git branch | strip_colors | trim | grep -v $branch | xargs git branch -D"
-    git branch | strip_colors | trim | grep -v $branch | xargs git branch -D
+    git checkout "$branch"
+    printf "git branch --no-color | awk '{gsub(/^[ \t*]+| [ \t]+$/,\"\"); print \$0}' | grep -v \"%s\" | xargs git branch -D\n" "$branch"
+    git branch --no-color | awk '{gsub(/^[ \t*]+| [ \t]+$/,""); print $0}' | grep -v "$branch" | xargs git branch -D
   fi
 }
 
@@ -100,16 +96,17 @@ if which mix > /dev/null; then
 fi
 
 if [[ -d $HOME/.asdf ]]; then
-  . $HOME/.asdf/asdf.sh
-  . $HOME/.asdf/completions/asdf.bash
+  . "$HOME"/.asdf/asdf.sh
+  . "$HOME"/.asdf/completions/asdf.bash
 fi
 
 if which brew > /dev/null; then
-  export RUBY_CONFIGURE_OPTS="--with-openssl-dir=$(brew --prefix openssl@1.1)"
+  RUBY_CONFIGURE_OPTS="--with-openssl-dir=$(brew --prefix openssl@1.1)"
+  export RUBY_CONFIGURE_OPTS
 fi
 
 if [[ -f $HOME/antigen/antigen.zsh ]]; then
-  . $HOME/antigen/antigen.zsh
+  . "$HOME"/antigen/antigen.zsh
 fi
 
 alias gco='git checkout'
@@ -126,7 +123,7 @@ alias gsb='git checkout -' # Switch to previous branch
 alias rm='rm -iv'
 
 function mv_md5() {
-  md5sum $1 | awk -F'[ ]{2,}|[.]' '{
+  md5sum "$1" | awk -F'[ ]{2,}|[.]' '{
   if (NF == 2)
     print "mv -iv \"" $2 "\" " $1
   else
