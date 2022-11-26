@@ -123,10 +123,11 @@ alias gsb='git checkout -' # Switch to previous branch
 alias rm='rm -iv'
 
 function mv_md5() {
-  md5sum "$1" | awk -F'[ ]{2,}|[.]' '{
-  if (NF == 2)
-    print "mv -iv \"" $2 "\" " $1
-  else
-    print "mv -iv \"" $2 "." $3 "\" " $1 "." tolower($3)
-  }' | sh
+  local filename;
+  local md5_sum;
+  local ext;
+  filename="$1";
+  md5_sum=$(md5sum "$filename" | cut -d " " -f 1);
+  ext=$(echo "$filename" | rev | cut -d "." -f 1 | rev | tr '[:upper:]' '[:lower:]');
+  mv "$1" "${md5_sum}.${ext}";
 }
