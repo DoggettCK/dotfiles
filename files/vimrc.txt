@@ -63,10 +63,12 @@ call minpac#add('glts/vim-magnum') " required for vim-radical
 call minpac#add('glts/vim-radical') " Convert numbers to decimal, hex, octal, binary with cr[dxob]
 call minpac#add('tpope/vim-dadbod') " DB client 
 call minpac#add('kristijanhusak/vim-dadbod-ui') " DB UI client
+call minpac#add('theniceboy/vim-calc') " calculator
 
 " Git
 call minpac#add('tpope/vim-fugitive') " Git commands
 call minpac#add('airblade/vim-gitgutter') " Git status in left gutter
+call minpac#add('tpope/vim-rhubarb') " GitHub stuff
 
 " UI
 call minpac#add('vim-airline/vim-airline') " Better status line
@@ -79,6 +81,10 @@ call minpac#add('jistr/vim-nerdtree-tabs') " NERDTree tabs
 call minpac#add('elixir-editors/vim-elixir') " Elixir support
 call minpac#add('carlosgaldino/elixir-snippets') " Elixir snippets
 call minpac#add('andyl/vim-textobj-elixir') " Elixir block motion support
+call minpac#add('slashmili/alchemist.vim')
+
+" Gleam
+call minpac#add('gleam-lang/gleam.vim')
 
 " Call these with ':' to udpate/clean plugins
 command! UpdatePackage call minpac#update()
@@ -205,7 +211,7 @@ let g:NERDCompactSexyComs = 1
 
 " GitGutter settings
 set signcolumn=yes
-let g:gitgutter_highlight_lines=1
+let g:gitgutter_highlight_lines=0
 
 " Airline settings
 let g:airline_theme='base16_3024'
@@ -282,3 +288,5 @@ function! ExecuteMacroOverVisualRange()
   echo "@".getcmdline()
   execute ":'<,'>normal @".nr2char(getchar())
 endfunction
+
+" let g:github_enterprise_urls = ['']

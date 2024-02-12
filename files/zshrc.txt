@@ -95,19 +95,6 @@ if which mix > /dev/null; then
   alias mtw='mix test.watch'
 fi
 
-if [[ -d $HOME/.asdf ]]; then
-  . "$HOME"/.asdf/asdf.sh
-  . "$HOME"/.asdf/completions/asdf.bash
-fi
-
-if which brew > /dev/null; then
-  RUBY_CONFIGURE_OPTS="--with-openssl-dir=$(brew --prefix openssl@1.1)"
-  export RUBY_CONFIGURE_OPTS
-fi
-
-if [[ -f $HOME/antigen/antigen.zsh ]]; then
-  . "$HOME"/antigen/antigen.zsh
-fi
 
 alias gco='git checkout'
 alias gcv='git commit -v' # Commit with editor to see changes
