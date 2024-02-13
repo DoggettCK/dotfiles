@@ -1,7 +1,0 @@
-Description|Link To|Link From|Post-Run Command
-Git shell configuration|gitshrc.txt|.gitshrc
-Global .gitignore configuration|gitignore.txt|.gitignore_global|git config --global core.excludesfile LINK_PATH
-Input configuration|inputrc.txt|.inputrc
-Kitty terminal configuration|kitty.conf|.config/kitty/kitty.conf
-Vim configuration|vimrc.txt|.vimrc
-ZSH configuration|zshrc.txt|.zshrc

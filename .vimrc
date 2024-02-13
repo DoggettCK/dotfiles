@@ -289,4 +289,4 @@ function! ExecuteMacroOverVisualRange()
   execute ":'<,'>normal @".nr2char(getchar())
 endfunction
 
-" let g:github_enterprise_urls = ['']
+let g:github_enterprise_urls = ['https://git.innova-partners.com']
