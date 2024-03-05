@@ -4,6 +4,7 @@ stty stop undef
 setopt noflowcontrol
 
 export HISTORY_IGNORE="(jrnl *)"
+export LS_COLORS=$LS_COLORS:'ow=34;40:'
 
 # Add ssh keys
 if which ssh-add > /dev/null; then
