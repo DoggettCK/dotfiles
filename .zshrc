@@ -20,10 +20,17 @@ if which compdef > /dev/null; then
 fi
 
 export ZSH=~/.oh-my-zsh
-export ZSH_THEME="gentoo"
+
+# git clone https://github.com/bhilburn/powerlevel9k.git ~/.oh-my-zsh/custom/themes/powerlevel9k
+ZSH_THEME="powerlevel9k/powerlevel9k"
+POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(vcs dir rbenv)
+POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(root_indicator background_jobs status load)
+
 export EDITOR='vim'
 export LANG=en_US.UTF-8
+
 DEFAULT_USER=$(whoami)
+
 export DEFAULT_USER
 export FZF_DEFAULT_COMMAND='rg --files'
 
