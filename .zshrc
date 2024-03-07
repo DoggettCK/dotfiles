@@ -22,10 +22,7 @@ fi
 
 export ZSH=~/.oh-my-zsh
 
-# git clone git@github.com:Powerlevel9k/powerlevel9k.git ~/.oh-my-zsh/custom/themes/powerlevel9k
-ZSH_THEME="powerlevel9k/powerlevel9k"
-POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(vcs dir rbenv)
-POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(root_indicator background_jobs status load)
+ZSH_THEME="gentoo"
 
 export EDITOR='vim'
 export LANG=en_US.UTF-8
