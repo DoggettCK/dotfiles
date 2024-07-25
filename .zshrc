@@ -121,5 +121,6 @@ function mv_md5() {
   filename="$1";
   md5_sum=$(md5sum "$filename" | cut -d " " -f 1);
   ext=$(echo "$filename" | rev | cut -d "." -f 1 | rev | tr '[:upper:]' '[:lower:]');
-  mv "$1" "${md5_sum}.${ext}";
+  mv "$1" "${md5_sum}.${ext}.tmp";
+  mv "${md5_sum}.${ext}.tmp" "${md5_sum}.${ext}";
 }
