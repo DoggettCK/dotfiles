@@ -124,3 +124,7 @@ function mv_md5() {
   mv "$1" "${md5_sum}.${ext}.tmp";
   mv "${md5_sum}.${ext}.tmp" "${md5_sum}.${ext}";
 }
+
+function clean_yts() {
+  rename -e "s/ \[(YTS\...|5\.1|UPSCALE|REPACK|BluRay|WEBrip|x265|10bit|RUSSIAN|BOOTLEG|DVDRip|REMASTERED|CRITERION|EXTENDED CUT)\]//gi" *
+}
