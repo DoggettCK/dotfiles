@@ -83,9 +83,6 @@ call minpac#add('carlosgaldino/elixir-snippets') " Elixir snippets
 call minpac#add('andyl/vim-textobj-elixir') " Elixir block motion support
 call minpac#add('slashmili/alchemist.vim')
 
-" Gleam
-call minpac#add('gleam-lang/gleam.vim')
-
 " Call these with ':' to udpate/clean plugins
 command! UpdatePackage call minpac#update()
 command! CleanPackage call minpac#clean()
@@ -144,6 +141,8 @@ set updatetime=100
 silent !mkdir ~/.vim/undo > /dev/null 2>&1
 set undodir=~/.vim/undo
 set undofile
+
+highlight Search cterm=None ctermfg=black ctermbg=white
 
 " Mappings
 let mapleader=","
@@ -232,10 +231,6 @@ nmap <Leader>` <Plug>NERDTreeTabsToggle<CR><M-l>
 " vim-surround mappings
 nmap <silent> <leader>" cs'"
 nmap <silent> <leader>' cs"'
-
-" Make it obvious where 120 characters is
-set colorcolumn=121
-highlight ColorColumn ctermbg=2 guibg=lightgrey
 
 set background=light
 
