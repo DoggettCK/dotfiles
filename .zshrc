@@ -126,8 +126,6 @@ function mv_md5() {
 }
 
 function clean_yts() {
-  set -eu
-
   if [ "$#" -eq 0 ]; then
     rename -e "s/ \[(YTS\...|5\.1|UPSCALE|REPACK|BluRay|WEBrip|x265|10bit|RUSSIAN|BOOTLEG|DVDRip|REMASTERED|CRITERION|EXTENDED CUT)\]//gi" *
   else
