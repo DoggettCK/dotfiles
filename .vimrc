@@ -128,7 +128,7 @@ set history=1000
 set undolevels=1000
 set novisualbell
 set noerrorbells
-set clipboard=unnamed
+set clipboard^=unnamed,unnamedplus
 set lazyredraw
 set showmatch
 set enc=utf-8
@@ -285,3 +285,8 @@ function! ExecuteMacroOverVisualRange()
 endfunction
 
 let g:github_enterprise_urls = ['https://git.innova-partners.com']
+
+" Elixir filetype not being set automatically in WSL
+au BufRead,BufNewFile *.ex,*.exs set filetype=elixir
+au BufRead,BufNewFile *.eex,*.heex,*.leex,*.sface,*.lexs set filetype=eelixir
+au BufRead,BufNewFile mix.lock set filetype=elixir

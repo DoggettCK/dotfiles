@@ -75,6 +75,12 @@ if which kitty > /dev/null; then
   alias theme='kitty +kitten themes'
 fi
 
+if [[ -e $HOME/.asdf/bin ]]; then
+  if ! which asdf > /dev/null; then
+    export PATH=$PATH:$HOME/.asdf/bin
+  fi
+fi
+
 if [[ -e $HOME/git-number ]]; then
   if ! which git-number > /dev/null; then
     export PATH=$PATH:$HOME/git-number
