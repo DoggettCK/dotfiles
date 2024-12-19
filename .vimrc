@@ -290,3 +290,6 @@ let g:github_enterprise_urls = ['https://git.innova-partners.com']
 au BufRead,BufNewFile *.ex,*.exs set filetype=elixir
 au BufRead,BufNewFile *.eex,*.heex,*.leex,*.sface,*.lexs set filetype=eelixir
 au BufRead,BufNewFile mix.lock set filetype=elixir
+
+
+:nmap <leader>p :let @+ = expand("%")<CR>

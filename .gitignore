@@ -1,2 +1,3 @@
 files/vim
 *.bak
+.config/tmux/plugins/
