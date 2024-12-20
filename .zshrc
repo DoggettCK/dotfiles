@@ -92,8 +92,11 @@ if which git-number > /dev/null; then
 	alias ga='git number add'
 fi
 
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-complete -F _fzf_path_completion -o default -o zshdefault nano
+# Set up fzf key bindings and fuzzy completion
+if which fzf > /dev/null; then
+  eval "$(fzf --zsh)"
+fi
+
 
 if which iex > /dev/null; then
   alias ism='iex -S mix'
@@ -105,7 +108,6 @@ if which mix > /dev/null; then
   alias mt='mix test'
   alias mtw='mix test.watch'
 fi
-
 
 alias gco='git checkout'
 alias gcv='git commit -v' # Commit with editor to see changes
