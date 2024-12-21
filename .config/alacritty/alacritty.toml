@@ -9,16 +9,19 @@ import = [
 live_config_reload = true
 
 [window]
-decorations = "buttonless"
+decorations = "Buttonless"
 dynamic_padding = false
-opacity = 0.95
+opacity = 0.90
+# blur = true
+option_as_alt = "Both"
 
 [window.padding]
-x = 4
-y = 4
+x = 10
+y = 10
 
 [env]
 TERM = "xterm-256color"
 
 [font]
 size = 18.0
+normal.family = "MesloLGS Nerd Font Mono"

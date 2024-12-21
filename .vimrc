@@ -3,7 +3,8 @@
 " rg (ripgrep) or ag (silver-searcher)
 " fzf (fuzzy finder)
 
-set rtp+=/usr/local/opt/fzf
+let fzf_dir = system("which fzf")
+set rtp+=$fzf_dir
 
 " Enable syntax highlighting and indentation
 syntax on
