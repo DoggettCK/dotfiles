@@ -1,15 +1,33 @@
 #!/usr/bin/env bash
 
 if [[ $(uname) == "Darwin" ]]; then
-  brew install stow fd bat eza zoxide zsh-autosuggestions zsh-syntax-highlighting
+  brew install stow
+  brew install fd
+  brew install eza
+  brew install bat
+  brew install ripgrep
+  brew install zoxide
+  brew install zsh-autosuggestions
+  brew install zsh-syntax-highlighting
+  brew install font-meslo-lg-nerd-font
 else
-  sudo apt-get install stow fd-find bat eza zoxide zsh-autosuggestions zsh-syntax-highlighting
+  sudo apt-get install stow
+  sudo apt-get install fd-find
+  sudo apt-get install eza
+  sudo apt-get install bat
+  sudo apt-get install ripgrep
+  sudo apt-get install zoxide
+  sudo apt-get install zsh-autosuggestions
+  sudo apt-get install zsh-syntax-highlighting
+  echo "Download MesloLG Nerd Font from https://www.nerdfonts.com and install via Windows"
   ln -s $(which fdfind) ~/.local/bin/fd
 fi
 
-
 git submodule update --init --recursive
 # TODO: Don't clone if existing
-git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
-git clone https://github.com/zsh-users/zsh-autosuggestions ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions
-git clone https://github.com/zsh-users/zsh-syntax-highlighting ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting
+echo "Cloning romkatv/powerlevel10k.git"
+git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k > /dev/null
+echo "Cloning zsh-users/zsh-autosuggestions.git"
+git clone https://github.com/zsh-users/zsh-autosuggestions ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions > /dev/null
+echo "Cloning zsh-users/zsh-syntax-highlighting.git"
+git clone https://github.com/zsh-users/zsh-syntax-highlighting ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting > /dev/null
