@@ -175,3 +175,8 @@ if [[ $(uname) == "Darwin" ]]; then
 else
   source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 fi
+
+alias ls="eza --color=always --long --no-filesize --icons=always --no-time --no-user --no-permissions"
+alias cd="z"
+
+eval "$(zoxide init zsh)"

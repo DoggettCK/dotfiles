@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
 
 if [[ $(uname) == "Darwin" ]]; then
-  brew install fd eza zsh-autosuggestions zsh-syntax-highlighting
+  brew install fd eza zoxide zsh-autosuggestions zsh-syntax-highlighting
 else
-  sudo apt-get install fdfind eza zsh-autosuggestions zsh-syntax-highlighting
+  sudo apt-get install fdfind eza zoxide zsh-autosuggestions zsh-syntax-highlighting
   ln -s $(which fdfind) ~/.local/bin/fd
 fi
 
