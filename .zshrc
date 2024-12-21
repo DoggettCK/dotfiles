@@ -5,6 +5,7 @@
 if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
+
 setopt noflowcontrol
 
 export HISTORY_IGNORE="(jrnl *)"
@@ -101,11 +102,7 @@ if which fzf > /dev/null; then
   eval "$(fzf --zsh)"
 
   export PATH=~/.local/bin/:$PATH
-  # be sure to install fd-find (TODO: Figure out cross-system dependency install)
-  # apt install fd-find
-  # brew install fd
-  # ln -s $(which fdfind) ~/.local/bin/fd
-  # TODO: Make sure ~/.local/bin is in $PATH
+  #
   # Use fd instead of fzf
   export FZF_DEFAULT_COMMAND="fd --hidden --strip-cwd-prefix --exclude .git"
   export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
@@ -172,3 +169,9 @@ function clean_yts() {
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
+if [[ $(uname) == "Darwin" ]]; then
+  source $(brew --prefix)/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+else
+  source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+fi
