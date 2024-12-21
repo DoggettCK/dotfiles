@@ -41,7 +41,7 @@ if [[ $(uname) == 'Linux' ]]; then
 fi
 
 # Completion plugins
-plugins=(jump encode64 httpie urltools web-search asdf)
+plugins=(jump encode64 httpie urltools web-search asdf zsh-autosuggestions)
 export plugins
 
 source "$ZSH/oh-my-zsh.sh"
