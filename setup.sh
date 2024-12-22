@@ -26,14 +26,14 @@ else
     echo "Found symlink to fdfind at ~/.local/bin/fd"
   else
     echo "Linking $(which fdfind) to ~/.local/bin/fd"
-    ln -s $(which fdfind) ~/.local/bin/fd
+    ln -s "$(which fdfind)" ~/.local/bin/fd
   fi
 fi
 
 git submodule update --init --recursive
 # TODO: Don't clone if existing
 echo "Cloning romkatv/powerlevel10k.git"
-git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k > /dev/null 2>&1
+git clone --depth=1 https://github.com/romkatv/powerlevel10k.git "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k" > /dev/null 2>&1
 echo "Cloning zsh-users/zsh-autosuggestions.git"
 git clone https://github.com/zsh-users/zsh-autosuggestions ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions > /dev/null 2>&1
 echo "Cloning zsh-users/zsh-syntax-highlighting.git"
