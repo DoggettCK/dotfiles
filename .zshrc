@@ -12,7 +12,7 @@ export HISTORY_IGNORE="(jrnl *)"
 export LS_COLORS=$LS_COLORS:'ow=34;40:'
 
 # Add ssh keys
-if which ssh-add > /dev/null; then
+if command -v ssh-add 2>&1 > /dev/null; then
   ssh-add -L &> /dev/null
   if [ $? -eq 1 ]; then
     ssh-add
@@ -20,7 +20,7 @@ if which ssh-add > /dev/null; then
 fi
 
 # enable 'complete' support for autocompletion
-if which compdef > /dev/null; then
+if command -v compdef 2>&1 > /dev/null; then
   autoload bashcompinit
   bashcompinit
 fi
@@ -72,37 +72,38 @@ function git_contributors() {
   git shortlog --summary --numbered --email --all
 }
 
-if which jump > /dev/null; then
+if command -v jump 2>&1 > /dev/null; then
   alias j='jump'
 fi
 
-if which kitty > /dev/null; then
+if command -v kitty 2>&1 > /dev/null; then
   alias theme='kitty +kitten themes'
 fi
 
 if [[ -e $HOME/.asdf/bin ]]; then
-  if ! which asdf > /dev/null; then
+  if ! command -v asdf 2>&1 > /dev/null; then
     export PATH=$PATH:$HOME/.asdf/bin
   fi
 fi
 
 if [[ -e $HOME/git-number ]]; then
-  if ! which git-number > /dev/null; then
+  if ! command -v git 2>&1-number > /dev/null; then
     export PATH=$PATH:$HOME/git-number
   fi
 fi
 
-if which git-number > /dev/null; then
+if command -v git 2>&1-number > /dev/null; then
 	alias gn='git number --column'
 	alias ga='git number add'
 fi
 
-if which fzf > /dev/null; then
+if command -v fzf 2>&1 > /dev/null; then
   # Set up fzf key bindings and fuzzy completion
   eval "$(fzf --zsh)"
 
   export PATH=~/.local/bin/:$PATH
-  #
+  source ~/.config/fzf/fzf-git.sh/fzf-git.sh
+
   # Use fd instead of fzf
   export FZF_DEFAULT_COMMAND="fd --hidden --strip-cwd-prefix --exclude .git"
   export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
@@ -122,13 +123,13 @@ if which fzf > /dev/null; then
 fi
 
 
-if which iex > /dev/null; then
+if command -v iex 2>&1 > /dev/null; then
   alias ism='iex -S mix'
   alias ismt='MIX_ENV=test iex -S mix'
   alias phx='iex -S mix phx.server'
 fi
 
-if which mix > /dev/null; then
+if command -v mix 2>&1 > /dev/null; then
   alias mt='mix test'
   alias mtw='mix test.watch'
 fi
@@ -180,3 +181,9 @@ alias ls="eza --color=always --long --no-filesize --icons=always --no-time --no-
 alias cd="z"
 
 eval "$(zoxide init zsh)"
+
+export BAT_THEME="Monokai Extended"
+
+if command -v batcat 2>&1 > /dev/null; then
+  alias bat="batcat"
+fi
