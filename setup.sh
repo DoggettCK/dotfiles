@@ -1,23 +1,25 @@
 #!/usr/bin/env bash
 
 if [[ $(uname) == "Darwin" ]]; then
-  brew install stow
-  brew install fd
-  brew install git-delta
-  brew install eza
   brew install bat
+  brew install eza
+  brew install fd
+  brew install font-meslo-lg-nerd-font
+  brew install git-delta
   brew install ripgrep
+  brew install stow
+  brew install tlrc
   brew install zoxide
   brew install zsh-autosuggestions
   brew install zsh-syntax-highlighting
-  brew install font-meslo-lg-nerd-font
 else
-  sudo apt-get install stow
-  sudo apt-get install fd-find
-  sudo apt-get install eza
-  sudo apt-get install git-delta
   sudo apt-get install bat
+  sudo apt-get install eza
+  sudo apt-get install fd-find
+  sudo apt-get install git-delta
   sudo apt-get install ripgrep
+  sudo apt-get install stow
+  sudo apt-get install tldr
   sudo apt-get install zoxide
   sudo apt-get install zsh-autosuggestions
   sudo apt-get install zsh-syntax-highlighting
