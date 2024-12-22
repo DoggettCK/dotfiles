@@ -12,7 +12,7 @@ export HISTORY_IGNORE="(jrnl *)"
 export LS_COLORS=$LS_COLORS:'ow=34;40:'
 
 # Add ssh keys
-if command -v ssh-add 2>&1 > /dev/null; then
+if command -v ssh-add > /dev/null 2>&1; then
   ssh-add -L &> /dev/null
   if [ $? -eq 1 ]; then
     ssh-add
@@ -20,7 +20,7 @@ if command -v ssh-add 2>&1 > /dev/null; then
 fi
 
 # enable 'complete' support for autocompletion
-if command -v compdef 2>&1 > /dev/null; then
+if command -v compdef > /dev/null 2>&1; then
   autoload bashcompinit
   bashcompinit
 fi
@@ -72,32 +72,32 @@ function git_contributors() {
   git shortlog --summary --numbered --email --all
 }
 
-if command -v jump 2>&1 > /dev/null; then
+if command -v jump > /dev/null 2>&1; then
   alias j='jump'
 fi
 
-if command -v kitty 2>&1 > /dev/null; then
+if command -v kitty > /dev/null 2>&1; then
   alias theme='kitty +kitten themes'
 fi
 
 if [[ -e $HOME/.asdf/bin ]]; then
-  if ! command -v asdf 2>&1 > /dev/null; then
+  if ! command -v asdf > /dev/null 2>&1; then
     export PATH=$PATH:$HOME/.asdf/bin
   fi
 fi
 
 if [[ -e $HOME/git-number ]]; then
-  if ! command -v git 2>&1-number > /dev/null; then
+  if ! command -v git-number > /dev/null 2>&1; then
     export PATH=$PATH:$HOME/git-number
   fi
 fi
 
-if command -v git 2>&1-number > /dev/null; then
+if command -v git-number > /dev/null 2>&1; then
 	alias gn='git number --column'
 	alias ga='git number add'
 fi
 
-if command -v fzf 2>&1 > /dev/null; then
+if command -v fzf > /dev/null 2>&1; then
   # Set up fzf key bindings and fuzzy completion
   eval "$(fzf --zsh)"
 
@@ -123,13 +123,13 @@ if command -v fzf 2>&1 > /dev/null; then
 fi
 
 
-if command -v iex 2>&1 > /dev/null; then
+if command -v iex > /dev/null 2>&1; then
   alias ism='iex -S mix'
   alias ismt='MIX_ENV=test iex -S mix'
   alias phx='iex -S mix phx.server'
 fi
 
-if command -v mix 2>&1 > /dev/null; then
+if command -v mix > /dev/null 2>&1; then
   alias mt='mix test'
   alias mtw='mix test.watch'
 fi
@@ -184,6 +184,6 @@ eval "$(zoxide init zsh)"
 
 export BAT_THEME="Monokai Extended"
 
-if command -v batcat 2>&1 > /dev/null; then
+if command -v batcat > /dev/null 2>&1; then
   alias bat="batcat"
 fi
