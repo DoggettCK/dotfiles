@@ -3,6 +3,7 @@
 if [[ $(uname) == "Darwin" ]]; then
   brew install stow
   brew install fd
+  brew install git-delta
   brew install eza
   brew install bat
   brew install ripgrep
@@ -14,6 +15,7 @@ else
   sudo apt-get install stow
   sudo apt-get install fd-find
   sudo apt-get install eza
+  sudo apt-get install git-delta
   sudo apt-get install bat
   sudo apt-get install ripgrep
   sudo apt-get install zoxide
