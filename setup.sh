@@ -19,15 +19,22 @@ else
   sudo apt-get install zoxide
   sudo apt-get install zsh-autosuggestions
   sudo apt-get install zsh-syntax-highlighting
+
   echo "Download MesloLG Nerd Font from https://www.nerdfonts.com and install via Windows"
-  ln -s $(which fdfind) ~/.local/bin/fd
+
+  if [[ -L ~/.local/bin/fd ]]; then
+    echo "Found symlink to fdfind at ~/.local/bin/fd"
+  else
+    echo "Linking $(which fdfind) to ~/.local/bin/fd"
+    ln -s $(which fdfind) ~/.local/bin/fd
+  fi
 fi
 
 git submodule update --init --recursive
 # TODO: Don't clone if existing
 echo "Cloning romkatv/powerlevel10k.git"
-git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k > /dev/null
+git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k 2>&1 > /dev/null
 echo "Cloning zsh-users/zsh-autosuggestions.git"
-git clone https://github.com/zsh-users/zsh-autosuggestions ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions > /dev/null
+git clone https://github.com/zsh-users/zsh-autosuggestions ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions 2>&1 > /dev/null
 echo "Cloning zsh-users/zsh-syntax-highlighting.git"
-git clone https://github.com/zsh-users/zsh-syntax-highlighting ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting > /dev/null
+git clone https://github.com/zsh-users/zsh-syntax-highlighting ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting 2>&1 > /dev/null
