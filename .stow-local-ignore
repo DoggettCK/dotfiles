@@ -22,5 +22,6 @@ _darcs
 ^/COPYING
 
 setup.sh
+windows_setup.sh
 leaves.txt
 .*\.bak
