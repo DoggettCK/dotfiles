@@ -10,6 +10,10 @@
 bind \\ split-window -h
 bind \; command-prompt
 
+# Shift-Alt vim keys to cycle windows
+bind -n M-H previous-window
+bind -n M-L next-window
+
 # preserve tmux stock bindings,
 # while adding bindings that don't conflict with these stock bindings
 # /!\ this disables some of Oh my tmux! bindings described in README.md
