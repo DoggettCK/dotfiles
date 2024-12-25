@@ -96,23 +96,24 @@ zstyle ':fzf-tab:complete:cd:*' fzf-preview 'ls --color $realpath'
 
 # Aliases
 alias bat="batcat"
-alias j='jump'
-alias ls='ls --color'
+alias ga='git number add'
 alias gcv='git commit -v' # Commit with editor to see changes
 alias gfp='git push -f origin $(git rev-parse --abbrev-ref HEAD)'
 alias glp='git log -p'
+alias gn='git number --column'
 alias gnb='git checkout -b' # Create new branch
 alias gpo='git pull origin --ff-only'
+alias gpu='git push -u'
 alias gsb='git checkout -' # Switch to previous branch
-alias rm='rm -iv'
-alias gn='git number --column'
-alias ga='git number add'
 alias ism='iex -S mix'
 alias ismt='MIX_ENV=test iex -S mix'
-alias phx='iex -S mix phx.server'
+alias j='jump'
+alias ls="eza --color=always --long --git --no-filesize --icons=always --no-time --no-user --no-permissions"
+alias ls='ls --color'
 alias mt='mix test'
 alias mtw='mix test.watch'
-alias ls="eza --color=always --long --git --no-filesize --icons=always --no-time --no-user --no-permissions"
+alias phx='iex -S mix phx.server'
+alias rm='rm -iv'
 
 # Shell integrations
 eval "$(fzf --zsh)"
