@@ -73,6 +73,8 @@ FZF_ALT_C_OPTS="--preview 'eza --tree --color=always {} | head -200'"
 bindkey -e
 bindkey '^p' history-search-backward
 bindkey '^n' history-search-forward
+bindkey '\e[A' history-search-backward
+bindkey '\e[B' history-search-forward
 
 # History
 HISTSIZE=5000
