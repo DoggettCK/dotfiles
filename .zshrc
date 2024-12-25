@@ -14,7 +14,7 @@ fi
 LOCAL_BIN_PATH=~/.local/bin
 GIT_NUMBER_PATH=~/.local/git-number
 
-PATH=$LOCAL_BIN_PATH:$GIT_NUMBER_PATH:$PATH
+export PATH=$LOCAL_BIN_PATH:$GIT_NUMBER_PATH:$PATH
 
 # Set the directory we want to store zinit and plugins
 ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git"
@@ -55,19 +55,21 @@ zinit cdreplay -q
 # General
 setopt noflowcontrol
 
-BAT_THEME="Monokai Extended"
 DEFAULT_USER=$(whoami)
-EDITOR='vim'
-LANG=en_US.UTF-8
-LS_COLORS=$LS_COLORS:'ow=34;40:'
-TERM=xterm-256color
+
+export BAT_THEME="Monokai Extended"
+export DEFAULT_USER
+export EDITOR='vim'
+export LANG=en_US.UTF-8
+export LS_COLORS=$LS_COLORS:'ow=34;40:'
+export TERM=xterm-256color
 
 ## Use fd instead of fzf
-FZF_DEFAULT_COMMAND="fd --hidden --strip-cwd-prefix --exclude .git"
-FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
-FZF_ALT_C_COMMAND="fd --type d --hidden --strip-cwd-prefix --exclude .git"
-FZF_CTRL_T_OPTS="--preview 'bat -n --color=always --line-range :500 {}'"
-FZF_ALT_C_OPTS="--preview 'eza --tree --color=always {} | head -200'"
+export FZF_DEFAULT_COMMAND="fd --hidden --strip-cwd-prefix --exclude .git"
+export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+export FZF_ALT_C_COMMAND="fd --type d --hidden --strip-cwd-prefix --exclude .git"
+export FZF_CTRL_T_OPTS="--preview 'bat -n --color=always --line-range :500 {}'"
+export FZF_ALT_C_OPTS="--preview 'eza --tree --color=always {} | head -200'"
 
 # Keybindings
 bindkey -e
@@ -77,11 +79,11 @@ bindkey '\e[A' history-search-backward
 bindkey '\e[B' history-search-forward
 
 # History
-HISTSIZE=5000
-HISTFILE=~/.zsh_history
-SAVEHIST=$HISTSIZE
-HISTDUP=erase
-HISTORY_IGNORE="(jrnl *)"
+export HISTSIZE=5000
+export HISTFILE=~/.zsh_history
+export SAVEHIST=$HISTSIZE
+export HISTDUP=erase
+export HISTORY_IGNORE="(jrnl *)"
 setopt appendhistory
 setopt sharehistory
 setopt hist_ignore_space
