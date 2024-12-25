@@ -65,10 +65,11 @@ call minpac#add('glts/vim-radical') " Convert numbers to decimal, hex, octal, bi
 call minpac#add('tpope/vim-dadbod') " DB client 
 call minpac#add('kristijanhusak/vim-dadbod-ui') " DB UI client
 call minpac#add('theniceboy/vim-calc') " calculator
+call minpac#add('christoomey/vim-tmux-navigator') " calculator
 
 " Git
 call minpac#add('tpope/vim-fugitive') " Git commands
-call minpac#add('airblade/vim-gitgutter') " Git status in left gutter
+" call minpac#add('airblade/vim-gitgutter') " Git status in left gutter
 call minpac#add('tpope/vim-rhubarb') " GitHub stuff
 
 " UI
