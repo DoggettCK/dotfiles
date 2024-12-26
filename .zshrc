@@ -113,7 +113,6 @@ alias ism='iex -S mix'
 alias ismt='MIX_ENV=test iex -S mix'
 alias j='jump'
 alias ls="eza --color=always --long --git --no-filesize --icons=always --no-time --no-user --no-permissions"
-alias ls='ls --color'
 alias mt='mix test'
 alias mtw='mix test.watch'
 alias phx='iex -S mix phx.server'
