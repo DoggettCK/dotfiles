@@ -35,6 +35,7 @@ zinit ice depth=1; zinit light romkatv/powerlevel10k
 zinit light zsh-users/zsh-syntax-highlighting
 zinit light zsh-users/zsh-completions
 zinit light zsh-users/zsh-autosuggestions
+zinit light zsh-users/zsh-history-substring-search
 
 # Add in snippets
 zinit snippet OMZP::asdf
@@ -75,8 +76,10 @@ export FZF_ALT_C_OPTS="--preview 'eza --tree --color=always {} | head -200'"
 bindkey -e
 bindkey '^p' history-search-backward
 bindkey '^n' history-search-forward
-bindkey '\e[A' history-search-backward
-bindkey '\e[B' history-search-forward
+# bindkey '\e[A' history-search-backward
+# bindkey '\e[B' history-search-forward
+bindkey '\e[A' history-substring-search-up
+bindkey '\e[B' history-substring-search-down
 
 # History
 export HISTSIZE=5000
