@@ -76,10 +76,17 @@ export FZF_ALT_C_OPTS="--preview 'eza --tree --color=always {} | head -200'"
 bindkey -e
 bindkey '^p' history-search-backward
 bindkey '^n' history-search-forward
-# bindkey '\e[A' history-search-backward
-# bindkey '\e[B' history-search-forward
-bindkey '\e[A' history-substring-search-up
-bindkey '\e[B' history-substring-search-down
+
+if [[ $(uname) =~ "Darwin" ]]; then
+  bindkey '\e[A' history-substring-search-up
+  bindkey '\e[B' history-substring-search-down
+elif [[ $(uname -a) =~ "WSL" ]]; then
+  bindkey 'OA' history-substring-search-up
+  bindkey 'OB' history-substring-search-down
+else
+  bindkey '\e[A' history-search-backward
+  bindkey '\e[B' history-search-forward
+fi
 
 # History
 export HISTSIZE=5000
