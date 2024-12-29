@@ -12,7 +12,7 @@ live_config_reload = true
 decorations = "Buttonless"
 dynamic_padding = false
 opacity = 0.90
-blur = true
+blur = false
 option_as_alt = "Both"
 
 [window.padding]
