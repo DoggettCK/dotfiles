@@ -16,12 +16,13 @@ blur = true
 option_as_alt = "Both"
 
 [window.padding]
-x = 10
-y = 10
+x = 8
+y = 8
 
 [env]
 TERM = "xterm-256color"
 
 [font]
 size = 18.0
-normal.family = "MesloLGS Nerd Font Mono"
+normal.family = "JetBrainsMonoNL Nerd Font Mono"
+# normal.family = "MesloLGS Nerd Font Mono"
