@@ -29,5 +29,4 @@ require('lazy').setup({
         main = 'ibl',
         opts = {},
     },
-    require 'plugins.lsp'
 })
