@@ -19,6 +19,7 @@ require('lazy').setup({
     require 'plugins.treesitter',
     require 'plugins.telescope',
     require 'plugins.nvim-cmp',
+    require 'plugins.elixir-tools',
     { 'folke/which-key.nvim',  opts = {} },
     require 'plugins.gitsigns',
     {
