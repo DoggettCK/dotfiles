@@ -31,7 +31,7 @@ return {
                         ['<C-k>'] = actions.move_selection_previous, -- move to prev result
                         ['<C-j>'] = actions.move_selection_next,     -- move to next result
                         ['<C-l>'] = actions.select_default,          -- open file
-                    },
+                   },
                     n = {
                         ['q'] = actions.close,
                     },
