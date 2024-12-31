@@ -1,3 +1,7 @@
+-- TODO: If you get a bunch of failures to install Mason servers, ensure that
+-- you have nodejs/npm installed and a global/local version set if you're using
+-- asdf, and python3-venv installed.
+
 return { -- LSP Configuration & Plugins
 	"neovim/nvim-lspconfig",
 	dependencies = {
