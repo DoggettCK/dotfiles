@@ -59,7 +59,7 @@ setopt noflowcontrol
 
 DEFAULT_USER=$(whoami)
 
-export BAT_THEME="Monokai Extended"
+export BAT_THEME="base16-256"
 export DEFAULT_USER
 export EDITOR='vim'
 export LANG=en_US.UTF-8
@@ -110,7 +110,10 @@ zstyle ':completion:*' menu no
 zstyle ':fzf-tab:complete:cd:*' fzf-preview 'ls --color $realpath'
 
 # Aliases
-alias bat="batcat"
+
+if [[ $(uname) =~ "WSL" ]]; then
+  alias bat="batcat"
+fi
 alias ga='git number add'
 alias gcv='git commit -v' # Commit with editor to see changes
 alias gfp='git push -f origin $(git rev-parse --abbrev-ref HEAD)'
