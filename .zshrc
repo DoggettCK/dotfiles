@@ -22,6 +22,7 @@ GIT_NUMBER_PATH=~/.local/git-number
 
 export PATH=$LOCAL_BIN_PATH:$GIT_NUMBER_PATH:$PATH
 export GIT_EDITOR=nvim
+export EDITOR=nvim
 
 # Set the directory we want to store zinit and plugins
 ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git"
