@@ -48,6 +48,12 @@ require("lazy").setup({
 	require("plugins.harpoon"),
 	require("plugins.aerial"),
 	require("plugins.vim-tmux-navigator"),
+	{
+		"rcarriga/nvim-notify",
+		config = function()
+			vim.notify = require("notify")
+		end,
+	},
 }, {
 	ui = {
 		-- If you have a Nerd Font, set icons to an empty table which will use the
