@@ -67,4 +67,14 @@ return {
 	{
 		"tpope/vim-surround",
 	},
+	{
+		"vim-test/vim-test",
+		dependencies = {
+			"preservim/vimux",
+		},
+		vim.keymap.set("n", "<leader>t", ":TestNearest<CR>"),
+		vim.keymap.set("n", "<leader>tf", ":TestFile<CR>"),
+		vim.keymap.set("n", "<leader>ta", ":TestSuite<CR>"),
+		vim.cmd("let test#strategy = 'vimux'"),
+	},
 }
