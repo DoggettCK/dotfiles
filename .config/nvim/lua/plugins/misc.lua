@@ -47,6 +47,19 @@ return {
 		event = "VimEnter",
 		dependencies = { "nvim-lua/plenary.nvim" },
 		opts = { signs = false },
+		config = function()
+			local todo_comments = require("todo-comments")
+
+			vim.keymap.set("n", "]t", function()
+				todo_comments.jump_next()
+			end, { desc = "Next TODO comment" })
+
+			vim.keymap.set("n", "[t", function()
+				todo_comments.jump_prev()
+			end, { desc = "Previous TODO comment" })
+
+			todo_comments.setup()
+		end,
 	},
 	{
 		-- high-performance color highlighter
@@ -65,7 +78,10 @@ return {
 		"rcarriga/nvim-notify",
 	},
 	{
-		"tpope/vim-surround",
+		"kylechui/nvim-surround",
+		event = { "BufReadPre", "BufNewFile" },
+		version = "*",
+		config = true,
 	},
 	{
 		"vim-test/vim-test",
@@ -76,5 +92,22 @@ return {
 		vim.keymap.set("n", "<leader>tf", ":TestFile<CR>"),
 		vim.keymap.set("n", "<leader>ta", ":TestSuite<CR>"),
 		vim.cmd("let test#strategy = 'vimux'"),
+	},
+	{
+		"rmagatti/auto-session",
+		config = function()
+			require("auto-session").setup({
+				auto_session_suppress_dirs = { "~/", "~/code", "~/Downloads", "/" },
+				session_lens = {
+					buftypes_to_ignore = {}, -- list of buffer types that should not be deleted from the current session
+					load_on_setup = true,
+					theme_conf = { border = true },
+					previewer = false,
+				},
+				vim.keymap.set("n", "<leader>ls", require("auto-session.session-lens").search_session, {
+					noremap = true,
+				}),
+			})
+		end,
 	},
 }

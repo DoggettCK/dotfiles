@@ -34,7 +34,7 @@ return {
 			end,
 			keys = {
 				{ "<leader>w", ":Neotree toggle float<CR>", silent = true, desc = "Float File Explorer" },
-				{ "<leader>`", ":Neotree toggle position=left<CR>", silent = true, desc = "Left File Explorer" },
+				{ "`", ":Neotree toggle position=left<CR>", silent = true, desc = "Left File Explorer" },
 				{
 					"<leader>ngs",
 					":Neotree float git_status<CR>",
@@ -325,7 +325,6 @@ return {
 				},
 			},
 		})
-
-		vim.cmd([[nnoremap \ :Neotree reveal<cr>]])
+		-- vim.cmd([[nnoremap \ :Neotree reveal<cr>]])
 	end,
 }
