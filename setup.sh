@@ -11,6 +11,9 @@ if [[ $(uname) == "Darwin" ]]; then
   brew install stow
   brew install tlrc
   brew install zoxide
+  brew install neovim
+  brew install lazygit
+  brew install glow
 else
   sudo apt-get install bat
   sudo apt-get install eza
@@ -21,6 +24,9 @@ else
   sudo apt-get install stow
   sudo apt-get install tldr
   sudo apt-get install zoxide
+  brew install neovim
+  brew install lazygit
+  brew install glow
 
   echo "Download MesloLG Nerd Font from https://www.nerdfonts.com and install via Windows"
 
