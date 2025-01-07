@@ -58,11 +58,13 @@ return { -- LSP Configuration & Plugins
 
 				-- Fuzzy find all the symbols in your current document.
 				--  Symbols are things like variables, functions, types, etc.
-				map("<leader>ds", require("telescope.builtin").lsp_document_symbols, "[D]ocument [S]ymbols")
+				map("<leader>ds", require("telescope.builtin").lsp_document_symbols,
+					"[D]ocument [S]ymbols")
 
 				-- Fuzzy find all the symbols in your current workspace
 				--  Similar to document symbols, except searches over your whole project.
-				map("<leader>ws", require("telescope.builtin").lsp_dynamic_workspace_symbols, "[W]orkspace [S]ymbols")
+				map("<leader>ws", require("telescope.builtin").lsp_dynamic_workspace_symbols,
+					"[W]orkspace [S]ymbols")
 
 				-- Rename the variable under your cursor
 				--  Most Language Servers support renaming across files, etc.
@@ -110,78 +112,90 @@ return { -- LSP Configuration & Plugins
 		capabilities = vim.tbl_deep_extend("force", capabilities, require("cmp_nvim_lsp").default_capabilities())
 
 		-- Enable the following language servers
-        local servers = {
-            html = { filetypes = { "html", "twig", "hbs" } },
-            -- ... etc. See `:help lspconfig-all` for a list of all the pre-configured LSPs
-            lua_ls = {
-                -- cmd = {...},
-                -- filetypes { ...},
-                -- capabilities = {},
-                settings = {
-                    Lua = {
-                        runtime = { version = "LuaJIT" },
-                        workspace = {
-                            checkThirdParty = false,
-                            -- Tells lua_ls where to find all the Lua files that you have loaded
-                            -- for your neovim configuration.
-                            library = {
-                                "${3rd}/luv/library",
-                                unpack(vim.api.nvim_get_runtime_file("", true)),
-                            },
-                            -- If lua_ls is really slow on your computer, you can try this instead:
-                            -- library = { vim.env.VIMRUNTIME },
-                        },
-                        completion = {
-                            callSnippet = "Replace",
-                        },
-                        telemetry = { enable = false },
-                        diagnostics = { disable = { "missing-fields" } },
-                    },
-                },
-            },
-            rust_analyzer = {
-                ["rust-analyzer"] = {
-                    cargo = {
-                        features = "all",
-                    },
-                    checkOnSave = true,
-                    check = {
-                        command = "clippy",
-                    },
-                },
-            },
-            tailwindcss = {},
-            jsonls = {},
-            sqlls = {},
-            bashls = {},
-            cssls = {},
-            elixirls = {},
-            emmet_language_server = {
-                filetypes = { "css", "eruby", "html", "javascript", "javascriptreact", "less", "sass", "scss", "pug", "typescriptreact" },
-                -- Read more about this options in the [vscode docs](https://code.visualstudio.com/docs/editor/emmet#_emmet-configuration).
-                -- **Note:** only the options listed in the table are supported.
-                init_options = {
-                    ---@type table<string, string>
-                    includeLanguages = {},
-                    --- @type string[]
-                    excludeLanguages = {},
-                    --- @type string[]
-                    extensionsPath = {},
-                    --- @type table<string, any> [Emmet Docs](https://docs.emmet.io/customization/preferences/)
-                    preferences = {},
-                    --- @type boolean Defaults to `true`
-                    showAbbreviationSuggestions = true,
-                    --- @type "always" | "never" Defaults to `"always"`
-                    showExpandedAbbreviation = "always",
-                    --- @type boolean Defaults to `false`
-                    showSuggestionsAsSnippets = false,
-                    --- @type table<string, any> [Emmet Docs](https://docs.emmet.io/customization/syntax-profiles/)
-                    syntaxProfiles = {},
-                    --- @type table<string, string> [Emmet Docs](https://docs.emmet.io/customization/snippets/#variables)
-                    variables = {},
-                },
-            },
-        }
+		local servers = {
+			html = { filetypes = { "html", "twig", "hbs" } },
+			-- ... etc. See `:help lspconfig-all` for a list of all the pre-configured LSPs
+			lua_ls = {
+				-- cmd = {...},
+				-- filetypes { ...},
+				-- capabilities = {},
+				settings = {
+					Lua = {
+						runtime = { version = "LuaJIT" },
+						workspace = {
+							checkThirdParty = false,
+							-- Tells lua_ls where to find all the Lua files that you have loaded
+							-- for your neovim configuration.
+							library = {
+								"${3rd}/luv/library",
+								unpack(vim.api.nvim_get_runtime_file("", true)),
+							},
+							-- If lua_ls is really slow on your computer, you can try this instead:
+							-- library = { vim.env.VIMRUNTIME },
+						},
+						completion = {
+							callSnippet = "Replace",
+						},
+						telemetry = { enable = false },
+						diagnostics = { disable = { "missing-fields" } },
+					},
+				},
+			},
+			rust_analyzer = {
+				["rust-analyzer"] = {
+					cargo = {
+						features = "all",
+					},
+					checkOnSave = true,
+					check = {
+						command = "clippy",
+					},
+				},
+			},
+			tailwindcss = {},
+			jsonls = {},
+			sqlls = {},
+			bashls = {},
+			cssls = {},
+			elixirls = {},
+			emmet_language_server = {
+				filetypes = {
+					"css",
+					"eruby",
+					"html",
+					"javascript",
+					"javascriptreact",
+					"less",
+					"sass",
+					"scss",
+					"pug",
+					"heex",
+					"elixir",
+				},
+				-- Read more about this options in the [vscode docs](https://code.visualstudio.com/docs/editor/emmet#_emmet-configuration).
+				-- **Note:** only the options listed in the table are supported.
+				init_options = {
+					---@type table<string, string>
+					includeLanguages = {},
+					--- @type string[]
+					excludeLanguages = {},
+					--- @type string[]
+					extensionsPath = {},
+					--- @type table<string, any> [Emmet Docs](https://docs.emmet.io/customization/preferences/)
+					preferences = {},
+					--- @type boolean Defaults to `true`
+					showAbbreviationSuggestions = true,
+					--- @type "always" | "never" Defaults to `"always"`
+					showExpandedAbbreviation = "always",
+					--- @type boolean Defaults to `false`
+					showSuggestionsAsSnippets = false,
+					--- @type table<string, any> [Emmet Docs](https://docs.emmet.io/customization/syntax-profiles/)
+					syntaxProfiles = {},
+					--- @type table<string, string> [Emmet Docs](https://docs.emmet.io/customization/snippets/#variables)
+					variables = {},
+				},
+			},
+		}
 
 		-- Ensure the servers and tools above are installed
 		require("mason").setup()
@@ -207,7 +221,8 @@ return { -- LSP Configuration & Plugins
 					-- This handles overriding only values explicitly passed
 					-- by the server configuration above. Useful when disabling
 					-- certain features of an LSP (for example, turning off formatting for tsserver)
-					server.capabilities = vim.tbl_deep_extend("force", {}, capabilities, server.capabilities or {})
+					server.capabilities = vim.tbl_deep_extend("force", {}, capabilities,
+						server.capabilities or {})
 					require("lspconfig")[server_name].setup(server)
 				end,
 			},
