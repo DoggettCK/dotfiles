@@ -33,8 +33,7 @@ return {
 				})
 			end,
 			keys = {
-				{ "<leader>w", ":Neotree toggle float<CR>",         silent = true, desc = "Float File Explorer" },
-				{ "`",         ":Neotree toggle position=left<CR>", silent = true, desc = "Left File Explorer" },
+				{ "`", ":Neotree toggle position=left<CR>", silent = true, desc = "Left File Explorer" },
 				{
 					"<leader>ngs",
 					":Neotree float git_status<CR>",

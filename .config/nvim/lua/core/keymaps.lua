@@ -18,7 +18,7 @@ vim.keymap.set("n", "j", "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = tr
 vim.keymap.set("n", "<Esc>", ":noh<CR>", opts)
 
 -- save file
-vim.keymap.set("n", "<C-s>", "<cmd> w <CR>", opts)
+vim.keymap.set("n", "<leader>w", "<cmd> w <CR>", opts)
 
 -- save file without auto-formatting
 vim.keymap.set("n", "<leader>sn", "<cmd>noautocmd w <CR>", opts)
@@ -46,7 +46,7 @@ vim.keymap.set("n", "<Right>", ":vertical resize +2<CR>", opts)
 -- Buffers
 vim.keymap.set("n", "<Tab>", ":bnext<CR>", opts)
 vim.keymap.set("n", "<S-Tab>", ":bprevious<CR>", opts)
-vim.keymap.set("n", "<leader>x", ":Bdelete!<CR>", opts)    -- close buffer
+vim.keymap.set("n", "<leader>q", ":Bdelete!<CR>", opts)    -- close buffer
 vim.keymap.set("n", "<leader>nb", "<cmd> enew <CR>", opts) -- new buffer
 
 -- Increment/decrement numbers
@@ -108,8 +108,8 @@ end)
 -- Diagnostic keymaps
 vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, { desc = "Go to previous diagnostic message" })
 vim.keymap.set("n", "]d", vim.diagnostic.goto_next, { desc = "Go to next diagnostic message" })
-vim.keymap.set("n", "<leader>d", vim.diagnostic.open_float, { desc = "Open floating diagnostic message" })
-vim.keymap.set("n", "<leader>q", vim.diagnostic.setloclist, { desc = "Open diagnostics list" })
+vim.keymap.set("n", "<leader>dm", vim.diagnostic.open_float, { desc = "Open floating diagnostic message" })
+vim.keymap.set("n", "<leader>dl", vim.diagnostic.setloclist, { desc = "Open diagnostics list" })
 
 -- Save and load session
 vim.keymap.set("n", "<leader>ss", ":mksession! .session.vim<CR>", { noremap = true, silent = false })

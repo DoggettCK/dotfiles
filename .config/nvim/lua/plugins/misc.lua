@@ -93,4 +93,11 @@ return {
 		vim.keymap.set("n", "<leader>ta", ":TestSuite<CR>"),
 		vim.cmd("let test#strategy = 'vimux'"),
 	},
+	{
+		"olimorris/persisted.nvim",
+		lazy = false, -- make sure the plugin is always loaded at startup
+		config = true,
+		vim.keymap.set("n", "<F5>", ":SessionSave<CR>"),
+		vim.keymap.set("n", "<F9>", ":SessionLoad<CR>"),
+	},
 }
