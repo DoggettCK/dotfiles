@@ -39,4 +39,4 @@ else
 fi
 
 # Git submodules include fzf-git.sh and git-number
-git submodule update --init --recursive
+git submodule update --recursive
