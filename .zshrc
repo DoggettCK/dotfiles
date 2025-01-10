@@ -20,6 +20,7 @@ fi
 LOCAL_BIN_PATH=~/.local/bin
 GIT_NUMBER_PATH=~/.local/git-number
 
+export ERL_AFLAGS="-kernel shell_history enabled"
 export PATH=$LOCAL_BIN_PATH:$GIT_NUMBER_PATH:$PATH
 export GIT_EDITOR=nvim
 export EDITOR=nvim
