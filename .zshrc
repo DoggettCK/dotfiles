@@ -102,7 +102,7 @@ export HISTSIZE=5000
 export HISTFILE=~/.zsh_history
 export SAVEHIST=$HISTSIZE
 export HISTDUP=erase
-export HISTORY_IGNORE="(jrnl *)"
+export HISTORY_IGNORE="jrnl*|lpass*"
 setopt appendhistory
 setopt sharehistory
 setopt hist_ignore_space
