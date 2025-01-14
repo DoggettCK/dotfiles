@@ -62,6 +62,7 @@ require("lazy").setup({
 	require("plugins.linting"),
 	require("plugins.emmet"),
 	require("plugins.snipe"),
+	require("plugins.alpha"),
 }, {
 	ui = {
 		-- If you have a Nerd Font, set icons to an empty table which will use the
