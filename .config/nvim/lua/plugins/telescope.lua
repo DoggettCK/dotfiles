@@ -100,7 +100,7 @@ return {
 				symbols = { "Class", "Function", "Method", "Constructor", "Interface", "Module", "Property" },
 			})
 		end, { desc = "[S]each LSP document [S]ymbols" })
-		vim.keymap.set("n", "<leader><leader>", builtin.buffers, { desc = "[ ] Find existing buffers" })
+		-- vim.keymap.set("n", "<leader><leader>", builtin.buffers, { desc = "[ ] Find existing buffers" })
 		vim.keymap.set("n", "<leader>s/", function()
 			builtin.live_grep({
 				grep_open_files = true,

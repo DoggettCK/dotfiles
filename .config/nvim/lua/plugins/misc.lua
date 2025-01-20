@@ -17,31 +17,6 @@ return {
 		"tpope/vim-rhubarb",
 	},
 	{
-		-- Hints keybinds
-		"folke/which-key.nvim",
-		opts = {
-			-- win = {
-			--   border = {
-			--     { '┌', 'FloatBorder' },
-			--     { '─', 'FloatBorder' },
-			--     { '┐', 'FloatBorder' },
-			--     { '│', 'FloatBorder' },
-			--     { '┘', 'FloatBorder' },
-			--     { '─', 'FloatBorder' },
-			--     { '└', 'FloatBorder' },
-			--     { '│', 'FloatBorder' },
-			--   },
-			-- },
-		},
-	},
-	{
-		-- Autoclose parentheses, brackets, quotes, etc.
-		"windwp/nvim-autopairs",
-		event = "InsertEnter",
-		config = true,
-		opts = {},
-	},
-	{
 		-- Highlight todo, notes, etc in comments
 		"folke/todo-comments.nvim",
 		event = "VimEnter",
@@ -73,29 +48,6 @@ return {
 		config = function()
 			vim.keymap.set("n", "<leader>u", vim.cmd.UndotreeToggle)
 		end,
-	},
-	{
-		"rcarriga/nvim-notify",
-	},
-	{
-		"kylechui/nvim-surround",
-		version = "*", -- Use for stability; omit to use `main` branch for the latest features
-		event = "VeryLazy",
-		config = function()
-			require("nvim-surround").setup({
-				-- Configuration here, or leave empty to use defaults
-			})
-		end,
-	},
-	{
-		"vim-test/vim-test",
-		dependencies = {
-			"preservim/vimux",
-		},
-		vim.keymap.set("n", "<leader>t", ":TestNearest<CR>"),
-		vim.keymap.set("n", "<leader>tf", ":TestFile<CR>"),
-		vim.keymap.set("n", "<leader>ta", ":TestSuite<CR>"),
-		vim.cmd("let test#strategy = 'vimux'"),
 	},
 	{
 		"olimorris/persisted.nvim",

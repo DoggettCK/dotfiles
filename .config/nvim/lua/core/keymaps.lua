@@ -18,7 +18,7 @@ vim.keymap.set("n", "j", "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = tr
 vim.keymap.set("n", "<Esc>", ":noh<CR>", opts)
 
 -- save file
-vim.keymap.set("n", "<leader>w", "<cmd> w <CR>", opts)
+vim.keymap.set("n", "<C-s>", "<cmd> w <CR>", opts)
 
 -- save file without auto-formatting
 vim.keymap.set("n", "<leader>sn", "<cmd>noautocmd w <CR>", opts)
@@ -44,8 +44,8 @@ vim.keymap.set("n", "<Left>", ":vertical resize -2<CR>", opts)
 vim.keymap.set("n", "<Right>", ":vertical resize +2<CR>", opts)
 
 -- Buffers
-vim.keymap.set("n", "[b", ":bprevious<CR>", opts)
-vim.keymap.set("n", "]b", ":bnext<CR>", opts)
+-- vim.keymap.set("n", "[b", ":bprevious<CR>", opts)
+-- vim.keymap.set("n", "]b", ":bnext<CR>", opts)
 vim.keymap.set("n", "<leader>q", ":Bdelete!<CR>", opts) -- close buffer
 vim.keymap.set("n", "<leader>nb", "<cmd> enew <CR>", opts) -- new buffer
 
@@ -83,7 +83,7 @@ vim.keymap.set("v", "<A-j>", ":m .+1<CR>==", opts)
 vim.keymap.set("v", "<A-k>", ":m .-2<CR>==", opts)
 
 -- Keep last yanked when pasting
-vim.keymap.set("v", "p", '"_dP', opts)
+-- vim.keymap.set("v", "p", '"_dP', opts)
 
 -- Replace word under cursor
 vim.keymap.set("n", "<leader>j", "*``cgn", opts)
