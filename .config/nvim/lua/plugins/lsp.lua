@@ -194,6 +194,9 @@ return { -- LSP Configuration & Plugins
 				},
 			},
 		}
+		vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
+			border = "rounded",
+		})
 
 		-- Ensure the servers and tools above are installed
 		require("mason").setup()
