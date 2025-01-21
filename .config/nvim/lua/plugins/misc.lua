@@ -56,4 +56,32 @@ return {
 		vim.keymap.set("n", "<F5>", ":SessionSave<CR>"),
 		vim.keymap.set("n", "<F9>", ":SessionLoad<CR>"),
 	},
+	{
+		-- Hints keybinds
+		"folke/which-key.nvim",
+		opts = {
+			win = {
+				border = {
+					{ "╭", "FloatBorder" },
+					{ "─", "FloatBorder" },
+					{ "╮", "FloatBorder" },
+					{ "│", "FloatBorder" },
+					{ "╯", "FloatBorder" },
+					{ "─", "FloatBorder" },
+					{ "╰", "FloatBorder" },
+					{ "│", "FloatBorder" },
+				},
+			},
+		},
+	},
+	{
+		"kylechui/nvim-surround",
+		version = "*", -- Use for stability; omit to use `main` branch for the latest features
+		event = "VeryLazy",
+		config = function()
+			require("nvim-surround").setup({
+				-- Configuration here, or leave empty to use defaults
+			})
+		end,
+	},
 }
