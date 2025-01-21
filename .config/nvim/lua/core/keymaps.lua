@@ -46,7 +46,7 @@ vim.keymap.set("n", "<Right>", ":vertical resize +2<CR>", opts)
 -- Buffers
 -- vim.keymap.set("n", "[b", ":bprevious<CR>", opts)
 -- vim.keymap.set("n", "]b", ":bnext<CR>", opts)
-vim.keymap.set("n", "<leader>q", ":bdelete!<CR>", opts) -- close buffer
+vim.keymap.set("n", "<leader>q", "<cmd> BufferClose! <CR>", opts) -- close buffer
 vim.keymap.set("n", "<leader>nb", "<cmd> enew <CR>", opts) -- new buffer
 
 -- Increment/decrement numbers
