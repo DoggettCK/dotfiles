@@ -50,11 +50,20 @@ return {
 			},
 			highlights = {
 				separator = {
-					fg = "#434C5E",
+					-- fg = "#434C5E",
+					fg = "#FFFFFF",
 				},
 				buffer_selected = {
 					bold = true,
 					italic = false,
+					bg = "#BBBBBB",
+					fg = "#434C5E",
+				},
+				close_button_selected = {
+					bold = true,
+					italic = false,
+					bg = "#BBBBBB",
+					fg = "#434C5E",
 				},
 				-- separator_selected = {},
 				-- tab_selected = {},
