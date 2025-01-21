@@ -84,4 +84,25 @@ return {
 			})
 		end,
 	},
+	{
+		"utilyre/barbecue.nvim",
+		name = "barbecue",
+		version = "*",
+		dependencies = {
+			"SmiteshP/nvim-navic",
+			"nvim-tree/nvim-web-devicons", -- optional dependency
+		},
+		opts = {
+			-- configurations go here
+		},
+	},
+	{
+		{
+			"romgrk/barbar.nvim",
+			dependencies = {
+				"lewis6991/gitsigns.nvim", -- OPTIONAL: for git status
+				"nvim-tree/nvim-web-devicons", -- OPTIONAL: for file icons
+			},
+		},
+	},
 }
