@@ -41,6 +41,7 @@ require("lazy").setup({
   require(themes[env_var_nvim_theme]),
   require("plugins.aerial"),
   require("plugins.autocompletion"),
+  require("plugins.buffers"),
   require("plugins.conform"),
   require("plugins.database"),
   require("plugins.emmet"),
