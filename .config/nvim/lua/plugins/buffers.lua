@@ -10,6 +10,7 @@ return {
 	},
 	config = function()
 		require("barbar").setup({
+			no_name_title = "[Untitled]",
 			vim.keymap.set("n", "<leader>bc", "<cmd>BufferClose<CR>", { desc = "[C]lose buffer" }),
 			vim.keymap.set("n", "<leader>bd", "<cmd>BufferPickDelete<CR>", { desc = "[D]elete buffer by letter" }),
 			vim.keymap.set("n", "<leader>bn", "<cmd>enew<CR>", { desc = "[N]ew buffer" }),
