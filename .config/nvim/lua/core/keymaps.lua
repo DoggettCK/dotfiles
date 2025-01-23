@@ -20,14 +20,11 @@ vim.keymap.set("n", "<Esc>", ":noh<CR>", opts)
 -- save file
 vim.keymap.set("n", "<C-s>", "<cmd> w <CR>", opts)
 
--- save file without auto-formatting
-vim.keymap.set("n", "<leader>sn", "<cmd>noautocmd w <CR>", opts)
-
 -- quit file
 vim.keymap.set("n", "<C-q>", "<cmd> q <CR>", opts)
 
 -- delete single character without copying into register
--- vim.keymap.set("n", "x", '"_x', opts)
+vim.keymap.set("n", "x", '"_x', opts)
 
 -- Vertical scroll and center
 vim.keymap.set("n", "<C-d>", "<C-d>zz", opts)
@@ -59,22 +56,12 @@ vim.keymap.set("n", "<C-j>", ":wincmd j<CR>", opts)
 vim.keymap.set("n", "<C-h>", ":wincmd h<CR>", opts)
 vim.keymap.set("n", "<C-l>", ":wincmd l<CR>", opts)
 
--- Tabs
-vim.keymap.set("n", "<leader>to", ":tabnew<CR>", opts)   -- open new tab
-vim.keymap.set("n", "<leader>tx", ":tabclose<CR>", opts) -- close current tab
-vim.keymap.set("n", "<leader>tn", ":tabn<CR>", opts)     --  go to next tab
-vim.keymap.set("n", "<leader>tp", ":tabp<CR>", opts)     --  go to previous tab
-
 -- Toggle line wrapping
 vim.keymap.set("n", "<leader>lw", "<cmd>set wrap!<CR>", opts)
 
 -- Stay in indent mode
 vim.keymap.set("v", "<", "<gv", opts)
 vim.keymap.set("v", ">", ">gv", opts)
-
--- Move text up and down
-vim.keymap.set("v", "<A-j>", ":m .+1<CR>==", opts)
-vim.keymap.set("v", "<A-k>", ":m .-2<CR>==", opts)
 
 -- Keep last yanked when pasting
 -- vim.keymap.set("v", "p", '"_dP', opts)
@@ -85,6 +72,9 @@ vim.keymap.set("n", "<leader>j", "*``cgn", opts)
 -- Explicitly yank to system clipboard (highlighted and entire row)
 vim.keymap.set({ "n", "v" }, "<leader>y", [["+y]])
 vim.keymap.set("n", "<leader>Y", [["+Y]])
+
+-- Copy filename to clipboard
+vim.keymap.set({ "n", "v" }, "<leader>yp", ":let @+ = expand('%')<CR>", { noremap = true, silent = true })
 
 -- Toggle diagnostics
 local diagnostics_active = true
