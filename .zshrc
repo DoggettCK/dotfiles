@@ -20,7 +20,15 @@ fi
 LOCAL_BIN_PATH=~/.local/bin
 GIT_NUMBER_PATH=~/.local/git-number
 
+# Elixir/Erlang compilation flags
+# Compile Erlang Docs
+export KERL_BUILD_DOCS=yes
+# Use correct ssl installation dir for Erlang compiler
+OPENSSL_DIR=$(brew --prefix openssl@1.1)
+export KERL_CONFIGURE_OPTIONS="--without-javac --with-ssl=${OPENSSL_DIR}"
+# Enable shell history for iex
 export ERL_AFLAGS="-kernel shell_history enabled"
+
 export PATH=$LOCAL_BIN_PATH:$GIT_NUMBER_PATH:$PATH
 export GIT_EDITOR=nvim
 export EDITOR=nvim
