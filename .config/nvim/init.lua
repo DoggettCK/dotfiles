@@ -25,16 +25,14 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
+-- Define a table of theme modules
+local themes = {
+  catppuccin = "plugins.themes.catppuccin",
+}
+
 -- Import color theme based on environment variable NVIM_THEME
 local default_color_scheme = "catppuccin"
 local env_var_nvim_theme = os.getenv("NVIM_THEME") or default_color_scheme
-
--- Define a table of theme modules
-local themes = {
-  nord = "plugins.themes.nord",
-  onedark = "plugins.themes.onedark",
-  catppuccin = "plugins.themes.catppuccin",
-}
 
 -- Setup plugins
 require("lazy").setup({
