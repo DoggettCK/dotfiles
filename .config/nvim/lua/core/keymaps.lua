@@ -46,9 +46,9 @@ vim.keymap.set("n", "<leader>+", "<C-a>", opts) -- increment
 vim.keymap.set("n", "<leader>-", "<C-x>", opts) -- decrement
 
 -- Window management
-vim.keymap.set("n", "<leader>v", "<C-w>v", opts)      -- split window vertically
-vim.keymap.set("n", "<leader>h", "<C-w>s", opts)      -- split window horizontally
-vim.keymap.set("n", "<leader>se", "<C-w>=", opts)     -- make split windows equal width & height
+vim.keymap.set("n", "<leader>v", "<C-w>v", opts) -- split window vertically
+vim.keymap.set("n", "<leader>h", "<C-w>s", opts) -- split window horizontally
+vim.keymap.set("n", "<leader>se", "<C-w>=", opts) -- make split windows equal width & height
 vim.keymap.set("n", "<leader>xs", ":close<CR>", opts) -- close current split window
 
 -- Navigate between splits
@@ -74,8 +74,17 @@ vim.keymap.set("n", "<leader>j", "*``cgn", opts)
 vim.keymap.set({ "n", "v" }, "<leader>y", [["+y]])
 vim.keymap.set("n", "<leader>Y", [["+Y]])
 
--- Copy filename to clipboard
-vim.keymap.set({ "n", "v" }, "<leader>yp", ":let @+ = expand('%')<CR>", { noremap = true, silent = true })
+-- Copy filename with or without line to clipboard
+vim.keymap.set({ "n", "v" }, "<leader>yf", ":let @+ = expand('%')<CR>", { noremap = true, silent = true })
+vim.keymap.set(
+	{ "n", "v" },
+	"<leader>yl",
+	":let @+ = expand('%')..':'..line('.')<CR>",
+	{ noremap = true, silent = true }
+)
+
+-- Delete every line containing visual selection
+vim.keymap.set("v", "<leader>dd", "y :g/<C-r>0/d<CR>", { noremap = true, silent = true })
 
 -- Toggle diagnostics
 local diagnostics_active = true
