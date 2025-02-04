@@ -29,9 +29,13 @@ export KERL_CONFIGURE_OPTIONS="--without-javac --with-ssl=${OPENSSL_DIR}"
 # Enable shell history for iex
 export ERL_AFLAGS="-kernel shell_history enabled"
 
-export PATH=$LOCAL_BIN_PATH:$GIT_NUMBER_PATH:$PATH
-export GIT_EDITOR=nvim
-export EDITOR=nvim
+# Default postgres connection info
+DB_USER=$( whoami )
+export DB_USER
+export DB_PASS=
+
+export ASDF_FORCE_PREPEND="yes"
+export PATH="${ASDF_DATA_DIR:-$HOME/.asdf}/shims:$LOCAL_BIN_PATH:$GIT_NUMBER_PATH:$PATH"
 
 # Set the directory we want to store zinit and plugins
 ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git"
@@ -77,9 +81,10 @@ DEFAULT_USER=$(whoami)
 
 export BAT_THEME="base16-256"
 export DEFAULT_USER
-export EDITOR='vim'
+export EDITOR="nvim"
+export GIT_EDITOR="nvim"
 export LANG=en_US.UTF-8
-export LS_COLORS=$LS_COLORS:'ow=34;40:'
+export LS_COLORS=$LS_COLORS:"ow=34;40:"
 export TERM=xterm-256color
 
 ## Use fd instead of fzf
