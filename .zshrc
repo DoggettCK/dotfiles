@@ -34,7 +34,7 @@ DB_USER=$( whoami )
 export DB_USER
 export DB_PASS=
 
-export ASDF_FORCE_PREPEND="yes"
+export ASDF_FORCE_PREPEND=true
 export PATH="${ASDF_DATA_DIR:-$HOME/.asdf}/shims:$LOCAL_BIN_PATH:$GIT_NUMBER_PATH:$PATH"
 
 # Set the directory we want to store zinit and plugins
