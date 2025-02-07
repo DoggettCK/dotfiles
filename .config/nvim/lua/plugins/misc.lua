@@ -9,6 +9,10 @@ return {
 		"tpope/vim-sleuth",
 	},
 	{
+		-- case-aware replace
+		"tpope/vim-abolish",
+	},
+	{
 		-- Powerful Git integration for Vim
 		"tpope/vim-fugitive",
 	},
