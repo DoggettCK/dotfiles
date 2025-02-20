@@ -159,12 +159,9 @@ eval "$(zoxide init --cmd cd zsh)"
 
 [[ ! -f ~/.config/fzf/fzf-git.sh/fzf-git.sh ]] || source ~/.config/fzf/fzf-git.sh/fzf-git.sh
 
-# SSH Agent
-if command -v ssh-add > /dev/null 2>&1; then
-  ssh-add -L &> /dev/null
-  if [ $? -eq 1 ]; then
-    ssh-add
-  fi 
+# SSH Key Caching
+if command -v keychain > /dev/null 2>&1; then
+  eval `keychain --quiet --eval --agents ssh $HOME/.ssh/id_rsa`
 fi
 
 # Functions

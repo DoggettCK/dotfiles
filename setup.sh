@@ -1,6 +1,15 @@
 #!/usr/bin/env bash
 
-if [[ $(uname) == "Darwin" ]]; then
+if [[ $(command -v brew) == "" ]]; then
+    echo "Installing Homebrew"
+    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+else
+    echo "Updating Homebrew"
+    brew update
+fi
+
+osx_install() {
+    # TODO: OSX Brewfile https://gist.github.com/ChristopherA/a579274536aab36ea9966f301ff14f3f
     brew install bat
     brew install eza
     brew install fd
@@ -14,29 +23,32 @@ if [[ $(uname) == "Darwin" ]]; then
     brew install neovim
     brew install lazygit
     brew install glow
-else
-    sudo apt-get install bat
-    sudo apt-get install eza
-    sudo apt-get install fd-find
-    sudo apt-get install fzf
-    sudo apt-get install git-delta
-    sudo apt-get install ripgrep
-    sudo apt-get install stow
-    sudo apt-get install tldr
-    sudo apt-get install zoxide
-    brew install neovim
-    brew install lazygit
-    brew install glow
+}
+
+wsl_install() {
+    brew bundle --file=./brewfiles/Brewfile.wsl
 
     echo "Download JetBrainsMono Nerd Font from https://www.nerdfonts.com and install via Windows"
+}
 
-    if [[ -L ~/.local/bin/fd ]]; then
-        echo "Found symlink to fdfind at ~/.local/bin/fd"
-    else
-        echo "Linking $(which fdfind) to ~/.local/bin/fd"
-        ln -s "$(which fdfind)" ~/.local/bin/fd
-    fi
-fi
+# Do OS-specific software installs
+case "$OSTYPE" in
+darwin*)
+    osx_install
+    ;;
+linux*)
+    wsl_install
+    ;;
+*)
+    echo "Unknown OS: ($OSTYPE)"
+    ;;
+esac
+
+# Symlink everything
+stow .
+
+# Install programming languages via ASDF (versions in .tool-versions)
+asdf install
 
 # Git submodules include fzf-git.sh and git-number
 git submodule update --recursive

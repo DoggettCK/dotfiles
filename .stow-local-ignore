@@ -23,5 +23,5 @@ _darcs
 
 setup.sh
 windows_setup.sh
-leaves.txt
 .*\.bak
+brewfiles
