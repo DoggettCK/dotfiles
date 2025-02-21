@@ -24,4 +24,4 @@ _darcs
 setup.sh
 windows_setup.sh
 .*\.bak
-brewfiles
+Brewfile

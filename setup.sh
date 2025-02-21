@@ -8,36 +8,14 @@ else
     brew update
 fi
 
-osx_install() {
-    # TODO: OSX Brewfile https://gist.github.com/ChristopherA/a579274536aab36ea9966f301ff14f3f
-    brew install bat
-    brew install eza
-    brew install fd
-    brew install font-jetbrains-mono-nerd-font
-    brew install fzf
-    brew install git-delta
-    brew install ripgrep
-    brew install stow
-    brew install tlrc
-    brew install zoxide
-    brew install neovim
-    brew install lazygit
-    brew install glow
-}
-
-wsl_install() {
-    brew bundle --file=./brewfiles/Brewfile.wsl
-
-    echo "Download JetBrainsMono Nerd Font from https://www.nerdfonts.com and install via Windows"
-}
-
 # Do OS-specific software installs
 case "$OSTYPE" in
 darwin*)
-    osx_install
+    wsl_install
     ;;
 linux*)
-    wsl_install
+    echo "Download JetBrainsMono Nerd Font from https://www.nerdfonts.com and install via Windows"
+    brew bundle
     ;;
 *)
     echo "Unknown OS: ($OSTYPE)"
