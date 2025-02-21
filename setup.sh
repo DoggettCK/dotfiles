@@ -11,7 +11,7 @@ fi
 # Do OS-specific software installs
 case "$OSTYPE" in
 darwin*)
-    wsl_install
+    brew bundle
     ;;
 linux*)
     echo "Download JetBrainsMono Nerd Font from https://www.nerdfonts.com and install via Windows"
