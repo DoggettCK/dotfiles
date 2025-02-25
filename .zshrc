@@ -24,7 +24,7 @@ GIT_NUMBER_PATH=~/.local/git-number
 # Compile Erlang Docs
 export KERL_BUILD_DOCS=yes
 # Use correct ssl installation dir for Erlang compiler
-OPENSSL_DIR=$(brew --prefix openssl@1.1)
+OPENSSL_DIR=$(brew --prefix openssl)
 export KERL_CONFIGURE_OPTIONS="--without-javac --with-ssl=${OPENSSL_DIR}"
 # Enable shell history for iex
 export ERL_AFLAGS="-kernel shell_history enabled"
@@ -127,7 +127,6 @@ setopt hist_find_no_dups
 # Completion styling
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
 zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
-zstyle ':completion:*' menu no
 zstyle ':fzf-tab:complete:cd:*' fzf-preview 'ls --color $realpath'
 
 # Aliases
