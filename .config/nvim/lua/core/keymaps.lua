@@ -40,12 +40,6 @@ vim.keymap.set("v", "<A-Down>", ":m'>+<CR>gv=gv")
 vim.keymap.set("n", "<A-Up>", "ddkP<S-v>")
 vim.keymap.set("n", "<A-Down>", "ddp<S-v>")
 
--- Resize with arrows
-vim.keymap.set("n", "<Up>", ":resize -2<CR>", opts)
-vim.keymap.set("n", "<Down>", ":resize +2<CR>", opts)
-vim.keymap.set("n", "<Left>", ":vertical resize -2<CR>", opts)
-vim.keymap.set("n", "<Right>", ":vertical resize +2<CR>", opts)
-
 -- Increment/decrement numbers
 vim.keymap.set("n", "<leader>+", "<C-a>", opts) -- increment
 vim.keymap.set("n", "<leader>-", "<C-x>", opts) -- decrement
