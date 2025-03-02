@@ -13,6 +13,7 @@ return {
 			no_name_title = "[Untitled]",
 			vim.keymap.set("n", "<leader>bc", "<cmd>BufferClose<CR>", { desc = "[C]lose buffer" }),
 			vim.keymap.set("n", "<leader>bd", "<cmd>BufferPickDelete<CR>", { desc = "[D]elete buffer by letter" }),
+			vim.keymap.set("n", "<leader>bw", "<cmd>BufferWipeout!<CR>", { desc = "[W]ipeout buffer without saving" }),
 			vim.keymap.set("n", "<leader>bn", "<cmd>enew<CR>", { desc = "[N]ew buffer" }),
 			vim.keymap.set("n", "<leader>bp", "<cmd>BufferPick<CR>", { desc = "[P]ick buffer by letter" }),
 		})
