@@ -101,13 +101,6 @@ return {
 		},
 	},
 	{
-		"esensar/nvim-dev-container",
-		dependencies = "nvim-treesitter/nvim-treesitter",
-		config = function()
-			require("devcontainer").setup({})
-		end,
-	},
-	{
 		"S1M0N38/love2d.nvim",
 		cmd = "LoveRun",
 		opts = {},
