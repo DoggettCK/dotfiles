@@ -77,7 +77,7 @@ return { -- Autocompletion
 				["<C-j>"] = cmp.mapping.scroll_docs(4), -- Scroll documentation down
 				["<C-k>"] = cmp.mapping.scroll_docs(-4), -- Scroll documentation up
 				["<CR>"] = cmp.mapping.confirm({ select = true }), -- Accept the completion with Enter.
-				["<C-c>"] = cmp.mapping.complete({}), -- Manually trigger a completion from nvim-cmp.
+				["<C-c>"] = cmp.mapping.complete({}),  -- Manually trigger a completion from nvim-cmp.
 
 				-- Think of <c-l> as moving to the right of your snippet expansion.
 				--  So if you have a snippet that's like:
@@ -119,8 +119,8 @@ return { -- Autocompletion
 				end, { "i", "s" }),
 			}),
 			sources = {
-				{ name = "nvim_lsp" },
 				{ name = "luasnip" },
+				{ name = "nvim_lsp" },
 				{ name = "buffer" },
 				{ name = "path" },
 			},
