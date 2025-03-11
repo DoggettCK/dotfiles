@@ -41,18 +41,33 @@ WSL)
 esac
 
 # Symlink everything
-stow alacritty
-stow asdf
-stow fzf
-stow git
-stow kitty
-stow neovim
-stow tmux
-stow vim
-stow zsh
+echo "Symlinking Alacritty config with stow"
+stow -R -v -t ~ alacritty
+echo "Symlinking ASDF config with stow"
+stow -R -v -t ~ asdf
+echo "Symlinking FZF config with stow"
+stow -R -v -t ~ fzf
+echo "Symlinking Git config with stow"
+stow -R -v -t ~ git
+echo "Symlinking Kitty config with stow"
+stow -R -v -t ~ kitty
+echo "Symlinking Neovim config with stow"
+stow -R -v -t ~ neovim
+echo "Symlinking Tmux config with stow"
+stow -R -v -t ~ tmux
+echo "Symlinking Vim config with stow"
+stow -R -v -t ~ vim
+echo "Symlinking ZSH config with stow"
+stow -R -v -t ~ zsh
 
 # Install programming languages via ASDF (versions in .tool-versions)
+echo "Installing plugins and languages via ASDF specified in ~/.tool-versions"
+cat asdf/.tool-versions | \
+	cut -d ' ' -f 1 | \
+	tr '\n' '\0' | \
+	xargs -0 -n1 asdf plugin add
 asdf install
 
 # Git submodules include fzf-git.sh and git-number
+echo "Updating git submodules"
 git submodule update --recursive
