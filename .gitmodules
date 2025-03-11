@@ -1,5 +1,5 @@
 [submodule ".config/fzf/fzf-git.sh"]
-	path = .config/fzf/fzf-git.sh
+	path = fzf/.config/fzf/fzf-git.sh
 	url = git@github.com:junegunn/fzf-git.sh.git
 [submodule ".local/git-number"]
 	path = .local/git-number
