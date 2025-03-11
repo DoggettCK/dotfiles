@@ -15,7 +15,13 @@ darwin*)
     ;;
 linux*)
     echo "Download JetBrainsMono Nerd Font from https://www.nerdfonts.com and install via Windows"
-    brew bundle
+    if (( $(uname -s) =~ "NixOS" )); then
+        echo "Brew currently unsupported on NixOS"
+        # TODO: add instructions to output NixOS packages list
+    else
+        echo "Installing packages via Brew"
+        brew bundle
+    fi
     ;;
 *)
     echo "Unknown OS: ($OSTYPE)"
