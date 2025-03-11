@@ -62,10 +62,10 @@ stow -R -v -t ~ zsh
 
 # Install programming languages via ASDF (versions in .tool-versions)
 echo "Installing plugins and languages via ASDF specified in ~/.tool-versions"
-cat asdf/.tool-versions | \
-	cut -d ' ' -f 1 | \
-	tr '\n' '\0' | \
-	xargs -0 -n1 asdf plugin add
+cat asdf/.tool-versions |
+    cut -d ' ' -f 1 |
+    tr '\n' '\0' |
+    xargs -0 -n1 asdf plugin add
 asdf install
 
 # Git submodules include fzf-git.sh and git-number
