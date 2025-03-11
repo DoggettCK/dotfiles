@@ -6,7 +6,7 @@ Uses GNU stow to manage symlinking configuration files.
 
 Checkout the dotfiles repo in your $HOME directory using git
 
-```
+```bash
 $ git clone git@github.com/DoggettCK/dotfiles.git
 $ cd dotfiles
 ```
@@ -16,8 +16,17 @@ using NeoVim, install it via [Homebrew](https://brew.sh/), which should
 automatically be sourced by `.zshrc` if it exists, as that will have a much
 newer version of NeoVim than `apt install neovim` currently provides.
 
-Then, just use GNU stow to create symlinks for all of the config files.
+If you want to just install the config for a particular piece of software, for
+example NeoVim, you can just run:
 
+```bash
+$ stow neovim
 ```
-$ stow .
+
+If you've cloned the repo somewhere other than your home directory, `stow`
+defaults to putting the symlinks in the parent directory from where you run it,
+so you need to target the `$HOME` directory, like:
+
+```bash
+$ stow -t ~ neovim
 ```
