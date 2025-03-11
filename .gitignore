@@ -1,3 +1,6 @@
 files/vim
 *.bak
-tmux/.config/tmux/plugins/
+kitty/.config/kitty/kitty-kitten-search/
+fzf/.config/fzf/fzf-git.sh/
+git-number/.local/git-number/
+tmux/.tmux/plugins/tpm/
