@@ -1,30 +1,42 @@
 #!/usr/bin/env bash
 
-if [[ $(command -v brew) == "" ]]; then
-    echo "Installing Homebrew"
-    $(command -v bash) -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-else
-    echo "Updating Homebrew"
-    brew update
-fi
+install_or_update_brew() {
+    if [[ $(command -v brew) == "" ]]; then
+        echo "Installing Homebrew"
+        $(command -v bash) -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+    else
+        echo "Updating Homebrew"
+        brew update
+    fi
+}
 
 # Do OS-specific software installs
-case "$OSTYPE" in
-darwin*)
+shopt -s nocasematch
+case $(uname -a) in
+*"NixOS"*) OS="NixOS" ;;
+*"Darwin"*) OS="Darwin" ;;
+*"WSL"*) OS="WSL" ;;
+*) OS="Linux" ;;
+esac
+
+case "$OS" in
+NixOS)
+    echo "NixOS-specific installation"
+    echo "Brew currently unsupported on NixOS, install via /etc/nixos/configuration.nix"
+    # TODO: add instructions to output NixOS packages list
+    echo "Download JetBrainsMono Nerd Font from https://www.nerdfonts.com and install via system"
+    ;;
+Darwin)
+    echo "OSX-specific installation"
+    install_or_update_brew
+    echo "Installing packages via Brew"
     brew bundle
     ;;
-linux*)
-    echo "Download JetBrainsMono Nerd Font from https://www.nerdfonts.com and install via Windows"
-    if (( $(uname -s) =~ "NixOS" )); then
-        echo "Brew currently unsupported on NixOS"
-        # TODO: add instructions to output NixOS packages list
-    else
-        echo "Installing packages via Brew"
-        brew bundle
-    fi
-    ;;
-*)
-    echo "Unknown OS: ($OSTYPE)"
+WSL)
+    echo "WSL-specific installation"
+    install_or_update_brew
+    echo "Installing packages via Brew"
+    brew bundle
     ;;
 esac
 
