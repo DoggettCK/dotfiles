@@ -1,7 +1,3 @@
-[user]
-  name = "Chris Doggett"
-  email = "doggettc@gmail.com"
-
 [init]
   defaultBranch = main
 
