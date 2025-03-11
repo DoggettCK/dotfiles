@@ -1,12 +1,9 @@
-[submodule ".config/kitty/kitty-kitten-search"]
-	path = .config/kitty/kitty-kitten-search
-	url = https://github.com/trygveaa/kitty-kitten-search
 [submodule ".config/fzf/fzf-git.sh"]
-	path = .config/fzf/fzf-git.sh
+	path = fzf/.config/fzf/fzf-git.sh
 	url = git@github.com:junegunn/fzf-git.sh.git
 [submodule ".local/git-number"]
-	path = .local/git-number
+	path = git/.local/git-number
 	url = git@github.com:holygeek/git-number.git
 [submodule ".tmux/plugins/tpm"]
-	path = .tmux/plugins/tpm
+	path = tmux/.tmux/plugins/tpm
 	url = git@github.com:tmux-plugins/tpm.git

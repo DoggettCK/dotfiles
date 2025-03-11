@@ -23,7 +23,15 @@ linux*)
 esac
 
 # Symlink everything
-stow .
+stow alacritty
+stow asdf
+stow fzf
+stow git
+stow kitty
+stow neovim
+stow tmux
+stow vim
+stow zsh
 
 # Install programming languages via ASDF (versions in .tool-versions)
 asdf install
