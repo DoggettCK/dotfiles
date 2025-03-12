@@ -1,4 +1,1 @@
-files/vim
-*.bak
-.config/tmux/plugins/
-tmux/.config/tmux/plugins/
+files
