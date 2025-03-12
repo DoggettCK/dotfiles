@@ -76,9 +76,21 @@ WSL)
     stow_everything
     echo "Installing languages via ASDF"
     install_languages_with_asdf
+    echo "Download JetBrainsMono Nerd Font from https://www.nerdfonts.com and install via system"
+    ;;
+*)
+    echo "Generic system installation"
+    echo "Installing or updating Brew"
+    install_or_update_brew
+    echo "Installing packages via Brew"
+    brew bundle
+    echo "Symlinking configs via Stow"
+    stow_everything
+    echo "Installing languages via ASDF"
+    install_languages_with_asdf
     ;;
 esac
 
 # Git submodules include fzf-git.sh and git-number
 echo "Updating git submodules"
-git submodule update --recursive
+git submodule update --init --recursive --remote

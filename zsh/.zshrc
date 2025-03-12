@@ -6,29 +6,30 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
-# Path manipulation
-if [[ $(uname) =~ "Darwin" ]]; then                       
-  eval "$(/opt/homebrew/bin/brew shellenv)"               
+GREEN='\033[0;32m'
+RED='\033[0;31m'
+NC='\033[0m'
+
+# # Path manipulation
+# if [[ $(uname) =~ "Darwin" ]]; then                       
+#   eval "$(/opt/homebrew/bin/brew shellenv)"               
+# fi                                                        
+#
+# if [[ $(uname) =~ "Linux" ]]; then                        
+#   if [[ -f "/home/linuxbrew/.linuxbrew/bin/brew" ]]; then 
+#     eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+#   fi                                                      
+# fi                                                        
+
+if command -v brew > /dev/null 2>&1; then
+  eval "$(brew shellenv)"
   # Elixir/Erlang compilation flags
   # Compile Erlang Docs
   export KERL_BUILD_DOCS=yes
   # Use correct ssl installation dir for Erlang compiler
   OPENSSL_DIR=$(brew --prefix openssl)
   export KERL_CONFIGURE_OPTIONS="--without-javac --with-ssl=${OPENSSL_DIR}"
-fi                                                        
-                                                          
-if [[ $(uname) =~ "Linux" ]]; then                        
-  if [[ -f "/home/linuxbrew/.linuxbrew/bin/brew" ]]; then 
-    eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
-
-    # Elixir/Erlang compilation flags
-    # Compile Erlang Docs
-    export KERL_BUILD_DOCS=yes
-    # Use correct ssl installation dir for Erlang compiler
-    OPENSSL_DIR=$(brew --prefix openssl)
-    export KERL_CONFIGURE_OPTIONS="--without-javac --with-ssl=${OPENSSL_DIR}"
-  fi                                                      
-fi                                                        
+fi
 
 LOCAL_BIN_PATH=~/.local/bin
 GIT_NUMBER_PATH=~/.local/git-number
@@ -69,7 +70,7 @@ zinit light zsh-users/zsh-autosuggestions
 zinit light zsh-users/zsh-history-substring-search
 
 # Add in snippets
-# zinit snippet OMZP::asdf
+zinit snippet OMZP::asdf
 zinit snippet OMZP::encode64
 zinit snippet OMZP::git
 zinit snippet OMZP::jump
@@ -83,6 +84,9 @@ zinit cdreplay -q
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
+# Load override config that I don't want in source control
+[[ ! -f ~/.zshrc.override ]] || source ~/.zshrc.override
 
 # General
 setopt noflowcontrol
@@ -168,27 +172,34 @@ eval "$(zoxide init --cmd cd zsh)"
 
 [[ ! -f ~/.config/fzf/fzf-git.sh/fzf-git.sh ]] || source ~/.config/fzf/fzf-git.sh/fzf-git.sh
 
-# SSH Key Caching
-if command -v keychain > /dev/null 2>&1; then
-  for key in $(find "$HOME/.ssh" -type f -name "id_*" ! -name "*.*")
-  do
+add_ssh_key ()
+{
+  key="${1:-$HOME/.ssh/id_rsa}"
+  if [ -f "$key" ]; then
+    echo "${GREEN}OK:${NC} Adding SSH key at $key"
     eval "$(keychain --quiet --eval --agents ssh "$key")"
-  done
-fi
+  else
+    echo "${RED}ERROR:${NC} No SSH key found at $key"
+  fi
+}
+
+# SSH Key Caching
+add_ssh_key ~/.ssh/id_rsa > /dev/null 2>&1;
+add_ssh_key ~/.ssh/id_ed25519 > /dev/null 2>&1;
 
 # Functions
 # Reset current branch to latest on Github
-function git_reset() {
+git_reset() {
   git rev-parse --abbrev-ref --symbolic-full-name @\{u\} | xargs git reset --hard
 }
 
 # Reset and update all git submodules
-function git_submodule_reset() {
+git_submodule_reset() {
   rm -rf submodules && git submodule init & git submodule update
 }
 
 # Delete all local git branches except the one passed in (defaults to main)
-function git_nuke() {
+git_nuke() {
   branch=${1:-main}
   echo -n "Are you sure you want to delete all git branches except \"$branch\"? " 
   read -r -k1
@@ -202,12 +213,12 @@ function git_nuke() {
 }
 
 # Get a list of all contributors to a repo
-function git_contributors() {
+git_contributors() {
   git shortlog --summary --numbered --email --all
 }
 
 # Rename the given file to its md5 sum and lowercase extension
-function mv_md5() {
+mv_md5() {
   local filename;
   local md5_sum;
   local ext;
@@ -219,7 +230,7 @@ function mv_md5() {
 }
 
 # Rename a given file (or all files) to remove common YTS tags
-function clean_yts() {
+clean_yts() {
   if [ "$#" -eq 0 ]; then
     rename -e "s/ \[(YTS\...|5\.1|UPSCALE|REPACK|BluRay|WEBrip|x265|10bit|RUSSIAN|BOOTLEG|DVDRip|REMASTERED|CRITERION|EXTENDED CUT)\]//gi" -- *
   else
@@ -230,7 +241,7 @@ function clean_yts() {
 }
 
 if command -v yazi > /dev/null 2>&1; then
-  function y() {
+  y() {
     local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
     yazi "$@" --cwd-file="$tmp"
     if cwd="$(command cat -- "$tmp")" && [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]; then
