@@ -7,9 +7,18 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
 fi
 
 # Path manipulation
-if command -v brew > /dev/null 2>&1; then
-  eval "$($(command -v brew) shellenv)"
-fi
+# if command -v brew > /dev/null 2>&1; then
+  # eval "$($(command -v brew) shellenv)"
+# fi
+if [[ $(uname) =~ "Darwin" ]]; then                       
+  eval "$(/opt/homebrew/bin/brew shellenv)"               
+fi                                                        
+                                                          
+if [[ $(uname) =~ "Linux" ]]; then                        
+  if [[ -f "/home/linuxbrew/.linuxbrew/bin/brew" ]]; then 
+    eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+  fi                                                      
+fi                                                        
 
 LOCAL_BIN_PATH=~/.local/bin
 GIT_NUMBER_PATH=~/.local/git-number
