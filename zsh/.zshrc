@@ -7,28 +7,31 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
 fi
 
 # Path manipulation
-# if command -v brew > /dev/null 2>&1; then
-  # eval "$($(command -v brew) shellenv)"
-# fi
 if [[ $(uname) =~ "Darwin" ]]; then                       
   eval "$(/opt/homebrew/bin/brew shellenv)"               
+  # Elixir/Erlang compilation flags
+  # Compile Erlang Docs
+  export KERL_BUILD_DOCS=yes
+  # Use correct ssl installation dir for Erlang compiler
+  OPENSSL_DIR=$(brew --prefix openssl)
+  export KERL_CONFIGURE_OPTIONS="--without-javac --with-ssl=${OPENSSL_DIR}"
 fi                                                        
                                                           
 if [[ $(uname) =~ "Linux" ]]; then                        
   if [[ -f "/home/linuxbrew/.linuxbrew/bin/brew" ]]; then 
     eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
   fi                                                      
+  # Elixir/Erlang compilation flags
+  # Compile Erlang Docs
+  export KERL_BUILD_DOCS=yes
+  # Use correct ssl installation dir for Erlang compiler
+  OPENSSL_DIR=$(brew --prefix openssl)
+  export KERL_CONFIGURE_OPTIONS="--without-javac --with-ssl=${OPENSSL_DIR}"
 fi                                                        
 
 LOCAL_BIN_PATH=~/.local/bin
 GIT_NUMBER_PATH=~/.local/git-number
 
-# Elixir/Erlang compilation flags
-# Compile Erlang Docs
-export KERL_BUILD_DOCS=yes
-# Use correct ssl installation dir for Erlang compiler
-OPENSSL_DIR=$(brew --prefix openssl)
-export KERL_CONFIGURE_OPTIONS="--without-javac --with-ssl=${OPENSSL_DIR}"
 # Enable shell history for iex
 export ERL_AFLAGS="-kernel shell_history enabled"
 
