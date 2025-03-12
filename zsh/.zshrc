@@ -7,14 +7,8 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
 fi
 
 # Path manipulation
-if [[ $(uname) =~ "Darwin" ]]; then
-  eval "$(/opt/homebrew/bin/brew shellenv)"
-fi
-
-if [[ $(uname) =~ "Linux" ]]; then
-  if [[ -f "/home/linuxbrew/.linuxbrew/bin/brew" ]]; then
-    eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"  
-  fi
+if command -v brew > /dev/null 2>&1; then
+  eval "$($(command -v brew) shellenv)"
 fi
 
 LOCAL_BIN_PATH=~/.local/bin
@@ -160,7 +154,10 @@ eval "$(zoxide init --cmd cd zsh)"
 
 # SSH Key Caching
 if command -v keychain > /dev/null 2>&1; then
-  eval `keychain --quiet --eval --agents ssh $HOME/.ssh/id_rsa`
+  for key in $(find "$HOME/.ssh" -type f -name "id_*" ! -name "*.*")
+  do
+    eval "$(keychain --quiet --eval --agents ssh "$key")"
+  done
 fi
 
 # Functions
