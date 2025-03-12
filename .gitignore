@@ -1,1 +1,5 @@
+# Vim package manager
 files
+
+# Tmux package manager
+tmux/.config/tmux/plugins/
