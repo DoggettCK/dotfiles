@@ -20,17 +20,19 @@ fi
 if [[ $(uname) =~ "Linux" ]]; then                        
   if [[ -f "/home/linuxbrew/.linuxbrew/bin/brew" ]]; then 
     eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+
+    # Elixir/Erlang compilation flags
+    # Compile Erlang Docs
+    export KERL_BUILD_DOCS=yes
+    # Use correct ssl installation dir for Erlang compiler
+    OPENSSL_DIR=$(brew --prefix openssl)
+    export KERL_CONFIGURE_OPTIONS="--without-javac --with-ssl=${OPENSSL_DIR}"
   fi                                                      
-  # Elixir/Erlang compilation flags
-  # Compile Erlang Docs
-  export KERL_BUILD_DOCS=yes
-  # Use correct ssl installation dir for Erlang compiler
-  OPENSSL_DIR=$(brew --prefix openssl)
-  export KERL_CONFIGURE_OPTIONS="--without-javac --with-ssl=${OPENSSL_DIR}"
 fi                                                        
 
 LOCAL_BIN_PATH=~/.local/bin
 GIT_NUMBER_PATH=~/.local/git-number
+export PATH="$LOCAL_BIN_PATH:$GIT_NUMBER_PATH:$PATH"
 
 # Enable shell history for iex
 export ERL_AFLAGS="-kernel shell_history enabled"
@@ -40,8 +42,10 @@ DB_USER=$( whoami )
 export DB_USER
 export DB_PASS=
 
-export ASDF_FORCE_PREPEND=true
-export PATH="${ASDF_DATA_DIR:-$HOME/.asdf}/shims:$LOCAL_BIN_PATH:$GIT_NUMBER_PATH:$PATH"
+if command -v asdf > /dev/null 2>&1; then
+  export ASDF_FORCE_PREPEND=true
+  export PATH="${ASDF_DATA_DIR:-$HOME/.asdf}/shims:$PATH"
+fi
 
 # Set the directory we want to store zinit and plugins
 ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git"
@@ -65,7 +69,7 @@ zinit light zsh-users/zsh-autosuggestions
 zinit light zsh-users/zsh-history-substring-search
 
 # Add in snippets
-zinit snippet OMZP::asdf
+# zinit snippet OMZP::asdf
 zinit snippet OMZP::encode64
 zinit snippet OMZP::git
 zinit snippet OMZP::jump
