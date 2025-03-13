@@ -70,9 +70,7 @@ case "$(uname)" in
 esac
 
 if [[ -x "$BREW_EXE" ]]; then
-  echo "Found Brew at $BREW_EXE"
-  eval "$("$BREW_EXE shellenv")"
-  echo "Ran $BREW_EXE shellenv"
+  eval "$($BREW_EXE shellenv)"
   # Elixir/Erlang compilation flags
   # Compile Erlang Docs
   export KERL_BUILD_DOCS=yes
