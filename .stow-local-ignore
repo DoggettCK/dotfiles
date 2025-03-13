@@ -21,7 +21,6 @@ _darcs
 ^/LICENSE.*
 ^/COPYING
 
-setup.sh
-windows_setup.sh
+scripts
+packages
 .*\.bak
-Brewfile
