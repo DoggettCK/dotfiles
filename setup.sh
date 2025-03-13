@@ -1,12 +1,17 @@
 #!/usr/bin/env bash
 
 install_or_update_brew() {
-    if [[ $(command -v brew) == "" ]]; then
+    case "$(uname)" in
+    Darwin) BREW_EXE=/opt/homebrew/bin/brew ;;
+    *) BREW_EXE=/home/linuxbrew/.linuxbrew/bin/brew ;;
+    esac
+
+    if [[ ! -x "$BREW_EXE" ]]; then
         echo "Installing Homebrew"
         $(command -v bash) -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
     else
         echo "Updating Homebrew"
-        brew update
+        eval "$($BREW_EXE update)"
     fi
 }
 
@@ -36,61 +41,67 @@ install_languages_with_asdf() {
     asdf install
 }
 
-# Do OS-specific software installs
-shopt -s nocasematch
-case $(uname -a) in
-*"NixOS"*) OS="NixOS" ;;
-*"Darwin"*) OS="Darwin" ;;
-*"WSL"*) OS="WSL" ;;
-*) OS="Linux" ;;
-esac
+initialize_submodules() {
+    # Git submodules include fzf-git.sh and git-number
+    echo "Updating git submodules"
+    git submodule update --init --recursive --remote
+}
 
-case "$OS" in
-NixOS)
-    echo "NixOS-specific installation"
-    echo "Symlinking configs via Stow"
-    stow_everything
-    echo "Brew currently unsupported on NixOS, install via /etc/nixos/configuration.nix"
-    # TODO: add instructions to output NixOS packages list
-    # TODO: Make font warning
-    echo "Download JetBrainsMono Nerd Font from https://www.nerdfonts.com and install via system"
-    ;;
-Darwin)
-    echo "OSX-specific installation"
-    echo "Installing or updating Brew"
-    install_or_update_brew
-    echo "Installing packages via Brew"
-    brew bundle
-    echo "Symlinking configs via Stow"
-    stow_everything
-    echo "Installing languages via ASDF"
-    install_languages_with_asdf
-    ;;
-WSL)
-    echo "WSL-specific installation"
-    echo "Installing or updating Brew"
-    install_or_update_brew
-    echo "Installing packages via Brew"
-    brew bundle
-    echo "Symlinking configs via Stow"
-    stow_everything
-    echo "Installing languages via ASDF"
-    install_languages_with_asdf
-    echo "Download JetBrainsMono Nerd Font from https://www.nerdfonts.com and install via system"
-    ;;
-*)
-    echo "Generic system installation"
-    echo "Installing or updating Brew"
-    install_or_update_brew
-    echo "Installing packages via Brew"
-    brew bundle
-    echo "Symlinking configs via Stow"
-    stow_everything
-    echo "Installing languages via ASDF"
-    install_languages_with_asdf
-    ;;
-esac
+main() {
+    # Do OS-specific software installs
+    shopt -s nocasematch
+    case $(uname -a) in
+    *"NixOS"*) OS="NixOS" ;;
+    *"Darwin"*) OS="Darwin" ;;
+    *"WSL"*) OS="WSL" ;;
+    *) OS="Linux" ;;
+    esac
 
-# Git submodules include fzf-git.sh and git-number
-echo "Updating git submodules"
-git submodule update --init --recursive --remote
+    case "$OS" in
+    NixOS)
+        echo "NixOS-specific installation"
+        echo "Symlinking configs via Stow"
+        stow_everything
+        echo "Brew currently unsupported on NixOS, install via /etc/nixos/configuration.nix"
+        # TODO: add instructions to output NixOS packages list
+        # TODO: Make font warning
+        echo "Download JetBrainsMono Nerd Font from https://www.nerdfonts.com and install via system"
+        ;;
+    Darwin)
+        echo "OSX-specific installation"
+        echo "Installing or updating Brew"
+        install_or_update_brew
+        echo "Installing packages via Brew"
+        brew bundle
+        echo "Symlinking configs via Stow"
+        stow_everything
+        echo "Installing languages via ASDF"
+        install_languages_with_asdf
+        ;;
+    WSL)
+        echo "WSL-specific installation"
+        echo "Installing or updating Brew"
+        install_or_update_brew
+        echo "Installing packages via Brew"
+        brew bundle
+        echo "Symlinking configs via Stow"
+        stow_everything
+        echo "Installing languages via ASDF"
+        install_languages_with_asdf
+        echo "Download JetBrainsMono Nerd Font from https://www.nerdfonts.com and install via system"
+        ;;
+    *)
+        echo "Generic system installation"
+        echo "Installing or updating Brew"
+        install_or_update_brew
+        echo "Installing packages via Brew"
+        brew bundle
+        echo "Symlinking configs via Stow"
+        stow_everything
+        echo "Installing languages via ASDF"
+        install_languages_with_asdf
+        ;;
+    esac
+
+    initialize_submodules
+}
