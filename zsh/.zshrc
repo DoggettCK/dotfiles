@@ -6,10 +6,6 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
-GREEN='\033[0;32m'
-RED='\033[0;31m'
-NC='\033[0m'
-
 # Enable shell history for iex
 export ERL_AFLAGS="-kernel shell_history enabled"
 
