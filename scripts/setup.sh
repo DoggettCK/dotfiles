@@ -18,16 +18,17 @@ fi
 case "$OS" in
 Darwin)
     BREW_EXE=/opt/homebrew/bin/brew
-    BREWFILE="${BUNDLE_DIR}/../packages/Brewfile"
+    BREWFILE="${BUNDLE_DIR}../packages/Brewfile"
     ;;
 Arch)
     BREW_EXE=/home/linuxbrew/.linuxbrew/bin/brew
-    BREWFILE="${BUNDLE_DIR}/../packages/Brewfile.arch"
-    SYSTEM_PACKAGES="${BUNDLE_DIR}/../packages/packages.arch"
+    BREWFILE="${BUNDLE_DIR}../packages/Brewfile.arch"
+    SYSTEM_PACKAGES="${BUNDLE_DIR}../packages/packages.arch"
     ;;
 *)
     BREW_EXE=/home/linuxbrew/.linuxbrew/bin/brew
-    BREWFILE="${BUNDLE_DIR}/../packages/Brewfile.linux"
+    BREWFILE="${BUNDLE_DIR}../packages/Brewfile.linux"
+    SYSTEM_PACKAGES="${BUNDLE_DIR}../packages/packages.linux"
     ;;
 esac
 
@@ -37,7 +38,7 @@ brew_update() {
 
 brew_bundle() {
     eval "$($BREW_EXE shellenv)"
-    brew bundle -v "$@"
+    brew bundle -v --file "$@"
 }
 
 install_or_update_brew() {
@@ -72,12 +73,23 @@ initialize_submodules() {
     git submodule update --init --recursive --remote
 }
 
+install_arch_packages() {
+    sudo pacman -S - <"$SYSTEM_PACKAGES"
+}
+
+install_ubuntu_packages() {
+    sudo apt install $(
+        grep -vE "^\s*#" packages/packages.linux |
+            tr "\n" " "
+    )
+}
+
 main() {
     case "$OS" in
     Arch)
         echo "Arch-specific installation"
         echo "Installing packages via Pacman"
-        sudo pacman -S - <"$SYSTEM_PACKAGES"
+        install_arch_packages
         echo "Installing or updating Brew"
         install_or_update_brew
         echo "Installing packages via Brew"
@@ -96,6 +108,8 @@ main() {
         ;;
     *)
         echo "Generic system installation"
+        echo "Installing packages via Apt"
+        install_ubuntu_packages
         echo "Installing or updating Brew"
         install_or_update_brew
         echo "Installing packages via Brew"
