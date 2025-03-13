@@ -35,7 +35,7 @@ zinit light zsh-users/zsh-autosuggestions
 zinit light zsh-users/zsh-history-substring-search
 
 # Add in snippets
-zinit snippet OMZP::asdf
+# zinit snippet OMZP::asdf
 zinit snippet OMZP::encode64
 zinit snippet OMZP::git
 zinit snippet OMZP::jump
