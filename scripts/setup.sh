@@ -57,7 +57,6 @@ stow_package() {
 
 stow_everything() {
     stow_package "alacritty"
-    stow_package "asdf"
     stow_package "fzf"
     stow_package "git"
     stow_package "kitty"
