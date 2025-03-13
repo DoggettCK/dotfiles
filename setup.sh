@@ -1,17 +1,26 @@
 #!/usr/bin/env bash
 
-install_or_update_brew() {
-    case "$(uname)" in
-    Darwin) BREW_EXE=/opt/homebrew/bin/brew ;;
-    *) BREW_EXE=/home/linuxbrew/.linuxbrew/bin/brew ;;
-    esac
+case "$(uname)" in
+  Darwin) BREW_EXE=/opt/homebrew/bin/brew ;;
+  *) BREW_EXE=/home/linuxbrew/.linuxbrew/bin/brew ;;
+esac
 
+brew_update() {
+  eval "$($BREW_EXE update)"
+}
+
+brew_bundle() {
+  eval "$($BREW_EXE shellenv)"
+  brew bundle -v
+}
+
+install_or_update_brew() {
     if [[ ! -x "$BREW_EXE" ]]; then
         echo "Installing Homebrew"
         $(command -v bash) -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
     else
         echo "Updating Homebrew"
-        eval "$($BREW_EXE update)"
+	brew_update
     fi
 }
 
@@ -72,7 +81,7 @@ main() {
         echo "Installing or updating Brew"
         install_or_update_brew
         echo "Installing packages via Brew"
-        brew bundle
+        brew_bundle
         echo "Symlinking configs via Stow"
         stow_everything
         echo "Installing languages via ASDF"
@@ -83,7 +92,7 @@ main() {
         echo "Installing or updating Brew"
         install_or_update_brew
         echo "Installing packages via Brew"
-        brew bundle
+        brew_bundle
         echo "Symlinking configs via Stow"
         stow_everything
         echo "Installing languages via ASDF"
@@ -95,7 +104,7 @@ main() {
         echo "Installing or updating Brew"
         install_or_update_brew
         echo "Installing packages via Brew"
-        brew bundle
+        brew_bundle
         echo "Symlinking configs via Stow"
         stow_everything
         echo "Installing languages via ASDF"
@@ -105,3 +114,5 @@ main() {
 
     initialize_submodules
 }
+
+main
