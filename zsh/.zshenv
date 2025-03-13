@@ -165,6 +165,11 @@ if command -v yazi > /dev/null 2>&1; then
     rm -f -- "$tmp"
   }
 fi
+
+GREEN='\033[0;32m'
+RED='\033[0;31m'
+NC='\033[0m'
+
 add_ssh_key ()
 {
   key="${1:-$HOME/.ssh/id_rsa}"

@@ -1,5 +1,22 @@
 #!/usr/bin/env bash
 
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+YELLOW='\033[0;33m'
+NC='\033[0m'
+
+info_msg() {
+    echo -e "${GREEN}${1}${NC}"
+}
+
+warning_msg() {
+    echo -e "${YELLOW}${1}${NC}"
+}
+
+error_msg() {
+    echo -e "${RED}${1}${NC}"
+}
+
 # Detect OS
 shopt -s nocasematch
 case $(uname -a) in
@@ -43,16 +60,16 @@ brew_bundle() {
 
 install_or_update_brew() {
     if [[ ! -x "$BREW_EXE" ]]; then
-        echo "Installing Homebrew"
+        info_msg "Installing Homebrew"
         $(command -v bash) -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
     else
-        echo "Updating Homebrew"
+        info_msg "Updating Homebrew"
         brew_update
     fi
 }
 
 stow_package() {
-    echo "Symlinking ${1} config with stow"
+    info_msg "Symlinking ${1} config with stow"
     stow -R -v -t ~ "$1"
 }
 
@@ -69,7 +86,7 @@ stow_everything() {
 
 initialize_submodules() {
     # Git submodules include fzf-git.sh and git-number
-    echo "Updating git submodules"
+    info_msg "Updating git submodules"
     git submodule update --init --recursive --remote
 }
 
@@ -87,36 +104,36 @@ install_ubuntu_packages() {
 main() {
     case "$OS" in
     Arch)
-        echo "Arch-specific installation"
-        echo "Installing packages via Pacman"
+        info_msg "Arch-specific installation"
+        info_msg "Installing packages via Pacman"
         install_arch_packages
-        echo "Installing or updating Brew"
+        info_msg "Installing or updating Brew"
         install_or_update_brew
-        echo "Installing packages via Brew"
+        info_msg "Installing packages via Brew"
         brew_bundle "$BREWFILE"
-        echo "Symlinking configs via Stow"
+        info_msg "Symlinking configs via Stow"
         stow_everything
         ;;
     Darwin)
-        echo "OSX-specific installation"
-        echo "Installing or updating Brew"
+        info_msg "OSX-specific installation"
+        info_msg "Installing or updating Brew"
         install_or_update_brew
-        echo "Installing packages via Brew"
+        info_msg "Installing packages via Brew"
         brew_bundle "$BREWFILE"
-        echo "Symlinking configs via Stow"
+        info_msg "Symlinking configs via Stow"
         stow_everything
         ;;
     *)
-        echo "Generic system installation"
-        echo "Installing packages via Apt"
+        info_msg "Generic system installation"
+        info_msg "Installing packages via Apt"
         install_ubuntu_packages
-        echo "Installing or updating Brew"
+        info_msg "Installing or updating Brew"
         install_or_update_brew
-        echo "Installing packages via Brew"
+        info_msg "Installing packages via Brew"
         brew_bundle "$BREWFILE"
-        echo "Symlinking configs via Stow"
+        info_msg "Symlinking configs via Stow"
         stow_everything
-        echo "Download JetBrainsMono Nerd Font from https://www.nerdfonts.com and install via system"
+        error_msg "Download JetBrainsMono Nerd Font from https://www.nerdfonts.com and install via system"
         ;;
     esac
 
