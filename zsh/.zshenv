@@ -64,13 +64,20 @@ DB_USER=$( whoami )
 export DB_USER
 export DB_PASS=
 
-if command -v brew > /dev/null 2>&1; then
-  eval "$(brew shellenv)"
+case "$(uname)" in
+  Darwin) BREW_EXE=/opt/homebrew/bin/brew ;;
+  *) BREW_EXE=/home/linuxbrew/.linuxbrew/bin/brew ;;
+esac
+
+if [[ -x "$BREW_EXE" ]]; then
+  echo "Found Brew at $BREW_EXE"
+  eval "$("$BREW_EXE shellenv")"
+  echo "Ran $BREW_EXE shellenv"
   # Elixir/Erlang compilation flags
   # Compile Erlang Docs
   export KERL_BUILD_DOCS=yes
   # Use correct ssl installation dir for Erlang compiler
-  OPENSSL_DIR=$(brew --prefix openssl)
+  OPENSSL_DIR=$(eval "$BREW_EXE --prefix openssl")
   export KERL_CONFIGURE_OPTIONS="--without-javac --with-ssl=${OPENSSL_DIR}"
 fi
 
