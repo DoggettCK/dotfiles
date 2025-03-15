@@ -21,6 +21,4 @@ _darcs
 ^/LICENSE.*
 ^/COPYING
 
-scripts
-packages
 .*\.bak
