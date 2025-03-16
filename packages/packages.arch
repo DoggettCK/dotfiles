@@ -1,5 +1,6 @@
 alacritty
 bat
+elixir
 eza
 fd
 ffmpeg
@@ -8,10 +9,12 @@ git
 github-cli
 godot
 keychain
+keyd
 lastpass-cli
 lazygit
 neofetch
 neovim
+npm
 perl-rename
 rainfrog
 ripgrep
@@ -21,8 +24,8 @@ the_silver_searcher
 tldr
 tmux
 ttf-jetbrains-mono-nerd
-uv
 unzip
+uv
 vivaldi
 vivaldi-ffmpeg-codecs
 wezterm
