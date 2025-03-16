@@ -102,6 +102,7 @@ alias gsb='git checkout -' # Switch to previous branch
 alias ism='iex -S mix'
 alias ismt='MIX_ENV=test iex -S mix'
 alias j='jump'
+alias lg="lazygit"
 alias ls="eza --color=always --long --git --no-filesize --icons=always --no-time --no-user --no-permissions"
 alias mt='mix test'
 alias mtw='mix test.watch'
