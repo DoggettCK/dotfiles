@@ -41,7 +41,6 @@ require("lazy").setup({
   require("plugins.autocompletion"),
   require("plugins.buffers"),
   require("plugins.conform"),
-  require("plugins.database"),
   require("plugins.emmet"),
   require("plugins.gitsigns"),
   require("plugins.harpoon"),
