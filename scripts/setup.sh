@@ -22,7 +22,13 @@ shopt -s nocasematch
 case $(uname -a) in
 *"Arch"*) OS="Arch" ;;
 *"Darwin"*) OS="Darwin" ;;
-*) OS="Linux" ;;
+*)
+    if command -v pacman >/dev/null 2>&1; then
+        OS="Arch"
+    else
+        OS="Linux"
+    fi
+    ;;
 esac
 
 # Detect script directory

@@ -1,15 +1,12 @@
 bat
-discord
 elixir
 erlang
 eza
 fd
 ffmpeg
 fzf
-ghostty
 git
 github-cli
-godot
 keychain
 keyd
 lastpass-cli
@@ -20,7 +17,6 @@ npm
 perl-rename
 rainfrog
 ripgrep
-steam
 stow
 the_silver_searcher
 tldr
@@ -28,9 +24,6 @@ tmux
 ttf-jetbrains-mono-nerd
 unzip
 uv
-vivaldi
-vivaldi-ffmpeg-codecs
-wezterm
 wl-clipboard
 xh
 yazi
