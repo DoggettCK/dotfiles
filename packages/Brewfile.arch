@@ -1,4 +1,0 @@
-tap "homebrew/bundle"
-tap "homebrew/services"
-brew "exercism"
-brew "lazydocker"
