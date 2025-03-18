@@ -44,8 +44,6 @@ Darwin)
     BREWFILE="${BUNDLE_DIR}../packages/Brewfile"
     ;;
 Arch)
-    BREW_EXE=/home/linuxbrew/.linuxbrew/bin/brew
-    BREWFILE="${BUNDLE_DIR}../packages/Brewfile.arch"
     SYSTEM_PACKAGES="${BUNDLE_DIR}../packages/packages.arch"
     ;;
 *)
@@ -80,12 +78,12 @@ stow_package() {
 }
 
 stow_everything() {
-    stow_package "alacritty"
     stow_package "fzf"
     stow_package "git"
-    stow_package "kitty"
     stow_package "neovim"
     stow_package "tmux"
+    # TODO: Tear vim down to nothing
+    # TODO: Move packages under scripts
     stow_package "vim"
     stow_package "zsh"
 }
@@ -113,10 +111,6 @@ main() {
         info_msg "Arch-specific installation"
         info_msg "Installing packages via Pacman"
         install_arch_packages
-        info_msg "Installing or updating Brew"
-        install_or_update_brew
-        info_msg "Installing packages via Brew"
-        brew_bundle "$BREWFILE"
         info_msg "Symlinking configs via Stow"
         stow_everything
         ;;
