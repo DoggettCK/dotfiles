@@ -1,4 +1,3 @@
-alacritty
 bat
 discord
 elixir
@@ -6,6 +5,7 @@ erlang
 eza
 fd
 ffmpeg
+fzf
 ghostty
 git
 github-cli

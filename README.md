@@ -33,9 +33,11 @@ $ stow -t ~ neovim
 
 ## Key remapping
 
-My laptop has an extra backslash key next to a half-sized left Shift key, and I
-also wanted to remap Caps Lock to Ctrl. [keyd](https://github.com/rvaiya/keyd/)
-turned out to be the solution. Install it as a service and add the following to
+My laptop has an extra backslash key next to a half-sized left Shift
+key, and I also wanted to remap Caps Lock to Ctrl.
+[keyd](https://github.com/rvaiya/keyd/) turned out to be the
+solution. Install it as a service with `sudo systemctl enable keyd`
+and `sudo systemctl start keyd`, then add the following to
 `/etc/keyd/default.conf`, then run `sudo keyd reload`.
 
 ```
