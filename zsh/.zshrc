@@ -87,9 +87,9 @@ _fzf_comprun() {
 }
 
 # Aliases
-if [[ $(uname) =~ "WSL" ]]; then
-  alias bat="batcat"
-fi
+command -v batcat > /dev/null 2>&1 && alias bat="batcat"
+command -v hyprctl > /dev/null 2>&1 && alias hc="hyprctl"
+
 alias ga='git number add'
 alias gcv='git commit -v' # Commit with editor to see changes
 alias gfp='git push -f origin $(git rev-parse --abbrev-ref HEAD)'
