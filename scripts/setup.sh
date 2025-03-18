@@ -79,7 +79,7 @@ stow_package() {
 
 stow_everything() {
     stow_package "fzf"
-    stow_package "git"
+    stow_package "git-number"
     stow_package "neovim"
     stow_package "tmux"
     # TODO: Tear vim down to nothing
