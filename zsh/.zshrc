@@ -129,13 +129,15 @@ mv_md5() {
   mv "${md5_sum}.${ext}.tmp" "${md5_sum}.${ext}";
 }
 
-# Rename a given file (or all files) to remove common YTS tags
 clean_yts() {
+  # Rename given (or all) dir(s) to remove anything between square brackets
+  # that isn't [480p], [720p], [1080p], or [2160p].
+  CLEAN_REGEX="s/ \[((?!(2160p|1080p|720p|480p)).)*\]//gi"
+
   if [ "$#" -eq 0 ]; then
-      # TODO: Figure out how to clean this up
-    rename -e "s/ \[(YTS\...|5\.1|UPSCALE|REPACK|BluRay|WEBrip|x265|10bit|RUSSIAN|BOOTLEG|DVDRip|REMASTERED|CRITERION|EXTENDED CUT)\]//gi" -- *
+    /usr/bin/vendor_perl/rename "$CLEAN_REGEX" -- *
   else
-    rename -e "s/ \[(YTS\...|5\.1|UPSCALE|REPACK|BluRay|WEBrip|x265|10bit|RUSSIAN|BOOTLEG|DVDRip|REMASTERED|CRITERION|EXTENDED CUT)\]//gi" "$@"
+    /usr/bin/vendor_perl/rename "$CLEAN_REGEX" "$@"
   fi
 
   return 0;
