@@ -14,10 +14,12 @@ DEFAULT_USER=$(whoami)
 export BAT_THEME="base16-256"
 export DEFAULT_USER
 export EDITOR="nvim"
+export EZA_CONFIG_DIR="$HOME/.config/eza"
 export GIT_EDITOR="nvim"
 export LANG=en_US.UTF-8
 export LS_COLORS=$LS_COLORS:"ow=34;40:"
 export TERM=xterm-256color
+export XDG_CONFIG_HOME="$HOME/.config/"
 
 ## Use fd instead of fzf
 export FZF_DEFAULT_COMMAND="fd --hidden --strip-cwd-prefix --exclude .git"
@@ -191,6 +193,10 @@ source "${ZINIT_HOME}/zinit.zsh"
 # Add in Powerlevel10k
 zinit ice depth=1; zinit light romkatv/powerlevel10k
 
+if [[ -r "$HOME/.config/zsh/catppuccin_mocha-zsh-syntax-highlighting.zsh" ]]; then
+  source "$HOME/.config/zsh/catppuccin_mocha-zsh-syntax-highlighting.zsh"
+fi
+
 # Add in zsh plugins
 zinit light zsh-users/zsh-syntax-highlighting
 zinit light zsh-users/zsh-completions
@@ -198,7 +204,7 @@ zinit light zsh-users/zsh-autosuggestions
 zinit light zsh-users/zsh-history-substring-search
 
 # Add in snippets
-# zinit snippet OMZP::asdf
+zinit snippet OMZP::asdf
 zinit snippet OMZP::encode64
 zinit snippet OMZP::git
 zinit snippet OMZP::jump
