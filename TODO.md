@@ -1,0 +1,1 @@
+- Hibernate in wlogout/layout doesn't work properly, but that's an Arch thing
