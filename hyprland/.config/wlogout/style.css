@@ -1,0 +1,70 @@
+* {
+  background-image: none;
+  transition: 20ms;
+  box-shadow: none;
+}
+
+window {
+  background-color: rgba(24, 24, 24, 0.9);
+}
+
+button {
+  color: #ffffff;
+  font-size: 20px;
+
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 25%;
+
+  border-style: solid;
+  /* background-color: rgba(24, 24, 24, 0.9); */
+  border: 3px solid #cba6f7;
+
+  box-shadow:
+    0 4px 8px 0 rgba(0, 0, 0, 0.2),
+    0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+button:focus,
+button:active,
+button:hover {
+  color: #cba6f7;
+  background-color: rgba(120, 120, 120, 0.5);
+  border: 3px solid #cba6f7;
+}
+
+#lock {
+  margin: 10px;
+  border-radius: 20px;
+  background-image: url("./icons/lock.svg");
+}
+
+#logout {
+  margin: 10px;
+  border-radius: 20px;
+  background-image: url("./icons/logout.svg");
+}
+
+#suspend {
+  margin: 10px;
+  border-radius: 20px;
+  background-image: url("./icons/suspend.svg");
+}
+
+#hibernate {
+  margin: 10px;
+  border-radius: 20px;
+  background-image: url("./icons/hibernate.svg");
+}
+
+#shutdown {
+  margin: 10px;
+  border-radius: 20px;
+  background-image: url("./icons/shutdown.svg");
+}
+
+#reboot {
+  margin: 10px;
+  border-radius: 20px;
+  background-image: url("./icons/reboot.svg");
+}
