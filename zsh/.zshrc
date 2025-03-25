@@ -49,14 +49,17 @@ export HISTSIZE=5000
 export HISTFILE=~/.zsh_history
 export SAVEHIST=$HISTSIZE
 export HISTDUP=erase
-export HISTORY_IGNORE="jrnl*|lpass*"
 setopt appendhistory
 setopt sharehistory
-setopt hist_ignore_space
 setopt hist_ignore_all_dups
 setopt hist_save_no_dups
 setopt hist_ignore_dups
 setopt hist_find_no_dups
+setopt hist_ignore_space
+# history will ignore anything starting with a space, but zsh doesn't respect
+# $HISTORY_IGNORE, so alias commands I want to ignore to prepend a space.
+alias jrnl=" jrnl"
+alias lpass=" lpass"
 
 
 LOCAL_BIN_PATH=~/.local/bin
