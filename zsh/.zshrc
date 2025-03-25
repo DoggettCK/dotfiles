@@ -156,32 +156,12 @@ if command -v yazi > /dev/null 2>&1; then
   }
 fi
 
-GREEN='\033[0;32m'
-RED='\033[0;31m'
-NC='\033[0m'
-
-add_ssh_key ()
-{
-  key="${1:-$HOME/.ssh/id_rsa}"
-  if [ -f "$key" ]; then
-    echo "${GREEN}OK:${NC} Adding SSH key at $key"
-    eval `$(keychain --quiet --eval --agents ssh "$key")`
-  else
-    echo "${RED}ERROR:${NC} No SSH key found at $key"
-  fi
-}
-
-if [[ $(uname) =~ "Linux" ]]; then
-  if [[ ! -S ~/.ssh/ssh_auth_sock ]]; then
-    eval `ssh-agent`
-    ln -sf "$SSH_AUTH_SOCK" ~/.ssh/ssh_auth_sock
-  fi
-  export SSH_AUTH_SOCK=~/.ssh/ssh_auth_sock
+# Make sure ssh-agent is running and only one copy across logins
+if [[ ! -S "$HOME/.ssh/ssh_auth_sock" ]]; then
+  eval "$(ssh-agent > /dev/null 2>&1)"
+  ln -sf "$SSH_AUTH_SOCK" "$HOME/.ssh/ssh_auth_sock"
 fi
-
-# SSH Key Caching
-# add_ssh_key ~/.ssh/id_rsa #> /dev/null 2>&1;
-# add_ssh_key ~/.ssh/id_ed25519 #> /dev/null 2>&1;
+export SSH_AUTH_SOCK="$HOME/.ssh/ssh_auth_sock"
 
 # Enable shell history for iex
 export ERL_AFLAGS="-kernel shell_history enabled"
