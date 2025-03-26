@@ -1,12 +1,18 @@
 #!/usr/bin/env bash
 
-# shellcheck disable=1091
-source common/functions
+SCRIPT_DIR=$(
+    # shellcheck disable=2164
+    cd "$(dirname "${BASH_SOURCE[0]}")"
+    pwd -P
+)
+DOTFILES_DIR="$SCRIPT_DIR/.."
 
-OS=get_os_name
-BUNDLE_DIR=get_script_directory
+# shellcheck disable=1091
+source "$SCRIPT_DIR/common_functions"
+
+OS=$(get_os_name)
 BREW_EXE=/opt/homebrew/bin/brew
-BREWFILE="${BUNDLE_DIR}/packages/Brewfile"
+BREWFILE="${SCRIPT_DIR}/packages/Brewfile"
 
 if [[ "$OS" == "OSX" ]]; then
     info_msg "OSX Detected"
@@ -35,20 +41,12 @@ install_or_update_brew() {
 }
 
 stow_everything() {
-    stow_package "eza"
-    stow_package "fzf"
-    stow_package "git-number"
-    stow_package "kitty"
-    stow_package "lazygit"
-    stow_package "neovim"
-    stow_package "tmux"
     # TODO: Tear vim down to nothing
-    stow_package "vim"
-    stow_package "zsh"
+    stow_packages "eza" "fzf" "git-number" "kitty" "lazygit" "neovim" "tmux" "vim" "zsh"
 }
 
 main() {
-    info_msg "OSX-specific installation"
+    pushd "$DOTFILES_DIR" >/dev/null 2>&1 || exit 127
     info_msg "Installing or updating Brew"
     install_or_update_brew
     info_msg "Installing packages via Brew"
@@ -56,6 +54,7 @@ main() {
     info_msg "Symlinking configs via Stow"
     stow_everything
     initialize_submodules
+    popd >/dev/null 2>&1 || exit 127
 }
 
 main

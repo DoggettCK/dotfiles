@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # shellcheck disable=1091
-source common/functions
+source common_functions
 
 OS=get_os_name
 BUNDLE_DIR=get_script_directory

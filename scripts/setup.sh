@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # shellcheck disable=1091
-source common/functions
+source common_functions
 
 # Detect OS
 shopt -s nocasematch
