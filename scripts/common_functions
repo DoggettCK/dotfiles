@@ -21,27 +21,23 @@ error_msg() {
 get_os_name() {
     shopt -s nocasematch
     case $(uname -a) in
-    *"Darwin"*) "OSX" ;;
-    *"Arch"*) "Arch" ;;
-    *) "Unknown" ;;
+    *"Darwin"*) echo "OSX" ;;
+    *"Arch"*) echo "Arch" ;;
+    *) echo "Unknown" ;;
     esac
-}
-
-# Detect script directory (may not be directory script was run from), so we can
-# get correct path to packages/bundles
-get_script_directory() {
-    # shellcheck disable=SC2128
-    if [[ $BASH_SOURCE = */* ]]; then
-        "${BASH_SOURCE%/*}"
-    else
-        "."
-    fi
 }
 
 # Stow an individual package dir to the $HOME directory
 stow_package() {
     info_msg "Symlinking ${1} config to $HOME with stow"
     stow -R -v -t "$HOME" "$1"
+}
+
+# Stow a list of packages to the $HOME directory
+stow_packages() {
+    for package in "$@"; do
+        stow_package "$package"
+    done
 }
 
 # Installs git packages (fzf-git and git-number)
