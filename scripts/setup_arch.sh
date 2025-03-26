@@ -1,11 +1,18 @@
 #!/usr/bin/env bash
 
-# shellcheck disable=1091
-source common_functions
+SCRIPT_DIR=$(
+    # shellcheck disable=2164
+    cd "$(dirname "${BASH_SOURCE[0]}")"
+    pwd -P
+)
+DOTFILES_DIR="$SCRIPT_DIR/.."
+PACKAGES_DIR="$SCRIPT_DIR/packages"
 
-OS=get_os_name
-BUNDLE_DIR=get_script_directory
-SYSTEM_PACKAGES="${BUNDLE_DIR}/packages/packages.arch"
+# shellcheck disable=1091
+source "$SCRIPT_DIR/common_functions"
+
+OS=$(get_os_name)
+SYSTEM_PACKAGES="${PACKAGES_DIR}/packages.arch"
 
 if [[ "$OS" == "Arch" ]]; then
     info_msg "Arch Detected"
@@ -15,32 +22,28 @@ else
 fi
 
 stow_everything() {
-    stow_package "eza"
-    stow_package "fzf"
-    stow_package "git-number"
-    stow_package "hyprland"
-    stow_package "kitty"
-    stow_package "lazygit"
-    stow_package "neovim"
-    stow_package "tmux"
+    info_msg "Symlinking configs via Stow"
     # TODO: Tear vim down to nothing
-    stow_package "vim"
-    stow_package "zsh"
+    stow_packages "eza" "fzf" "git-number" "hyprland" "kitty" "lazygit" "neovim" "tmux" "vim" "zsh"
 }
 
-install_arch_packages() {
+install_pacman_packages() {
+    # TODO: Separate packages into pacman/yay
+    info_msg "Installing packages via Pacman"
     # shellcheck disable=2024
     sudo pacman -S - <"$SYSTEM_PACKAGES"
 }
 
 main() {
-    info_msg "Arch-specific installation"
-    info_msg "Installing packages via Pacman"
+    pushd "$DOTFILES_DIR" >/dev/null 2>&1 || exit 127
+
     install_pacman_packages
-    info_msg "Symlinking configs via Stow"
+
     stow_everything
 
     initialize_submodules
+
+    popd >/dev/null 2>&1 || exit 127
 }
 
 main

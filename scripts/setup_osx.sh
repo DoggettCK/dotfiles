@@ -6,13 +6,14 @@ SCRIPT_DIR=$(
     pwd -P
 )
 DOTFILES_DIR="$SCRIPT_DIR/.."
+PACKAGES_DIR="$SCRIPT_DIR/packages"
 
 # shellcheck disable=1091
 source "$SCRIPT_DIR/common_functions"
 
 OS=$(get_os_name)
 BREW_EXE=/opt/homebrew/bin/brew
-BREWFILE="${SCRIPT_DIR}/packages/Brewfile"
+BREWFILE="${PACKAGES_DIR}/Brewfile"
 
 if [[ "$OS" == "OSX" ]]; then
     info_msg "OSX Detected"
@@ -26,8 +27,9 @@ brew_update() {
 }
 
 brew_bundle() {
+    info_msg "Installing packages via Brew"
     eval "$($BREW_EXE shellenv)"
-    brew bundle -v --file "$@"
+    brew bundle -v --file "$BREWFILE"
 }
 
 install_or_update_brew() {
@@ -41,19 +43,22 @@ install_or_update_brew() {
 }
 
 stow_everything() {
+    info_msg "Symlinking configs via Stow"
     # TODO: Tear vim down to nothing
     stow_packages "eza" "fzf" "git-number" "kitty" "lazygit" "neovim" "tmux" "vim" "zsh"
 }
 
 main() {
     pushd "$DOTFILES_DIR" >/dev/null 2>&1 || exit 127
-    info_msg "Installing or updating Brew"
+
     install_or_update_brew
-    info_msg "Installing packages via Brew"
-    brew_bundle "$BREWFILE"
-    info_msg "Symlinking configs via Stow"
+
+    brew_bundle
+
     stow_everything
+
     initialize_submodules
+
     popd >/dev/null 2>&1 || exit 127
 }
 
