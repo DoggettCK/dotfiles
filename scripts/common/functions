@@ -1,0 +1,52 @@
+#!/usr/bin/env bash
+
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+YELLOW='\033[0;33m'
+NC='\033[0m'
+
+info_msg() {
+    echo -e "${GREEN}${1}${NC}"
+}
+
+warning_msg() {
+    echo -e "${YELLOW}${1}${NC}"
+}
+
+error_msg() {
+    echo -e "${RED}${1}${NC}"
+}
+
+# Detect OS
+get_os_name() {
+    shopt -s nocasematch
+    case $(uname -a) in
+    *"Darwin"*) "OSX" ;;
+    *"Arch"*) "Arch" ;;
+    *) "Unknown" ;;
+    esac
+}
+
+# Detect script directory (may not be directory script was run from), so we can
+# get correct path to packages/bundles
+get_script_directory() {
+    # shellcheck disable=SC2128
+    if [[ $BASH_SOURCE = */* ]]; then
+        "${BASH_SOURCE%/*}"
+    else
+        "."
+    fi
+}
+
+# Stow an individual package dir to the $HOME directory
+stow_package() {
+    info_msg "Symlinking ${1} config to $HOME with stow"
+    stow -R -v -t "$HOME" "$1"
+}
+
+# Installs git packages (fzf-git and git-number)
+initialize_submodules() {
+    # Git submodules include fzf-git.sh and git-number
+    info_msg "Updating git submodules"
+    git submodule update --init --recursive --remote
+}
