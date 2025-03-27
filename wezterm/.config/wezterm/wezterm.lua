@@ -33,6 +33,10 @@ tabline.setup({
 })
 tabline.apply_to_config(config)
 
+-- Disable Wayland in WezTerm for now, not working in Arch, will mainly be
+-- using this in Windows anyway
+config.enable_wayland = false
+
 config.color_scheme = "Catppuccin Mocha"
 config.font = wezterm.font({
 	family = "JetBrainsMonoNL Nerd Font Mono",
