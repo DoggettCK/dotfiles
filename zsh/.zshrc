@@ -159,12 +159,8 @@ if command -v yazi > /dev/null 2>&1; then
   }
 fi
 
-# Make sure ssh-agent is running and only one copy across logins
-if [[ ! -S "$HOME/.ssh/ssh_auth_sock" ]]; then
-  eval "$(ssh-agent > /dev/null 2>&1)"
-  ln -sf "$SSH_AUTH_SOCK" "$HOME/.ssh/ssh_auth_sock"
-fi
-export SSH_AUTH_SOCK="$HOME/.ssh/ssh_auth_sock"
+# Load all SSH keys into a singleton ssh-agent
+eval "$(keychain --eval --quiet "$(find ~/.ssh -type f -name "id_*" -not -name "*.*")")"
 
 # Enable shell history for iex
 export ERL_AFLAGS="-kernel shell_history enabled"
