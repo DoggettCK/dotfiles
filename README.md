@@ -56,3 +56,16 @@ capslock = overload(control, esc)
 # Remaps the escape key to capslock
 # esc = capslock
 ```
+
+## Images
+
+### Wallpaper
+
+Hyprlock and Hyprpaper configs look for their wallpaper at
+`~/.config/background`, so either copy your wallpaper there, or link to it with
+`ln -sf /path/to/some/image.jpg ~/.config/background`.
+
+### Lock screen profile picture
+
+Hyprlock looks for a profile picture at `~/.face`, so again, save the picture
+to that file, or link to it with `ln -sf /path/to/some/image.jpg ~/.face`.
