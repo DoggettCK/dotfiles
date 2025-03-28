@@ -160,7 +160,7 @@ if command -v yazi > /dev/null 2>&1; then
 fi
 
 # Load all SSH keys into a singleton ssh-agent
-eval "$(keychain --eval --quiet "$(find ~/.ssh -type f -name "id_*" -not -name "*.*")")"
+eval "$(keychain --eval --quiet)"
 
 # Enable shell history for iex
 export ERL_AFLAGS="-kernel shell_history enabled"
