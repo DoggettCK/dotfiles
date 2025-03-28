@@ -126,11 +126,12 @@ window {
 
 /* Selected Entry */
 #entry:selected {
-  border: 0.11em solid @lavender;
+  background-color: @mauve;
+  border: 0.11em solid @mauve;
 }
 
 #entry:selected #text {
-  color: @mauve;
+  color: @base;
 }
 
 #entry:drop(active) {
