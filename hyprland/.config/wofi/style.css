@@ -52,7 +52,8 @@
 @define-color crust-rgb  rgb(17, 17, 27);
 
 * {
-  font-family: "CaskaydiaCove Nerd Font", monospace;
+  font-family: "JetBrainsMonoNL Nerd Font Mono";
+  font-weight: bold;
   font-size: 18px;
 }
 
