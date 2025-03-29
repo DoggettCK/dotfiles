@@ -1,0 +1,148 @@
+"$schema" = 'https://starship.rs/config-schema.json'
+
+format = """
+$os\
+$username\
+[](bg:yellow fg:peach)\
+$directory\
+[](fg:yellow bg:teal)\
+$git_branch\
+$git_status\
+[](fg:teal bg:sapphire)\
+$c\
+$elixir\
+$golang\
+$haskell\
+$lua\
+$nodejs\
+$python\
+$ruby\
+$rust\
+[](fg:sapphire bg:lavender)\
+$time\
+[ ](fg:lavender)\
+$line_break$character"""
+
+palette = 'catppuccin_mocha'
+
+[palettes.catppuccin_mocha]
+rosewater = '#f5e0dc'
+flamingo = '#f2cdcd'
+pink = '#f5c2e7'
+mauve = '#cba6f7'
+red = '#f38ba8'
+maroon = '#eba0ac'
+peach = '#fab387'
+yellow = '#f9e2af'
+green = '#a6e3a1'
+teal = '#94e2d5'
+sky = '#89dceb'
+sapphire = '#74c7ec'
+blue = '#89b4fa'
+lavender = '#b4befe'
+text = '#cdd6f4'
+subtext1 = '#bac2de'
+subtext0 = '#a6adc8'
+overlay2 = '#9399b2'
+overlay1 = '#7f849c'
+overlay0 = '#6c7086'
+surface2 = '#585b70'
+surface1 = '#45475a'
+surface0 = '#313244'
+base = '#1e1e2e'
+mantle = '#181825'
+crust = '#11111b'
+
+[os]
+disabled = false
+style = "bg:peach fg:crust"
+
+[username]
+show_always = true
+style_user = "bg:peach fg:crust"
+style_root = "bg:peach fg:crust"
+format = '[ $user ]($style)'
+
+[git_status]
+style = "bg:teal"
+format = '[[($all_status$ahead_behind )](fg:crust bg:teal)]($style)'
+
+[time]
+disabled = false
+time_format = "%R"
+style = "bg:mantle"
+format = '[[  $time ](fg:crust bg:lavender)]($style)'
+
+[line_break]
+disabled = false
+
+[character]
+disabled = false
+# Note the use of Catppuccin color 'peach'
+success_symbol = "[[󰄛](green) ❯](peach)"
+error_symbol = "[[󰄛](red) ❯](peach)"
+vimcmd_symbol = "[󰄛 ❮](subtext1)" # For use with zsh-vi-mode
+vimcmd_replace_one_symbol = '[󰄛 ❮](bold fg:mauve)'
+vimcmd_replace_symbol = '[󰄛 ❮](bold fg:mauve)'
+vimcmd_visual_symbol = '[󰄛 ❮](bold fg:yellow)'
+
+############## NERD FONT SYMBOLS ###############
+[c]
+symbol = " "
+style = "bg:sapphire"
+format = '[[ $symbol( $version) ](fg:crust bg:sapphire)]($style)'
+
+[directory]
+read_only = " 󰌾"
+style = "fg:crust bg:yellow"
+format = "[ $path ]($style)"
+
+[elixir]
+symbol = " "
+style = "bg:sapphire"
+format = '[[ $symbol( $version) ](fg:crust bg:sapphire)]($style)'
+
+[git_branch]
+symbol = " "
+style = "bg:teal"
+format = '[[ $symbol $branch ](fg:crust bg:teal)]($style)'
+
+[golang]
+symbol = " "
+style = "bg:sapphire"
+format = '[[ $symbol( $version) ](fg:crust bg:sapphire)]($style)'
+
+[haskell]
+symbol = " "
+style = "bg:sapphire"
+format = '[[ $symbol( $version) ](fg:crust bg:sapphire)]($style)'
+
+[lua]
+symbol = " "
+style = "bg:sapphire"
+format = '[[ $symbol( $version) ](fg:crust bg:sapphire)]($style)'
+
+[nodejs]
+symbol = " "
+style = "bg:sapphire"
+format = '[[ $symbol( $version) ](fg:crust bg:sapphire)]($style)'
+
+[os.symbols]
+Arch = " "
+Macos = " "
+Windows = " 󰍲"
+
+[python]
+symbol = " "
+style = "bg:sapphire"
+format = '[[ $symbol( $version) ](fg:crust bg:sapphire)]($style)'
+
+[ruby]
+symbol = " "
+style = "bg:sapphire"
+format = '[[ $symbol( $version) ](fg:crust bg:sapphire)]($style)'
+
+[rust]
+symbol = "󱘗 "
+style = "bg:sapphire"
+format = '[[ $symbol( $version) ](fg:crust bg:sapphire)]($style)'
