@@ -3,6 +3,11 @@ return {
 	event = { "BufReadPre", "BufNewFile" },
 	config = function()
 		local conform = require("conform")
+		local format_on_save_options = {
+			lsp_fallback = true,
+			async = false,
+			timeout_ms = 1000,
+		}
 
 		conform.setup({
 			formatters_by_ft = {
@@ -22,19 +27,11 @@ return {
 				typescriptreact = { "prettier" },
 				yaml = { "prettier" },
 			},
-			format_on_save = {
-				lsp_fallback = true,
-				async = false,
-				timeout_ms = 1000,
-			},
+			format_on_save = format_on_save_options,
 		})
 
 		vim.keymap.set({ "n", "v" }, "<leader>mp", function()
-			conform.format({
-				lsp_fallback = true,
-				async = false,
-				timeout_ms = 1000,
-			})
+			conform.format(format_on_save_options)
 		end, { desc = "Format file or range (in visual mode)" })
 	end,
 }
