@@ -52,7 +52,7 @@ crust = '#11111b'
 
 [os]
 disabled = false
-style = "fg:crust bg:yellow"
+style = "fg:crust bg:yellow bold"
 
 [os.symbols]
 Arch = " "
@@ -61,16 +61,16 @@ Windows = " 󰍲"
 
 [directory]
 truncate_to_repo = false
-style = "fg:crust bg:yellow"
+style = "fg:crust bg:yellow bold"
 format = "[  $path]($style)"
 
 [git_branch]
 symbol = "   "
-style = "fg:crust bg:green"
+style = "fg:crust bg:green bold"
 format = '[$symbol$branch]($style)'
 
 [git_status]
-style = "fg:crust bg:green"
+style = "fg:crust bg:green bold"
 ahead = '⇡${count}'
 behind = '⇣${count}'
 conflicted = '=${count}'
@@ -81,12 +81,12 @@ renamed = '»${count}'
 staged = '+${count}'
 stashed = '\$${count}'
 untracked = '?${count}'
-format = '[[( $all_status $ahead_behind )](fg:crust bg:green)]($style)'
+format = '[[( $all_status $ahead_behind )]($style)]($style)'
 
 [time]
 disabled = false
 time_format = "%r %a %b %d %Y"
-style = "fg:crust bg:overlay2"
+style = "fg:crust bg:overlay2 bold"
 format = '[[  $time]($style)]($style)'
 
 [line_break]
@@ -95,9 +95,9 @@ disabled = false
 [character]
 disabled = false
 # Note the use of Catppuccin color 'peach'
-success_symbol = "[[󰄛](green) ❯](peach)"
-error_symbol = "[[󰄛](red) ❯](peach)"
-vimcmd_symbol = "[󰄛 ❮](subtext1)" # For use with zsh-vi-mode
+success_symbol = "[[󰄛](green bold) ❯](peach)"
+error_symbol = "[[󰄛](red bold) ❯](peach)"
+vimcmd_symbol = "[󰄛 ❮](subtext1 bold)" # For use with zsh-vi-mode
 vimcmd_replace_one_symbol = '[󰄛 ❮](bold fg:mauve)'
 vimcmd_replace_symbol = '[󰄛 ❮](bold fg:mauve)'
 vimcmd_visual_symbol = '[󰄛 ❮](bold fg:yellow)'
@@ -105,35 +105,35 @@ vimcmd_visual_symbol = '[󰄛 ❮](bold fg:yellow)'
 ############## NERD FONT SYMBOLS ###############
 [c]
 symbol = " "
-style = "fg:crust bg:red"
+style = "fg:crust bg:red bold"
 format = '[[ $symbol($version) ]($style)]($style)'
 
 [elixir]
 symbol = " "
-style = "fg:crust bg:red"
+style = "fg:crust bg:red bold"
 format = '[[ $symbol($version) ]($style)]($style)'
 
 [lua]
 symbol = " "
-style = "fg:crust bg:red"
+style = "fg:crust bg:red bold"
 format = '[[ $symbol($version) ]($style)]($style)'
 
 [nodejs]
 symbol = " "
-style = "fg:crust bg:red"
+style = "fg:crust bg:red bold"
 format = '[[ $symbol($version) ]($style)]($style)'
 
 [python]
 symbol = " "
-style = "fg:crust bg:red"
+style = "fg:crust bg:red bold"
 format = '[[ $symbol($version) ]($style)]($style)'
 
 [ruby]
 symbol = " "
-style = "fg:crust bg:red"
+style = "fg:crust bg:red bold"
 format = '[[ $symbol($version) ]($style)]($style)'
 
 [rust]
 symbol = "󱘗 "
-style = "fg:crust bg:red"
+style = "fg:crust bg:red bold"
 format = '[[ $symbol($version) ]($style)]($style)'
