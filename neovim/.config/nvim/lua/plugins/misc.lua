@@ -1,4 +1,4 @@
--- Standalone plugins with less than 10 lines of config go here
+-- Standalone plugins with very little config go here
 return {
 	{
 		-- autoclose tags
@@ -98,6 +98,22 @@ return {
 		},
 		opts = {
 			-- configurations go here
+		},
+	},
+	-- Useful status updates for LSP.
+	{
+		"j-hui/fidget.nvim",
+		opts = {
+			progress = {
+				display = {
+					done_icon = "✓", -- Icon shown when all LSP progress tasks are complete
+				},
+			},
+			notification = {
+				window = {
+					winblend = 0, -- Background color opacity in the notification window
+				},
+			},
 		},
 	},
 }

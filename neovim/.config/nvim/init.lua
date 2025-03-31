@@ -2,13 +2,11 @@ require("core.options") -- Load general options
 require("core.keymaps") -- Load general keymaps
 require("core.snippets") -- Custom code snippets
 
--- Highlight when yanking (copying) text
--- see `:help vim.highligh.on_yank()`
 vim.api.nvim_create_autocmd("TextYankPost", {
 	desc = "Highlight when yanking (copying) text",
 	group = vim.api.nvim_create_augroup("kickstart-highlight-yank", { clear = true }),
 	callback = function()
-		vim.highlight.on_yank({ timeout = 1000 })
+		vim.hl.on_yank({ timeout = 1000 })
 	end,
 })
 -- Install package manager
@@ -38,20 +36,20 @@ local env_var_nvim_theme = os.getenv("NVIM_THEME") or default_color_scheme
 require("lazy").setup({
 	require(themes[env_var_nvim_theme]),
 	require("plugins.aerial"),
-	-- require("plugins.autocompletion"),
+	require("plugins.fzf-lua"),
+	require("plugins.blink-cmp"),
 	require("plugins.buffers"),
-	require("plugins.conform"),
+	require("plugins.style.formatting"),
+	require("plugins.style.linting"),
 	require("plugins.emmet"),
 	require("plugins.gitsigns"),
 	require("plugins.harpoon"),
 	require("plugins.indent-blankline"),
-	require("plugins.linting"),
-	-- require("plugins.lsp"),
 	require("plugins.lualine"),
+	require("plugins.lsp.mason"),
 	require("plugins.mini"),
 	require("plugins.misc"),
 	require("plugins.neo-tree"),
-	-- require("plugins.none-ls"),
 	require("plugins.snacks"),
 	require("plugins.snipe"),
 	require("plugins.telescope"),
