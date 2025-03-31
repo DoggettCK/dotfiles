@@ -1,26 +1,23 @@
 "$schema" = 'https://starship.rs/config-schema.json'
 
+command_timeout=1000
 format = """
 $os\
-$username\
-[](bg:yellow fg:peach)\
 $directory\
-[](fg:yellow bg:teal)\
+[](fg:yellow bg:green)\
 $git_branch\
 $git_status\
-[](fg:teal bg:sapphire)\
+[](fg:green bg:red)\
 $c\
 $elixir\
-$golang\
-$haskell\
 $lua\
 $nodejs\
 $python\
 $ruby\
 $rust\
-[](fg:sapphire bg:lavender)\
+[](fg:red bg:overlay2)\
 $time\
-[ ](fg:lavender)\
+[ ](fg:overlay2)\
 $line_break$character"""
 
 palette = 'catppuccin_mocha'
@@ -55,19 +52,42 @@ crust = '#11111b'
 
 [os]
 disabled = false
-style = "bg:peach fg:crust"
+style = "fg:crust bg:yellow"
 
-[username]
-show_always = true
-style_user = "bg:peach fg:crust"
-style_root = "bg:peach fg:crust"
-format = '[ $user ]($style)'
+[os.symbols]
+Arch = " "
+Macos = " "
+Windows = " 󰍲"
+
+[directory]
+truncate_to_repo = false
+style = "fg:crust bg:yellow"
+format = "[  $path]($style)"
+
+[git_branch]
+symbol = "   "
+style = "fg:crust bg:green"
+format = '[$symbol$branch]($style)'
+
+[git_status]
+style = "fg:crust bg:green"
+ahead = '⇡${count}'
+behind = '⇣${count}'
+conflicted = '=${count}'
+deleted = '✘${count}'
+diverged = '⇕⇡${ahead_count}⇣${behind_count}'
+modified = '!${count}'
+renamed = '»${count}'
+staged = '+${count}'
+stashed = '\$${count}'
+untracked = '?${count}'
+format = '[[( $all_status $ahead_behind )](fg:crust bg:green)]($style)'
 
 [time]
 disabled = false
-time_format = "%R%p %a %b %d %Y"
-style = "bg:mantle"
-format = '[[  $time ](fg:crust bg:lavender)]($style)'
+time_format = "%r %a %b %d %Y"
+style = "fg:crust bg:overlay2"
+format = '[[  $time]($style)]($style)'
 
 [line_break]
 disabled = false
@@ -85,74 +105,35 @@ vimcmd_visual_symbol = '[󰄛 ❮](bold fg:yellow)'
 ############## NERD FONT SYMBOLS ###############
 [c]
 symbol = " "
-style = "bg:sapphire"
-format = '[[ $symbol( $version) ](fg:crust bg:sapphire)]($style)'
-
-[directory]
-truncate_to_repo = false
-style = "fg:crust bg:yellow"
-format = "[  $path]($style)"
+style = "fg:crust bg:red"
+format = '[[ $symbol($version) ]($style)]($style)'
 
 [elixir]
 symbol = " "
-style = "bg:sapphire"
-format = '[[ $symbol( $version) ](fg:crust bg:sapphire)]($style)'
-
-[git_branch]
-symbol = "   "
-style = "fg:crust bg:teal"
-format = '[$symbol$branch]($style)'
-
-[git_status]
-style = "bg:teal"
-ahead = ' ⇡${count}'
-behind = ' ⇣${count}'
-conflicted = ' =${count}'
-deleted = ' ✘${count}'
-diverged = ' ⇕⇡${ahead_count}⇣${behind_count}'
-modified = ' !${count}'
-renamed = ' »${count}'
-staged = ' +${count}'
-stashed = ' \$${count}'
-untracked = ' ?${count}'
-format = '[[($all_status $ahead_behind )](fg:crust bg:teal)]($style)'
-
-[golang]
-symbol = " "
-style = "bg:sapphire"
-format = '[[ $symbol( $version) ](fg:crust bg:sapphire)]($style)'
-
-[haskell]
-symbol = " "
-style = "bg:sapphire"
-format = '[[ $symbol( $version) ](fg:crust bg:sapphire)]($style)'
+style = "fg:crust bg:red"
+format = '[[ $symbol($version) ]($style)]($style)'
 
 [lua]
 symbol = " "
-style = "bg:sapphire"
-format = '[[ $symbol( $version) ](fg:crust bg:sapphire)]($style)'
+style = "fg:crust bg:red"
+format = '[[ $symbol($version) ]($style)]($style)'
 
 [nodejs]
 symbol = " "
-style = "bg:sapphire"
-format = '[[ $symbol( $version) ](fg:crust bg:sapphire)]($style)'
-
-[os.symbols]
-Arch = " "
-Macos = " "
-Windows = " 󰍲"
+style = "fg:crust bg:red"
+format = '[[ $symbol($version) ]($style)]($style)'
 
 [python]
 symbol = " "
-style = "bg:sapphire"
-format = '[[ $symbol( $version) ](fg:crust bg:sapphire)]($style)'
+style = "fg:crust bg:red"
+format = '[[ $symbol($version) ]($style)]($style)'
 
 [ruby]
 symbol = " "
-style = "bg:sapphire"
-format = '[[ $symbol( $version) ](fg:crust bg:sapphire)]($style)'
+style = "fg:crust bg:red"
+format = '[[ $symbol($version) ]($style)]($style)'
 
 [rust]
 symbol = "󱘗 "
-style = "bg:sapphire"
-format = '[[ $symbol( $version) ](fg:crust bg:sapphire)]($style)'
+style = "fg:crust bg:red"
+format = '[[ $symbol($version) ]($style)]($style)'
