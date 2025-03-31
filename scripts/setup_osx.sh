@@ -44,7 +44,6 @@ install_or_update_brew() {
 
 stow_everything() {
     info_msg "Symlinking configs via Stow"
-    # TODO: Tear vim down to nothing
     stow_packages "eza" "fzf" "git-number" "kitty" "lazygit" "neovim" "tmux" "vim" "zsh"
 }
 
