@@ -80,7 +80,7 @@ renamed = '»${count}'
 staged = '+${count}'
 stashed = '\$${count}'
 untracked = '?${count}'
-format = '[[( $all_status $ahead_behind )]($style)]($style)'
+format = '[[( ($all_status )($ahead_behind ))]($style)]($style)'
 
 [line_break]
 disabled = false
