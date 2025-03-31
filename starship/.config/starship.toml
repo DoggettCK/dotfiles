@@ -9,15 +9,14 @@ $git_branch\
 $git_status\
 [](fg:green bg:red)\
 $c\
+$erlang\
 $elixir\
 $lua\
 $nodejs\
 $python\
 $ruby\
 $rust\
-[](fg:red bg:overlay2)\
-$time\
-[ ](fg:overlay2)\
+[](fg:red)\
 $line_break$character"""
 
 palette = 'catppuccin_mocha'
@@ -83,12 +82,6 @@ stashed = '\$${count}'
 untracked = '?${count}'
 format = '[[( $all_status $ahead_behind )]($style)]($style)'
 
-[time]
-disabled = false
-time_format = "%r %a %b %d %Y"
-style = "fg:crust bg:overlay2 bold"
-format = '[[  $time]($style)]($style)'
-
 [line_break]
 disabled = false
 
@@ -113,6 +106,11 @@ symbol = " "
 style = "fg:crust bg:red bold"
 format = '[[ $symbol($version) ]($style)]($style)'
 
+[erlang]
+symbol = " "
+style = "fg:crust bg:red bold"
+format = '[[ $symbol($version) ]($style)]($style)'
+
 [lua]
 symbol = " "
 style = "fg:crust bg:red bold"
@@ -120,6 +118,7 @@ format = '[[ $symbol($version) ]($style)]($style)'
 
 [nodejs]
 symbol = " "
+detect_files = ['package.json', 'assets/package.json', '.node-version', '.nvmrc']
 style = "fg:crust bg:red bold"
 format = '[[ $symbol($version) ]($style)]($style)'
 
