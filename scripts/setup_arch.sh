@@ -23,7 +23,6 @@ fi
 
 stow_everything() {
     info_msg "Symlinking configs via Stow"
-    # TODO: Tear vim down to nothing
     stow_packages "eza" "fzf" "git-number" "hyprland" "kitty" "lazygit" "neovim" "tmux" "vim" "zsh"
 }
 
