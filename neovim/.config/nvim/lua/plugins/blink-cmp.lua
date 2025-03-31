@@ -1,10 +1,11 @@
 return {
 	"saghen/blink.cmp",
-	-- optional: provides snippets for the snippet source
-	dependencies = { "DoggettCK/friendly-snippets" },
-
 	version = "1.*",
-
+	-- optional: provides snippets for the snippet source
+	dependencies = {
+		{ "L3MON4D3/LuaSnip", version = "v2.*" },
+		"DoggettCK/friendly-snippets",
+	},
 	opts = {
 		-- 'default' (recommended) for mappings similar to built-in completions (C-y to accept)
 		-- 'super-tab' for mappings similar to vscode (tab to accept)
@@ -42,6 +43,8 @@ return {
 				enabled = true,
 			},
 		},
+
+		snippets = { preset = "luasnip" },
 
 		-- Default list of enabled providers defined so that you can extend it
 		-- elsewhere in your config, without redefining it, due to `opts_extend`
