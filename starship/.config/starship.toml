@@ -54,9 +54,10 @@ disabled = false
 style = "fg:crust bg:yellow bold"
 
 [os.symbols]
-Arch = " "
-Macos = " "
-Windows = " 󰍲"
+Fedora = "  "
+Arch = "  "
+Macos = "  "
+Windows = "  "
 
 [directory]
 truncate_to_repo = false
@@ -64,7 +65,7 @@ style = "fg:crust bg:yellow bold"
 format = "[  $path]($style)"
 
 [git_branch]
-symbol = "   "
+symbol = "   "
 style = "fg:crust bg:green bold"
 format = '[$symbol$branch]($style)'
 
