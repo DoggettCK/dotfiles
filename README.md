@@ -48,14 +48,22 @@ and `sudo systemctl start keyd`, then add the following to
 [main]
 
 # Maps capslock to escape when pressed and control when held.
-capslock = overload(control, esc)
+capslock = overload(control)
 
 # Treat extra left backslash key as left shift
 102nd = leftshift
-
-# Remaps the escape key to capslock
-# esc = capslock
 ```
+
+## SSH key caching
+
+Using [keychain](TODO) for `ssh-agent` key management, which should work out of the box, but will require you to enter your password each time you use git unless you add the following to your `~/.ssh/config`:
+
+```
+Host *
+    AddKeysToAgent yes
+```
+
+You can configure this per host if you like. I just do it for every host, and it auto-detects my personal/work keys per repository.
 
 ## Images
 

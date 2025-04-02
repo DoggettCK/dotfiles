@@ -132,10 +132,18 @@ clean_yts() {
   # that isn't [480p], [720p], [1080p], or [2160p].
   CLEAN_REGEX="s/ \[((?!(2160p|1080p|720p|480p)).)*\]//gi"
 
-  if [ "$#" -eq 0 ]; then
-    /usr/bin/vendor_perl/rename "$CLEAN_REGEX" -- *
+  if hash -v prename 2>/dev/null; then
+    RENAME_EXE=prename
+  elif [[ -x /usr/bin/vendor_perl/rename ]]; then
+    RENAME_EXE=/usr/bin/vendor_perl/rename
   else
-    /usr/bin/vendor_perl/rename "$CLEAN_REGEX" "$@"
+    RENAME_EXE=rename
+  fi
+
+  if [ "$#" -eq 0 ]; then
+    "$RENAME_EXE" "$CLEAN_REGEX" -- *
+  else
+    "$RENAME_EXE" "$CLEAN_REGEX" "$@"
   fi
 
   return 0;
