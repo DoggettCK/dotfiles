@@ -1,7 +1,19 @@
 return {
 	"ibhagwan/fzf-lua",
 	dependencies = { "echasnovski/mini.icons" },
-	opts = {},
+	config = function()
+		local actions = require("fzf-lua").actions
+		require("fzf-lua").setup({
+			actions = {
+				files = {
+					-- 		true,
+					["enter"] = actions.file_edit,
+					["ctrl-q"] = actions.file_sel_to_qf,
+					["ctrl-h"] = actions.toggle_hidden,
+				},
+			},
+		})
+	end,
 	keys = {
 		{
 			"<leader>ff",
