@@ -1,16 +1,13 @@
-require("core.options") -- Load general options
-require("core.keymaps") -- Load general keymaps
-require("config.lazy")  -- Load lazy.nvim
--- require("config.themes") -- Load color themes
+require("config.lazy") -- Load lazy.nvim
 
 -- Highlight when yanking (copying) text
 -- see `:help vim.highlight.on_yank()`
 vim.api.nvim_create_autocmd("TextYankPost", {
-  desc = "Highlight when yanking (copying) text",
-  group = vim.api.nvim_create_augroup("kickstart-highlight-yank", { clear = true }),
-  callback = function()
-    vim.highlight.on_yank({ timeout = 1000 })
-  end,
+	desc = "Highlight when yanking (copying) text",
+	group = vim.api.nvim_create_augroup("kickstart-highlight-yank", { clear = true }),
+	callback = function()
+		vim.highlight.on_yank({ timeout = 1000 })
+	end,
 })
 
 -- The line beneath this is called `modeline`. See `:help modeline`

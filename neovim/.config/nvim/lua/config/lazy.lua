@@ -21,25 +21,25 @@ vim.opt.rtp:prepend(lazypath)
 vim.g.mapleader = " "
 vim.g.maplocalleader = "\\"
 
--- Define a table of theme modules
-local themes = {
-	catppuccin = "plugins.themes.catppuccin",
-}
+require("core.options") -- Load general options
+require("core.keymaps") -- Load general keymaps
 
 -- Import color theme based on environment variable NVIM_THEME
-local env_var_nvim_theme = os.getenv("NVIM_THEME") or "catppuccin"
+local nvim_theme = os.getenv("NVIM_THEME") or "catppuccin"
 
 -- Setup lazy.nvim
 require("lazy").setup({
 	spec = {
 		-- import your chosen theme
-		{ import = themes[env_var_nvim_theme] },
+		{ import = "plugins.themes" },
 		-- import your plugins
 		{ import = "plugins" },
 	},
 	-- Configure any other settings here. See the documentation for more details.
 	-- colorscheme that will be used when installing plugins.
-	install = { colorscheme = { env_var_nvim_theme } },
+	install = { colorscheme = { nvim_theme } },
 	-- automatically check for plugin updates
 	checker = { enabled = true },
 })
+
+vim.cmd.colorscheme(nvim_theme)
