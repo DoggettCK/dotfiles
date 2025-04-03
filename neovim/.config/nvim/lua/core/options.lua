@@ -4,7 +4,7 @@ vim.o.clipboard = "unnamedplus" -- Sync clipboard between OS and Neovim.
 vim.o.title = true
 vim.o.mouse = "a" -- Enable mouse mode
 vim.o.cmdheight = 0 -- command line invisible unless using it
-vim.o.cursorline = false -- highlight the current line
+vim.o.cursorline = true -- highlight the current line
 vim.o.showmode = false -- we don't need to see things like -- INSERT -- anymore
 vim.o.showtabline = 2 -- always show tabs
 vim.o.splitbelow = true -- force all horizontal splits to go below current window
@@ -31,6 +31,7 @@ vim.o.expandtab = true -- convert tabs to spaces
 vim.o.numberwidth = 4 -- set number column width to 2 {default 4}
 vim.o.shiftwidth = 4 -- the number of spaces inserted for each indentation
 vim.o.smartindent = true -- make indenting smarter again
+vim.o.smarttab = true -- make indenting smarter again
 vim.o.softtabstop = 4 -- Number of spaces that a tab counts for while performing editing operations
 vim.o.tabstop = 4 -- insert n spaces for a tab
 
