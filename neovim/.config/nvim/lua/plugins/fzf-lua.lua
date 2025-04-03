@@ -46,6 +46,13 @@ return {
 			desc = "[F]ind current [W]ORD",
 		},
 		{
+			"<leader>fo",
+			function()
+				require("fzf-lua").oldfiles()
+			end,
+			desc = "[F]ind [O]ld (recent) files",
+		},
+		{
 			"<leader>fr",
 			function()
 				require("fzf-lua").resume()
