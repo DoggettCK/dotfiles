@@ -54,10 +54,10 @@ disabled = false
 style = "fg:crust bg:yellow bold"
 
 [os.symbols]
-Fedora = "  "
-Arch = "  "
-Macos = "  "
-Windows = "  "
+Fedora = " "
+Arch = " "
+Macos = " "
+Windows = " "
 
 [directory]
 truncate_to_repo = false
