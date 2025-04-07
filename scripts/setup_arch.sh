@@ -28,9 +28,9 @@ stow_everything() {
 
 install_pacman_packages() {
     # TODO: Separate packages into pacman/yay
-    info_msg "Installing packages via Pacman"
+    info_msg "Installing packages via yay"
     # shellcheck disable=2024
-    sudo pacman -S - <"$SYSTEM_PACKAGES"
+    yay -S - <"$SYSTEM_PACKAGES"
 }
 
 main() {
