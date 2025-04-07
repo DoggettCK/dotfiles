@@ -61,15 +61,9 @@ export PATH="$LOCAL_BIN_PATH:$GIT_NUMBER_PATH:$PATH"
 
 if command -v asdf > /dev/null 2>&1; then
   export ASDF_FORCE_PREPEND=true
-  export PATH="${ASDF_DATA_DIR:-$HOME/.asdf}/shims:$PATH"
 fi
 
-#
-# Default postgres connection info
-DB_USER=$( whoami )
-export DB_USER
-export DB_PASS=
-
+# Brew configuration
 case "$(uname)" in
   Darwin) BREW_EXE=/opt/homebrew/bin/brew ;;
   *) BREW_EXE=/home/linuxbrew/.linuxbrew/bin/brew ;;
