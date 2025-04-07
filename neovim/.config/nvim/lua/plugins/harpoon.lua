@@ -7,7 +7,7 @@ return {
     harpoon:setup({})
 
     vim.keymap.set("n", "<leader>M", function()
-      harpoon.ui:toggle_quick_menu(harpoon:list())
+      harpoon.ui:toggle_quick_menu(harpoon:list(), { border = "rounded" })
     end, { desc = "Open [M]ark window" })
 
     vim.keymap.set("n", "<leader>ma", function()

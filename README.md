@@ -56,7 +56,7 @@ capslock = overload(control)
 
 ## SSH key caching
 
-Using [keychain](TODO) for `ssh-agent` key management, which should work out of the box, but will require you to enter your password each time you use git unless you add the following to your `~/.ssh/config`:
+Using [keychain](https://www.funtoo.org/Funtoo:Keychain) for `ssh-agent` key management, which should work out of the box, but will require you to enter your password each time you use git unless you add the following to your `~/.ssh/config`:
 
 ```
 Host *
