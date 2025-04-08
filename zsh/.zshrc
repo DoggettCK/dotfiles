@@ -109,21 +109,12 @@ git_contributors() {
   git shortlog --summary --numbered --email --all
 }
 
-# Rename the given file to its md5 sum and lowercase extension
-mv_md5() {
-  local filename;
-  local md5_sum;
-  local ext;
-  filename="$1";
-  md5_sum=$(md5sum "$filename" | cut -d " " -f 1);
-  ext=$(echo "$filename" | rev | cut -d "." -f 1 | rev | tr '[:upper:]' '[:lower:]');
-  mv "$1" "${md5_sum}.${ext}.tmp";
-  mv "${md5_sum}.${ext}.tmp" "${md5_sum}.${ext}";
-}
-
 # Rename given (or all) dir(s) to remove anything between square brackets
 # that isn't [480p], [720p], [1080p], or [2160p].
 alias clean_yts="f2 -idq -f ' \[[^p0-9]+\]' -r '' -f ' \[\d\.1\]' -r ''"
+
+# Rename all files not starting with an underscore to their md5.ext
+alias rename_md5="f2 -f '^[^_]+$' -r '{hash.md5}{ext}'"
 
 if command -v yazi > /dev/null 2>&1; then
   y() {
