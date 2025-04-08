@@ -6,6 +6,9 @@ return {
 			"filename",
 			file_status = true, -- displays file status (readonly status, modified status)
 			path = 0, -- 0 = just filename, 1 = relative path, 2 = absolute path
+			symbols = {
+				modified = "",
+			},
 		}
 
 		local hide_in_width = function()
