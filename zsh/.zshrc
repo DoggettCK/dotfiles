@@ -121,22 +121,9 @@ mv_md5() {
   mv "${md5_sum}.${ext}.tmp" "${md5_sum}.${ext}";
 }
 
-clean_yts() {
-  # Rename given (or all) dir(s) to remove anything between square brackets
-  # that isn't [480p], [720p], [1080p], or [2160p].
-  if hash -v f2>/dev/null 2>&1; then
-    if [ "$#" -eq 0 ]; then
-      f2 -f " \[[^p0-9]+\]" -r "" -i -f " \[\d\.1\]" -r "" -i -- *
-    else
-      f2 -f " \[[^p0-9]+\]" -r "" -i -f " \[\d\.1\]" -r "" -i "$@"
-    fi
-    return 0;
-  else
-    echo "Install f2 to batch rename files"
-    return 1;
-  fi
-
-}
+# Rename given (or all) dir(s) to remove anything between square brackets
+# that isn't [480p], [720p], [1080p], or [2160p].
+alias clean_yts="f2 -idq -f ' \[[^p0-9]+\]' -r '' -f ' \[\d\.1\]' -r ''"
 
 if command -v yazi > /dev/null 2>&1; then
   y() {
