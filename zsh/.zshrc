@@ -124,23 +124,18 @@ mv_md5() {
 clean_yts() {
   # Rename given (or all) dir(s) to remove anything between square brackets
   # that isn't [480p], [720p], [1080p], or [2160p].
-  CLEAN_REGEX="s/ \[((?!(2160p|1080p|720p|480p)).)*\]//gi"
-
-  if hash -v prename 2>/dev/null; then
-    RENAME_EXE=prename
-  elif [[ -x /usr/bin/vendor_perl/rename ]]; then
-    RENAME_EXE=/usr/bin/vendor_perl/rename
+  if hash -v f2>/dev/null 2>&1; then
+    if [ "$#" -eq 0 ]; then
+      f2 -f " \[[^p0-9]+\]" -r "" -i -f " \[\d\.1\]" -r "" -i -- *
+    else
+      f2 -f " \[[^p0-9]+\]" -r "" -i -f " \[\d\.1\]" -r "" -i "$@"
+    fi
+    return 0;
   else
-    RENAME_EXE=rename
+    echo "Install f2 to batch rename files"
+    return 1;
   fi
 
-  if [ "$#" -eq 0 ]; then
-    "$RENAME_EXE" "$CLEAN_REGEX" -- *
-  else
-    "$RENAME_EXE" "$CLEAN_REGEX" "$@"
-  fi
-
-  return 0;
 }
 
 if command -v yazi > /dev/null 2>&1; then
