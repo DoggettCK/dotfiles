@@ -29,7 +29,7 @@ return {
 		-- C-k: Toggle signature help (if signature.enabled = true)
 		--
 		-- See :h blink-cmp-config-keymap for defining your own keymap
-		keymap = { preset = "default" },
+		keymap = { ["<Tab>"] = { "select_and_accept", "fallback" } },
 
 		appearance = {
 			-- 'mono' (default) for 'Nerd Font Mono' or 'normal' for 'Nerd Font'
@@ -86,7 +86,7 @@ return {
 
 				border = "rounded",
 			},
-			ghost_text = { enabled = true },
+			ghost_text = { enabled = false },
 		},
 
 		-- Default list of enabled providers defined so that you can extend it
