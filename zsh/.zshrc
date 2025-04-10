@@ -174,9 +174,21 @@ zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
 zstyle ':fzf-tab:complete:cd:*' fzf-preview 'ls --color $realpath'
 
 # Shell integrations
-eval "$(starship init zsh)"
-eval "$(fzf --zsh)"
-eval "$(zoxide init --cmd cd zsh)"
+if hash -v starship >/dev/null 2>&1; then
+  eval "$(starship init zsh)"
+fi
+
+if hash -v fzf >/dev/null 2>&1; then
+  eval "$(fzf --zsh)"
+fi
+
+if hash -v zoxide >/dev/null 2>&1; then
+  eval "$(zoxide init --cmd cd zsh)"
+fi
+
+if hash -v direnv >/dev/null 2>&1; then
+  eval "$(direnv hook zsh)"
+fi
 
 [[ ! -f ~/.config/fzf/fzf-git.sh/fzf-git.sh ]] || source ~/.config/fzf/fzf-git.sh/fzf-git.sh
 
