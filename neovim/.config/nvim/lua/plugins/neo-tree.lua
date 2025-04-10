@@ -35,10 +35,16 @@ return {
 			keys = {
 				{ "`", ":Neotree toggle position=left<CR>", silent = true, desc = "Left File Explorer" },
 				{
-					"<leader>ngs",
-					":Neotree float git_status<CR>",
+					"<leader>ng",
+					"<cmd>Neotree toggle git_status position=left<CR>",
 					silent = true,
-					desc = "Neotree Open Git Status Window",
+					desc = "[N]eotree [G]it Status Window",
+				},
+				{
+					"<leader>nb",
+					"<cmd>Neotree toggle buffers position=left<CR>",
+					silent = true,
+					desc = "[N]eotree [B]uffers",
 				},
 			},
 		},
