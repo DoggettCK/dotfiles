@@ -1,6 +1,10 @@
-#! /bin/bash
+#! /usr/bin/env bash
+# Uncomment this and last line if startup is slow to enable profiling
+# zmodload zsh/zprof
+
 # General
 setopt noflowcontrol
+setopt extendedglob
 
 DEFAULT_USER=$(whoami)
 
@@ -59,7 +63,7 @@ LOCAL_BIN_PATH=~/.local/bin
 GIT_NUMBER_PATH=~/.local/git-number
 export PATH="$LOCAL_BIN_PATH:$GIT_NUMBER_PATH:$PATH"
 
-if command -v asdf > /dev/null 2>&1; then
+if hash -v asdf > /dev/null 2>&1; then
   export ASDF_FORCE_PREPEND=true
 fi
 
@@ -116,12 +120,13 @@ alias clean_yts="find . -maxdepth 1 -type d | f2 -id -f ' \[\D+\]' -r '' -f ' \[
 # Rename all files not starting with an underscore to their md5.ext
 alias rename_md5="f2 -f '^[^_]+$' -r '{hash.md5}{ext}'"
 
-if command -v yazi > /dev/null 2>&1; then
+if hash -v yazi > /dev/null 2>&1; then
   y() {
-    local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
+    local tmp
+    tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
     yazi "$@" --cwd-file="$tmp"
     if cwd="$(command cat -- "$tmp")" && [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]; then
-      builtin cd -- "$cwd"
+      builtin cd -- "$cwd" || exit
     fi
     rm -f -- "$tmp"
   }
@@ -155,16 +160,12 @@ zinit light zsh-users/zsh-completions
 zinit light zsh-users/zsh-autosuggestions
 zinit light zsh-users/zsh-history-substring-search
 
-# Add in snippets
-zinit snippet OMZP::asdf
-zinit snippet OMZP::encode64
+# # Add in snippets
 zinit snippet OMZP::git
 zinit snippet OMZP::jump
-zinit snippet OMZP::urltools
-zinit snippet OMZP::web-search
 
 # Load completions
-autoload -U compinit && compinit
+autoload -Uz compinit && compinit
 
 zinit cdreplay -q
 
@@ -222,8 +223,8 @@ _fzf_comprun() {
 }
 
 # Aliases
-command -v batcat > /dev/null 2>&1 && alias bat="batcat"
-command -v hyprctl > /dev/null 2>&1 && alias hc="hyprctl"
+hash -v batcat > /dev/null 2>&1 && alias bat="batcat"
+hash -v hyprctl > /dev/null 2>&1 && alias hc="hyprctl"
 
 alias ga='git number add'
 alias gcv='git commit -v' # Commit with editor to see changes
@@ -246,3 +247,6 @@ alias rm='rm -iv'
 
 # Load override config that I don't want in source control
 [[ ! -f ~/.zshrc.override ]] || source ~/.zshrc.override
+
+# Uncomment for profiling data
+# zprof
