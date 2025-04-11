@@ -4,19 +4,10 @@ command_timeout=1000
 format = """
 $os\
 $directory\
-[](fg:yellow bg:green)\
+[](fg:mauve bg:peach)\
 $git_branch\
 $git_status\
-[](fg:green bg:red)\
-$c\
-$erlang\
-$elixir\
-$lua\
-$nodejs\
-$python\
-$ruby\
-$rust\
-[](fg:red)\
+[](fg:peach)\
 $line_break$character"""
 
 palette = 'catppuccin_mocha'
@@ -51,7 +42,7 @@ crust = '#11111b'
 
 [os]
 disabled = false
-style = "fg:crust bg:yellow bold"
+style = "fg:crust bg:mauve bold"
 
 [os.symbols]
 Fedora = " "
@@ -63,16 +54,16 @@ Windows = " "
 
 [directory]
 truncate_to_repo = false
-style = "fg:crust bg:yellow bold"
+style = "fg:crust bg:mauve bold"
 format = "[  $path]($style)"
 
 [git_branch]
 symbol = "   "
-style = "fg:crust bg:green bold"
+style = "fg:crust bg:peach bold"
 format = '[$symbol$branch]($style)'
 
 [git_status]
-style = "fg:crust bg:green bold"
+style = "fg:crust bg:peach bold"
 ahead = '⇡${count}'
 behind = '⇣${count}'
 conflicted = '=${count}'
@@ -91,51 +82,9 @@ disabled = false
 [character]
 disabled = false
 # Note the use of Catppuccin color 'peach'
-success_symbol = "[[󰄛](green bold) ❯](peach)"
+success_symbol = "[[󰄛](peach bold) ❯](peach)"
 error_symbol = "[[󰄛](red bold) ❯](peach)"
 vimcmd_symbol = "[󰄛 ❮](subtext1 bold)" # For use with zsh-vi-mode
 vimcmd_replace_one_symbol = '[󰄛 ❮](bold fg:mauve)'
 vimcmd_replace_symbol = '[󰄛 ❮](bold fg:mauve)'
-vimcmd_visual_symbol = '[󰄛 ❮](bold fg:yellow)'
-
-############## NERD FONT SYMBOLS ###############
-[c]
-symbol = " "
-style = "fg:crust bg:red bold"
-format = '[[ $symbol($version) ]($style)]($style)'
-
-[elixir]
-symbol = " "
-style = "fg:crust bg:red bold"
-format = '[[ $symbol($version) ]($style)]($style)'
-
-[erlang]
-symbol = " "
-style = "fg:crust bg:red bold"
-format = '[[ $symbol($version) ]($style)]($style)'
-
-[lua]
-symbol = " "
-style = "fg:crust bg:red bold"
-format = '[[ $symbol($version) ]($style)]($style)'
-
-[nodejs]
-symbol = " "
-detect_files = ['package.json', 'assets/package.json', '.node-version', '.nvmrc']
-style = "fg:crust bg:red bold"
-format = '[[ $symbol($version) ]($style)]($style)'
-
-[python]
-symbol = " "
-style = "fg:crust bg:red bold"
-format = '[[ $symbol($version) ]($style)]($style)'
-
-[ruby]
-symbol = " "
-style = "fg:crust bg:red bold"
-format = '[[ $symbol($version) ]($style)]($style)'
-
-[rust]
-symbol = "󱘗 "
-style = "fg:crust bg:red bold"
-format = '[[ $symbol($version) ]($style)]($style)'
+vimcmd_visual_symbol = '[󰄛 ❮](bold fg:mauve)'
