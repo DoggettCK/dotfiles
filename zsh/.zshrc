@@ -4,7 +4,6 @@
 
 # General
 setopt noflowcontrol
-setopt extendedglob
 
 DEFAULT_USER=$(whoami)
 
@@ -42,10 +41,10 @@ else
 fi
 
 # History
-export HISTSIZE=5000
-export HISTFILE=~/.zsh_history
-export SAVEHIST=$HISTSIZE
-export HISTDUP=erase
+HISTSIZE=5000
+HISTFILE=~/.zsh_history
+SAVEHIST=$HISTSIZE
+HISTDUP=erase
 setopt appendhistory
 setopt sharehistory
 setopt hist_ignore_all_dups
@@ -57,7 +56,6 @@ setopt hist_ignore_space
 # $HISTORY_IGNORE, so alias commands I want to ignore to prepend a space.
 alias jrnl=" jrnl"
 alias lpass=" lpass"
-
 
 LOCAL_BIN_PATH=~/.local/bin
 GIT_NUMBER_PATH=~/.local/git-number
@@ -161,8 +159,12 @@ zinit light zsh-users/zsh-autosuggestions
 zinit light zsh-users/zsh-history-substring-search
 
 # # Add in snippets
+zinit snippet OMZP::archlinux
+zinit snippet OMZP::extract
 zinit snippet OMZP::git
 zinit snippet OMZP::jump
+zinit snippet OMZP::sudo
+zinit snippet OMZP::ubuntu
 
 # Load completions
 autoload -Uz compinit && compinit
