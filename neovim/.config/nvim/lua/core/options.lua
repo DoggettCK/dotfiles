@@ -9,7 +9,9 @@ vim.o.showmode = false -- we don't need to see things like -- INSERT -- anymore
 vim.o.showtabline = 0 -- always show tabs
 vim.o.splitbelow = true -- force all horizontal splits to go below current window
 vim.o.splitright = true -- force all vertical splits to go to the right of current window
-vim.o.winborder = "rounded" -- Unavailable until nvim 0.11
+if vim.fn.has("nvim-0.11") then
+	vim.o.winborder = "rounded" -- Unavailable until nvim 0.11
+end
 vim.o.scrolloff = 4 -- minimal number of screen lines to keep above and below the cursor
 vim.o.sidescrolloff = 8 -- minimal number of screen columns either side of cursor if wrap is `false`
 
