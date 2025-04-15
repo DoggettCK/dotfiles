@@ -63,6 +63,11 @@ export PATH="$LOCAL_BIN_PATH:$GIT_NUMBER_PATH:$PATH"
 
 if hash -v asdf > /dev/null 2>&1; then
   export ASDF_FORCE_PREPEND=true
+  export PATH="${ASDF_DATA_DIR:-$HOME/.asdf}/shims:$PATH"
+  mkdir -p "${ASDF_DATA_DIR:-$HOME/.asdf}/completions"
+  asdf completion zsh > "${ASDF_DATA_DIR:-$HOME/.asdf}/completions/_asdf"
+  # append completions to fpath
+  fpath=(${ASDF_DATA_DIR:-$HOME/.asdf}/completions $fpath)
 fi
 
 # Brew configuration
