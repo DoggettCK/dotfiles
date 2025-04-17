@@ -82,9 +82,5 @@ disabled = false
 [character]
 disabled = false
 # Note the use of Catppuccin color 'peach'
-success_symbol = "[[󰄛](peach bold) ❯](peach)"
+success_symbol = "[[󰄛](green bold) ❯](peach)"
 error_symbol = "[[󰄛](red bold) ❯](peach)"
-vimcmd_symbol = "[󰄛 ❮](subtext1 bold)" # For use with zsh-vi-mode
-vimcmd_replace_one_symbol = '[󰄛 ❮](bold fg:mauve)'
-vimcmd_replace_symbol = '[󰄛 ❮](bold fg:mauve)'
-vimcmd_visual_symbol = '[󰄛 ❮](bold fg:mauve)'
