@@ -70,6 +70,10 @@ if hash -v asdf > /dev/null 2>&1; then
   fpath=(${ASDF_DATA_DIR:-$HOME/.asdf}/completions $fpath)
 fi
 
+if hash -v xdg-open >/dev/null 2>&1; then
+  alias open="xdg-open"
+fi
+
 # Brew configuration
 case "$(uname)" in
   Darwin) BREW_EXE=/opt/homebrew/bin/brew ;;
