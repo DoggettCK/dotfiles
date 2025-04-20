@@ -1,5 +1,0 @@
-- Hibernate in wlogout/layout doesn't work properly, but that's an Arch thing
-- Style hyprlock to look like wlogout
-- Style sddm
-- Figure out how not to show default anime girl pic before loading wallpaper
-- Why isn't ssh_add_key running on first terminal?
