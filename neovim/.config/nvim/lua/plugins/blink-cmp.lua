@@ -3,7 +3,6 @@ return {
 	-- optional: provides snippets for the snippet source
 	dependencies = {
 		"rafamadriz/friendly-snippets",
-		"moyiz/blink-emoji.nvim",
 		"onsails/lspkind.nvim",
 	},
 
@@ -95,27 +94,13 @@ return {
 		-- Default list of enabled providers defined so that you can extend it
 		-- elsewhere in your config, without redefining it, due to `opts_extend`
 		sources = {
-			default = { "lsp", "path", "snippets", "buffer", "emoji" },
+			default = { "lsp", "path", "snippets", "buffer" },
 			providers = {
 				buffer = {
 					opts = {
 						-- Complete from all open buffers
 						get_bufnrs = vim.api.nvim_list_bufs,
 					},
-				},
-				emoji = {
-					module = "blink-emoji",
-					name = "Emoji",
-					score_offset = 15, -- Tune by preference
-					opts = { insert = true }, -- Insert emoji (default) or complete its name
-					-- should_show_items = function()
-					-- 	return vim.tbl_contains(
-					-- 		-- Enable emoji completion only for git commits and markdown.
-					-- 		-- By default, enabled for all file-types.
-					-- 		{ "gitcommit", "markdown" },
-					-- 		vim.o.filetype
-					-- 	)
-					-- end,
 				},
 			},
 		},
