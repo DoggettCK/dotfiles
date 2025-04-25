@@ -47,7 +47,7 @@ return {
 				draw = {
 
 					columns = {
-						{ "label", "label_description", gap = 3 },
+						{ "label", gap = 1 },
 						{ "kind_icon", "kind", gap = 1 },
 					},
 					components = {
