@@ -58,7 +58,7 @@ style = "fg:crust bg:mauve bold"
 format = "[  $path]($style)"
 
 [git_branch]
-symbol = "   "
+symbol = "  "
 style = "fg:crust bg:peach bold"
 format = '[$symbol$branch]($style)'
 
