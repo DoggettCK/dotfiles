@@ -253,7 +253,7 @@ alias lg="lazygit"
 alias ls="eza --color=always --long --git --no-filesize --icons=always --no-time --no-user --no-permissions"
 alias mt='mix test'
 alias mtw='mix test.watch'
-alias phx='iex -S mix phx.server'
+alias phx='iex --no-pry -S mix phx.server'
 alias rm='rm -iv'
 
 # Load override config that I don't want in source control
