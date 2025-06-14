@@ -1,7 +1,12 @@
 theme = catppuccin-mocha.conf
 font-size = 18
-mouse-hide-while-typing = true
 window-decoration = true
-background-opacity = 0.7
-background-blur-radius = 20
+background-opacity = 0.8
+background-blur-radius = 4
 macos-option-as-alt = true
+
+# Splits
+keybind = cmd+h=goto_split:left
+keybind = cmd+j=goto_split:down
+keybind = cmd+k=goto_split:up
+keybind = cmd+l=goto_split:right
