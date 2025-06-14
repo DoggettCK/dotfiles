@@ -202,6 +202,10 @@ if hash -v direnv >/dev/null 2>&1; then
   eval "$(direnv hook zsh)"
 fi
 
+if hash -v atuin >/dev/null 2>&1; then
+  eval "$(atuin init zsh)"
+fi
+
 [[ ! -f ~/.config/fzf/fzf-git.sh/fzf-git.sh ]] || source ~/.config/fzf/fzf-git.sh/fzf-git.sh
 
 # FZF completion functions
