@@ -23,7 +23,7 @@ fi
 
 stow_everything() {
     info_msg "Symlinking configs via Stow"
-    stow_packages "eza" "fzf" "git-number" "hyprland" "kitty" "lazygit" "neovim" "tmux" "vim" "zsh"
+    stow_packages "fzf" "git-number" "hyprland" "kitty" "lazygit" "neovim" "tmux" "vim" "zsh"
 }
 
 install_pacman_packages() {
