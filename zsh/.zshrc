@@ -10,7 +10,6 @@ DEFAULT_USER=$(whoami)
 export BAT_THEME="base16-256"
 export DEFAULT_USER
 export EDITOR="nvim"
-export EZA_CONFIG_DIR="$HOME/.config/eza"
 export GIT_EDITOR="nvim"
 export LANG=en_US.UTF-8
 export LS_COLORS=$LS_COLORS:"ow=34;40:"
@@ -22,7 +21,6 @@ export FZF_DEFAULT_COMMAND="fd --hidden --strip-cwd-prefix --exclude .git"
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 export FZF_ALT_C_COMMAND="fd --type d --hidden --strip-cwd-prefix --exclude .git"
 export FZF_CTRL_T_OPTS="--preview 'bat -n --color=always --line-range :500 {}'"
-export FZF_ALT_C_OPTS="--preview 'eza --tree --color=always {} | head -200'"
 
 # Keybindings
 bindkey -e
@@ -230,7 +228,6 @@ _fzf_comprun() {
   shift
 
   case "$command" in
-    cd)           fzf --preview 'eza --tree --color=always {} | head -200' "$@" ;;
     export|unset) fzf --preview "eval 'echo \${}' {}" "$@" ;;
     ssh)          fzf --preview 'dig {}' "$@" ;;
     *)            fzf --preview "--preview 'bat -n --color=always --line-range :500 {}'" "$@" ;;
@@ -254,7 +251,6 @@ alias ism='iex -S mix'
 alias ismt='MIX_ENV=test iex -S mix'
 alias j='jump'
 alias lg="lazygit"
-alias ls="eza --color=always --long --git --no-filesize --icons=always --no-time --no-user --no-permissions"
 alias mt='mix test'
 alias mtw='mix test.watch'
 alias phx='iex --no-pry -S mix phx.server'
