@@ -15,16 +15,6 @@ return {
 			return vim.fn.winwidth(0) > 100
 		end
 
-		-- Define a function to check the status and return the corresponding icon
-		local function get_status_icon()
-			local status = require("ollama").status()
-
-			if status == "IDLE" then
-				return "󱙺" -- nf-md-robot-outline
-			elseif status == "WORKING" then
-				return "󰚩" -- nf-md-robot
-			end
-		end
 		require("lualine").setup({
 			options = {
 				icons_enabled = true,
@@ -42,7 +32,6 @@ return {
 				lualine_c = {},
 				lualine_x = {},
 				lualine_y = {
-					{ get_status_icon, cond = hide_in_width },
 					{ "lsp_status", cond = hide_in_width },
 					{ "diagnostics", cond = hide_in_width },
 					{ "diff", cond = hide_in_width },
