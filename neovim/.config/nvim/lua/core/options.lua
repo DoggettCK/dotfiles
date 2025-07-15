@@ -12,8 +12,14 @@ vim.o.splitright = true -- force all vertical splits to go to the right of curre
 if vim.fn.has("nvim-0.11") then
 	vim.o.winborder = "rounded" -- Unavailable until nvim 0.11
 end
-vim.o.scrolloff = 4 -- minimal number of screen lines to keep above and below the cursor
+vim.o.scrolloff = 8 -- minimal number of screen lines to keep above and below the cursor
 vim.o.sidescrolloff = 8 -- minimal number of screen columns either side of cursor if wrap is `false`
+
+-- NetRW options
+vim.g.netrw_banner = 0 -- get rid of banner
+vim.g.netrw_browse_split = 4 -- open in prior window
+vim.g.netrw_altv = 1 -- split to right
+vim.g.netrw_liststyle = 3 -- tree view
 
 -- Git options
 vim.wo.signcolumn = "yes" -- Keep signcolumn on by default
