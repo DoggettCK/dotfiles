@@ -1,14 +1,22 @@
 "$schema" = 'https://starship.rs/config-schema.json'
 
 command_timeout=1000
-format = """
+format = """\
 $os\
 $directory\
-[](fg:mauve bg:peach)\
+[](fg:rosewater bg:none)\
+$fill\
+[](bg:none fg:green)\
 $git_branch\
 $git_status\
-[](fg:peach)\
-$line_break$character"""
+$line_break\
+$character\
+"""
+# right_format = """
+# $git_branch\
+# $git_status\
+# [](fg: bg:none)\
+# """
 
 palette = 'catppuccin_mocha'
 
@@ -42,7 +50,7 @@ crust = '#11111b'
 
 [os]
 disabled = false
-style = "fg:crust bg:mauve bold"
+style = "fg:crust bg:rosewater bold"
 
 [os.symbols]
 Fedora = " "
@@ -54,16 +62,19 @@ Windows = " "
 
 [directory]
 truncate_to_repo = false
-style = "fg:crust bg:mauve bold"
+style = "fg:crust bg:rosewater bold"
 format = "[  $path]($style)"
+
+[fill]
+symbol = " "
 
 [git_branch]
 symbol = "  "
-style = "fg:crust bg:peach bold"
+style = "fg:crust bg:green bold"
 format = '[$symbol$branch]($style)'
 
 [git_status]
-style = "fg:crust bg:peach bold"
+style = "fg:crust bg:green bold"
 ahead = '⇡${count}'
 behind = '⇣${count}'
 conflicted = '=${count}'
@@ -81,6 +92,5 @@ disabled = false
 
 [character]
 disabled = false
-# Note the use of Catppuccin color 'peach'
-success_symbol = "[[󰄛](green bold) ❯](peach)"
-error_symbol = "[[󰄛](red bold) ❯](peach)"
+success_symbol = "[[󰄛](green bold) ❯](sapphire)"
+error_symbol = "[[󰄛](red bold) ❯](sapphire)"
