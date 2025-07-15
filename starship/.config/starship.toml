@@ -4,19 +4,12 @@ command_timeout=1000
 format = """\
 $os\
 $directory\
-[](fg:rosewater bg:none)\
 $fill\
-[](bg:none fg:green)\
 $git_branch\
 $git_status\
 $line_break\
 $character\
 """
-# right_format = """
-# $git_branch\
-# $git_status\
-# [](fg: bg:none)\
-# """
 
 palette = 'catppuccin_mocha'
 
@@ -63,15 +56,15 @@ Windows = " "
 [directory]
 truncate_to_repo = false
 style = "fg:crust bg:rosewater bold"
-format = "[  $path]($style)"
+format = "[  $path]($style)[](fg:rosewater bg:none)"
 
 [fill]
 symbol = " "
 
 [git_branch]
-symbol = "  "
+symbol = " "
 style = "fg:crust bg:green bold"
-format = '[$symbol$branch]($style)'
+format = '[](bg:none fg:green)[$symbol$branch]($style)'
 
 [git_status]
 style = "fg:crust bg:green bold"
@@ -85,7 +78,7 @@ renamed = '»${count}'
 staged = '+${count}'
 stashed = '\$${count}'
 untracked = '?${count}'
-format = '[[( ($all_status )($ahead_behind ))]($style)]($style)'
+format = '[[(( $all_status)( $ahead_behind)) ]($style)]($style)'
 
 [line_break]
 disabled = false
