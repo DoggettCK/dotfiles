@@ -23,7 +23,8 @@ vim.keymap.set("i", "<C-s>", "<Esc><cmd> w <CR>", opts)
 
 -- quit file
 vim.keymap.set("n", "<C-q>", "<cmd> q <CR>", opts)
-vim.keymap.set("n", "<C-BS>", "<cmd>bd!<CR>", opts)
+vim.keymap.set({ "n", "i" }, "<C-BS>", "<cmd>bd!<CR><ESC>", opts)
+vim.keymap.set({ "n", "i" }, "", "<cmd>bd!<CR><ESC>", opts)
 
 -- Vertical scroll and center
 vim.keymap.set("n", "<C-d>", "<C-d>zz", opts)
