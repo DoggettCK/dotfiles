@@ -204,6 +204,9 @@ if hash -v atuin >/dev/null 2>&1; then
   eval "$(atuin init zsh)"
 fi
 
+# Add Rust tools to path if installed
+[[ -f ~/.cargo/env ]] && source ~/.cargo/env
+
 [[ ! -f ~/.config/fzf/fzf-git.sh/fzf-git.sh ]] || source ~/.config/fzf/fzf-git.sh/fzf-git.sh
 
 # FZF completion functions
