@@ -606,5 +606,8 @@
   "theme.bar.buttons.modules.microphone.background": "#303446",
   "theme.bar.buttons.modules.microphone.text": "#a6d189",
   "theme.bar.buttons.modules.microphone.icon": "#a6d189",
-  "theme.bar.buttons.modules.microphone.icon_background": "#303446"
+  "theme.bar.buttons.modules.microphone.icon_background": "#303446",
+  "bar.customModules.storage.paths": [
+    "/"
+  ]
 }
