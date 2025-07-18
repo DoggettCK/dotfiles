@@ -286,7 +286,7 @@ return {
 							callSnippet = "Replace",
 						},
 						telemetry = { enable = false },
-						diagnostics = { disable = { "missing-fields" } },
+						diagnostics = { disable = { "missing-fields" }, globals = { "vim" } },
 					},
 				},
 			},
