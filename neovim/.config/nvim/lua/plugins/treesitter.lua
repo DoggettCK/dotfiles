@@ -1,13 +1,23 @@
 -- Highlight, edit, and navigate code
 return {
 	"nvim-treesitter/nvim-treesitter",
+	version = false,
 	build = ":TSUpdate",
+	event = { "BufReadPost", "BufNewFile" },
 	dependencies = {
 		"nvim-treesitter/nvim-treesitter-textobjects",
 	},
 	config = function()
 		require("nvim-treesitter.configs").setup({
-			-- Add languages to be installed here that you want installed for treesitter
+			sync_install = false,
+			ignore_install = { "javascript" },
+			modules = {},
+			highlight = {
+				enable = true,
+				additional_vim_regex_highlighting = false,
+			},
+			indent = { enable = true },
+			auto_install = true,
 			ensure_installed = {
 				"bash",
 				"c",
@@ -16,68 +26,78 @@ return {
 				"elixir",
 				"gitignore",
 				"go",
+				"gomod",
+				"gosum",
+				"gowork",
 				"html",
 				"java",
 				"javascript",
 				"json",
 				"lua",
+				"luadoc",
+				"luap",
 				"make",
 				"markdown",
 				"python",
+				"query",
 				"regex",
+				"rust",
 				"sql",
 				"toml",
 				"typescript",
 				"vim",
+				"vimdoc",
 				"yaml",
 			},
-
-			-- Autoinstall languages that are not installed
-			auto_install = true,
-
-			highlight = { enable = true },
-			indent = { enable = true },
 			incremental_selection = {
 				enable = true,
 				keymaps = {
-					init_selection = "<C-Space>",
-					node_incremental = "<C-Space>",
-					scope_incremental = "<C-Space>",
-					node_decremental = "<C-S-Space>",
+					init_selection = "<leader>vv",
+					node_incremental = "+",
+					scope_incremental = false,
+					node_decremental = "_",
 				},
 			},
 			textobjects = {
 				select = {
 					enable = true,
-					lookahead = true, -- Automatically jump forward to textobj, similar to targets.vim
+					lookahead = true,
+
 					keymaps = {
 						-- You can use the capture groups defined in textobjects.scm
-						["aa"] = "@parameter.outer",
-						["ia"] = "@parameter.inner",
-						["af"] = "@function.outer",
-						["if"] = "@function.inner",
-						["ac"] = "@class.outer",
-						["ic"] = "@class.inner",
+						["af"] = { query = "@function.outer", desc = "around a function" },
+						["if"] = { query = "@function.inner", desc = "inner part of a function" },
+						["ac"] = { query = "@class.outer", desc = "around a class" },
+						["ic"] = { query = "@class.inner", desc = "inner part of a class" },
+						["ai"] = { query = "@conditional.outer", desc = "around an if statement" },
+						["ii"] = { query = "@conditional.inner", desc = "inner part of an if statement" },
+						["al"] = { query = "@loop.outer", desc = "around a loop" },
+						["il"] = { query = "@loop.inner", desc = "inner part of a loop" },
+						["ap"] = { query = "@parameter.outer", desc = "around parameter" },
+						["ip"] = { query = "@parameter.inner", desc = "inside a parameter" },
 					},
+					selection_modes = {
+						["@parameter.outer"] = "v", -- charwise
+						["@parameter.inner"] = "v", -- charwise
+						["@function.outer"] = "v", -- charwise
+						["@conditional.outer"] = "V", -- linewise
+						["@loop.outer"] = "V", -- linewise
+						["@class.outer"] = "<c-v>", -- blockwise
+					},
+					include_surrounding_whitespace = false,
 				},
 				move = {
 					enable = true,
 					set_jumps = true, -- whether to set jumps in the jumplist
-					goto_next_start = {
-						["]m"] = "@function.outer",
-						["]]"] = "@class.outer",
-					},
-					goto_next_end = {
-						["]M"] = "@function.outer",
-						["]["] = "@class.outer",
-					},
 					goto_previous_start = {
-						["[m"] = "@function.outer",
-						["[["] = "@class.outer",
+						["[f"] = { query = "@function.outer", desc = "Previous function" },
+						["[c"] = { query = "@class.outer", desc = "Previous class" },
+						["[p"] = { query = "@parameter.inner", desc = "Previous parameter" },
 					},
-					goto_previous_end = {
-						["[M"] = "@function.outer",
-						["[]"] = "@class.outer",
+					goto_next_start = {
+						["]f"] = { query = "@function.outer", desc = "Next function" },
+						["]c"] = { query = "@class.outer", desc = "Next class" },
+						["]p"] = { query = "@parameter.inner", desc = "Next parameter" },
 					},
 				},
 				swap = {
