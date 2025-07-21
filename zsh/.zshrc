@@ -1,4 +1,11 @@
 #! /usr/bin/env bash
+# shellcheck disable=1090 # paths of dynamic scripts are correct for this and 1091
+# shellcheck disable=1091
+# shellcheck disable=2086 # don't want double quotes on zstyle matcher-list
+# shellcheck disable=2016 # don't want to expand expressions on zstyle matcher-list
+# shellcheck disable=2034 # starship var use verified
+# shellcheck disable=2296 # syntax is correct for zstyle list-colors
+
 # Uncomment this and last line if startup is slow to enable profiling
 # zmodload zsh/zprof
 
@@ -7,7 +14,6 @@ setopt noflowcontrol
 
 DEFAULT_USER=$(whoami)
 
-export BAT_THEME="base16-256"
 export DEFAULT_USER
 export EDITOR="nvim"
 export GIT_EDITOR="nvim"
@@ -53,7 +59,6 @@ setopt hist_ignore_space
 # history will ignore anything starting with a space, but zsh doesn't respect
 # $HISTORY_IGNORE, so alias commands I want to ignore to prepend a space.
 alias jrnl=" jrnl"
-alias lpass=" lpass"
 
 LOCAL_BIN_PATH=~/.local/bin
 GIT_NUMBER_PATH=~/.local/git-number
@@ -62,10 +67,6 @@ export PATH="$LOCAL_BIN_PATH:$GIT_NUMBER_PATH:$PATH"
 if hash -v asdf > /dev/null 2>&1; then
   export ASDF_FORCE_PREPEND=true
   export PATH="${ASDF_DATA_DIR:-$HOME/.asdf}/shims:$PATH"
-  mkdir -p "${ASDF_DATA_DIR:-$HOME/.asdf}/completions"
-  asdf completion zsh > "${ASDF_DATA_DIR:-$HOME/.asdf}/completions/_asdf"
-  # append completions to fpath
-  fpath=(${ASDF_DATA_DIR:-$HOME/.asdf}/completions $fpath)
 fi
 
 if hash -v xdg-open >/dev/null 2>&1; then
@@ -160,31 +161,44 @@ if [[ -r "$HOME/.config/zsh/catppuccin_mocha-zsh-syntax-highlighting.zsh" ]]; th
 fi
 
 # Add in zsh plugins
-zinit light zsh-users/zsh-syntax-highlighting
 zinit light zsh-users/zsh-completions
 zinit light zsh-users/zsh-autosuggestions
 zinit light zsh-users/zsh-history-substring-search
+zinit light zsh-users/zsh-syntax-highlighting
 
 # # Add in snippets
-zinit snippet OMZP::archlinux
-zinit snippet OMZP::extract
-zinit snippet OMZP::git
 zinit snippet OMZP::jump
-zinit snippet OMZP::sudo
-zinit snippet OMZP::ubuntu
 
 # Load completions
-autoload -Uz compinit && compinit
+autoload -Uz compinit
+if [ "$(date +'%j')" != "$(stat -f '%Sm' -t '%j' ~/.zcompdump 2>/dev/null)" ]; then
+    compinit
+else
+    compinit -C
+fi
 
 zinit cdreplay -q
 
 # Completion styling
-zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
-zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
+zstyle ':completion:*' matcher-list '' 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=*' 'l:|=* r:|=*'
+zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
 zstyle ':fzf-tab:complete:cd:*' fzf-preview 'ls --color $realpath'
 
 # Shell integrations
 if hash -v starship >/dev/null 2>&1; then
+  SPACESHIP_PROMPT_ASYNC=true
+  SPACESHIP_PROMPT_ADD_NEWLINE=true
+  SPACESHIP_CHAR_SYMBOL="⚡"
+
+  # Only load what you actually use
+  SPACESHIP_PROMPT_ORDER=(
+    time
+    user
+    dir
+    git
+    line_sep
+    char
+  )
   eval "$(starship init zsh)"
 fi
 
@@ -238,9 +252,6 @@ _fzf_comprun() {
 }
 
 # Aliases
-hash -v batcat > /dev/null 2>&1 && alias bat="batcat"
-hash -v hyprctl > /dev/null 2>&1 && alias hc="hyprctl"
-
 alias ga='git number add'
 alias gcv='git commit -v' # Commit with editor to see changes
 alias gfp='git push -f origin $(git rev-parse --abbrev-ref HEAD)'
@@ -258,6 +269,11 @@ alias mt='mix test'
 alias mtw='mix test.watch'
 alias phx='iex --no-pry -S mix phx.server'
 alias rm='rm -iv'
+alias ls='ls --color=auto'
+alias ..='cd ..'
+alias ...='cd ../..'
+alias ....='cd ../../..'
+alias .....='cd ../../../..'
 
 # Load override config that I don't want in source control
 [[ ! -f ~/.zshrc.override ]] || source ~/.zshrc.override
