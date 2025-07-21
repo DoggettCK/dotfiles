@@ -39,10 +39,10 @@ else
 fi
 
 # History
-HISTSIZE=5000
-HISTFILE=~/.zsh_history
-SAVEHIST=$HISTSIZE
-HISTDUP=erase
+export HISTSIZE=5000
+export HISTFILE=~/.zsh_history
+export SAVEHIST=$HISTSIZE
+export HISTDUP=erase
 setopt appendhistory
 setopt sharehistory
 setopt hist_ignore_all_dups
@@ -65,7 +65,7 @@ if hash -v asdf > /dev/null 2>&1; then
   mkdir -p "${ASDF_DATA_DIR:-$HOME/.asdf}/completions"
   asdf completion zsh > "${ASDF_DATA_DIR:-$HOME/.asdf}/completions/_asdf"
   # append completions to fpath
-  fpath=(${ASDF_DATA_DIR:-$HOME/.asdf}/completions $fpath)
+  fpath=("${ASDF_DATA_DIR:-$HOME/.asdf}/completions" "$fpath")
 fi
 
 if hash -v xdg-open >/dev/null 2>&1; then
