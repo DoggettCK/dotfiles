@@ -28,9 +28,31 @@ require("lazy").setup({
 	},
 	-- Configure any other settings here. See the documentation for more details.
 	-- colorscheme that will be used when installing plugins.
-	install = { colorscheme = { nvim_theme } },
+	install = {
+		missing = true,
+		colorscheme = { nvim_theme }
+	},
 	-- automatically check for plugin updates
-	checker = { enabled = true },
+	checker = {
+		enabled = true,
+		notify = false
+	},
+	change_detection = {
+		enabled = true,
+		notify = false
+	},
+	performance = {
+		rtp = {
+			disabled_plugins = {
+				"gzip",
+				"tarPlugin",
+				"tohtml",
+				"tutor",
+				"zipPlugin",
+			},
+		},
+	},
+	ui = { border = "rounded" }
 })
 
 vim.cmd.colorscheme(nvim_theme)

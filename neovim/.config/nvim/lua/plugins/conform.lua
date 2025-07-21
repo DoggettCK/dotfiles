@@ -11,6 +11,7 @@ return {
 			javascript = { "prettierd", "prettier", stop_after_first = true },
 			javascriptreact = { "prettierd", "prettier", stop_after_first = true },
 			elixir = { "mix" },
+			heex = { "mix" },
 		},
 		format_on_save = {
 			-- These options will be passed to conform.format()
