@@ -1,6 +1,6 @@
 vim.lsp.enable({
 	"lua_ls",
-	"elixir_ls"
+	"elixirls",
 })
 
 vim.diagnostic.config({
