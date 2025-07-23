@@ -22,7 +22,7 @@ export LS_COLORS=$LS_COLORS:"ow=34;40:"
 export TERM=xterm-256color
 export XDG_CONFIG_HOME="$HOME/.config/"
 
-## Use fd instead of fzf
+# use fd instead of fzf
 export FZF_DEFAULT_COMMAND="fd --hidden --strip-cwd-prefix --exclude .git"
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 export FZF_ALT_C_COMMAND="fd --type d --hidden --strip-cwd-prefix --exclude .git"
@@ -126,18 +126,6 @@ alias clean_yts="find . -maxdepth 1 -type d | f2 -id -f ' \[\D+\]' -r '' -f ' \[
 # Rename all files not starting with an underscore to their md5.ext
 alias rename_md5="f2 -f '^[^_]+$' -r '{hash.md5}{ext}'"
 
-if hash -v yazi > /dev/null 2>&1; then
-  y() {
-    local tmp
-    tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
-    yazi "$@" --cwd-file="$tmp"
-    if cwd="$(command cat -- "$tmp")" && [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]; then
-      builtin cd -- "$cwd" || exit
-    fi
-    rm -f -- "$tmp"
-  }
-fi
-
 # Load all SSH keys into a singleton ssh-agent
 eval "$(keychain --eval --quiet)"
 
@@ -212,10 +200,6 @@ fi
 
 if hash -v direnv >/dev/null 2>&1; then
   eval "$(direnv hook zsh)"
-fi
-
-if hash -v atuin >/dev/null 2>&1; then
-  eval "$(atuin init zsh)"
 fi
 
 # Add Rust tools to path if installed
