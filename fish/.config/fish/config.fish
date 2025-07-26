@@ -9,7 +9,7 @@ if status is-interactive
     set EDITOR nvim
     set GIT_EDITOR nvim
     set LANG en_US.UTF-8
-    set LS_COLORS "$LS_COLORS:ow-34;40:"
+    # set LS_COLORS "$LS_COLORS:ow-34;40:"
     set TERM xterm-256color
     set XDG_CONFIG_HOME "$HOME/.config/"
 
