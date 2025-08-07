@@ -1,6 +1,7 @@
 vim.lsp.enable({
 	"lua_ls",
 	"elixirls",
+	"fish_lsp",
 })
 
 vim.diagnostic.config({
