@@ -96,6 +96,24 @@ if status is-interactive
         direnv hook fish | source
     end
 
+    # Jump setup
+    if type -q jump
+        jump shell fish | source
+    end
+
+    # Yazi setup
+    if type -q yazi
+        function y
+                set tmp (mktemp -t "yazi-cwd.XXXXXX")
+                yazi $argv --cwd-file="$tmp"
+                if read -z cwd < "$tmp"; and [ -n "$cwd" ]; and [ "$cwd" != "$PWD" ]
+                    builtin cd -- "$cwd"
+                end
+                rm -f -- "$tmp"
+            end
+        end
+
+
     # Add Rust to path
     set -Ua fish_user_paths $HOME/.cargo/bin
 
@@ -122,7 +140,6 @@ if status is-interactive
     alias gsb 'git checkout -' # Switch to previous branch
     alias ism 'iex -S mix'
     alias ismt 'set MIX_ENV test ; iex -S mix'
-    alias j 'jump'
     alias lg 'lazygit'
     alias ls 'ls --color=auto'
     alias mt 'mix test'
