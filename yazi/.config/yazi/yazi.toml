@@ -8,5 +8,6 @@ sort_dir_first = true
 
 [opener]
 edit = [
-	{ run = 'nvim "$@"', block = true, for = "unix" },
+	{ run = 'nvim "$@"', desc="Edit", block = true, for = "unix" },
+	{ run = 'xdg-open "$1"', desc="Open", block = true, for = "unix" },
 ]
