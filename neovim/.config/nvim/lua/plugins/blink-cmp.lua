@@ -101,7 +101,15 @@ return {
 		-- when the Rust fuzzy matcher is not available, by using `implementation = "prefer_rust"`
 		--
 		-- See the fuzzy documentation for more information
-		fuzzy = { implementation = "prefer_rust_with_warning" },
+		fuzzy = {
+			implementation = "prefer_rust_with_warning",
+			sorts = {
+				"kind", -- Primary sort by type of completion (Function, Field, Property, Snippet, Text)
+				"score", -- then by fuzzy matching score
+				"sort_text", -- then by sortText field if scores are equal
+				"label", -- then by label if still tied
+			},
+		},
 	},
 	opts_extend = { "sources.default" },
 }
