@@ -48,7 +48,7 @@ and `sudo systemctl start keyd`, then add the following to
 [main]
 
 # Maps capslock to escape when pressed and control when held.
-capslock = overload(control)
+capslock = overload(control, esc)
 
 # Treat extra left backslash key as left shift
 102nd = leftshift
