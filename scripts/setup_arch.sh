@@ -23,7 +23,10 @@ fi
 
 stow_everything() {
     info_msg "Symlinking configs via Stow"
-    stow_packages "fzf" "git-number" "hyprland" "kitty" "lazygit" "neovim" "tmux" "vim" "zsh"
+    stow_packages "fzf" "git-number" "hyprland" "kitty" "lazygit" "neovim" "tmux" "starship" "vim" "walker" "yazi" "zsh"
+    flatpak install org.godotengine.Godot
+    flatpak install org.blender.Blender
+
 }
 
 install_pacman_packages() {
