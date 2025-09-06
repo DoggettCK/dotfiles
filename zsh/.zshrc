@@ -211,6 +211,11 @@ if hash -v yazi >/dev/null 2>&1; then
       rm -f -- "$tmp"
   }
 fi
+
+if [[ -d "$HOME/.diversion/bin" ]]; then
+  export PATH="$HOME/.diversion/bin:$PATH"
+fi
+
 # Add Rust tools to path if installed
 [[ -f ~/.cargo/env ]] && source ~/.cargo/env
 
