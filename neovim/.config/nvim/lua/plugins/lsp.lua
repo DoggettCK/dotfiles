@@ -1,41 +1,50 @@
 return {
-	"neovim/nvim-lspconfig",
+	"mason-org/mason-lspconfig.nvim",
+	opts = {},
 	dependencies = {
 		{ "mason-org/mason.nvim", opts = {} },
-		"mason-org/mason-lspconfig.nvim",
-		"WhoIsSethDaniel/mason-tool-installer.nvim",
-	},
-	opts = {
-		servers = {
-			lua_ls = {
-				settings = {
-					Lua = {
-						diagnostics = { globals = { "vim" } },
-					},
-				},
+		"neovim/nvim-lspconfig",
+		{
+			"WhoIsSethDaniel/mason-tool-installer.nvim",
+			opts = {
+				integrations = { ["mason-lspconfig"] = true },
 			},
-			elixir_ls = {},
-			eslint = {},
-			black = {},
-			isort = {},
-			stylua = {},
-			prettier = {},
-			prettierd = {},
+		},
+		{
+			"j-hui/fidget.nvim",
+			opts = {
+				-- options
+			},
 		},
 	},
-	config = function(_, opts)
+	config = function()
 		require("mason").setup()
+
 		require("mason-lspconfig").setup({
-			ensure_installed = { "lua_ls", "eslint" },
+			automatic_installation = true,
+			ensure_installed = {
+				"cssls",
+				"eslint",
+				"html",
+				"jsonls",
+				"ts_ls",
+				"pyright",
+				"tailwindcss",
+				"expert",
+			},
 		})
 
-		vim.diagnostic.config({
-			virtual_text = true,
-			underline = true,
+		require("mason-tool-installer").setup({
+			ensure_installed = {
+				"prettier",
+				"prettierd",
+				"stylua", -- lua formatter
+				"isort", -- python formatter
+				"black", -- python formatter
+				"pylint",
+				"eslint_d",
+				"expert",
+			},
 		})
-		for server, config in pairs(opts.servers) do
-			vim.lsp.config(server, config)
-			vim.lsp.enable(server)
-		end
 	end,
 }
