@@ -121,7 +121,7 @@ git_contributors() {
 
 # Rename given (or all) dir(s) to remove anything between square brackets
 # that isn't [480p], [720p], [1080p], or [2160p].
-alias clean_yts="find . -maxdepth 1 -type d | f2 -id -f ' \[\D+\]' -r '' -f ' \[\d\.1\]' -r '' -f ' \[10bit\]' -r ''"
+alias clean_yts="find . -maxdepth 1 -type d | f2 -id -f ' \[\D+\]' -r '' -f ' \[\d\.1\]' -r '' -f ' \[10bit\]' -r '' -f ' \[x265\]' -r ''"
 
 # Rename all files not starting with an underscore to their md5.ext
 alias rename_md5="f2 -f '^[^_]+$' -r '{hash.md5}{ext}'"
