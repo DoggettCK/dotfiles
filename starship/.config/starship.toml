@@ -3,6 +3,7 @@
 command_timeout=1000
 format = """\
 $os\
+$hostname\
 $directory\
 $fill\
 $git_branch\
