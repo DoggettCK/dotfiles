@@ -3,6 +3,7 @@
 command_timeout=1000
 format = """\
 $os\
+$hostname\
 $directory\
 $fill\
 $git_branch\
@@ -46,12 +47,12 @@ disabled = false
 style = "fg:crust bg:rosewater bold"
 
 [os.symbols]
-Fedora = " "
-Arch = " "
 EndeavourOS = " "
-Kali = " "
 Macos = " "
-Windows = " "
+
+[hostname]
+style = "fg:crust bg:rosewater bold"
+format = "[ $ssh_symbol$hostname]($style)(fg:rosewater bg:none)"
 
 [directory]
 truncate_to_repo = false
