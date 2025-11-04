@@ -64,7 +64,6 @@ return {
 				"ts_ls",
 				"pyright",
 				"tailwindcss",
-				"expert",
 			},
 		})
 
@@ -77,7 +76,6 @@ return {
 				"black", -- python formatter
 				"pylint",
 				"eslint_d",
-				"expert",
 			},
 		})
 	end,
