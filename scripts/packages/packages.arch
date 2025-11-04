@@ -15,13 +15,6 @@ ffmpeg
 flatpak
 fzf
 github-cli
-hypridle
-hyprland
-hyprland-qtutils
-hyprlock
-hyprpicker
-hyprshot
-hyprsunset
 imagemagick
 inetutils
 inotify-tools
@@ -33,6 +26,7 @@ lazydocker
 lazygit
 less
 neovim
+niri
 nmap
 noto-fonts
 npm
@@ -57,7 +51,6 @@ whois
 wl-clipboard
 wl-clip-persist
 wl-screenrec
-xdg-desktop-portal-hyprland
 xh
 xmlstarlet
 yaru-icon-theme

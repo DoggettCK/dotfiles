@@ -64,16 +64,3 @@ Host *
 ```
 
 You can configure this per host if you like. I just do it for every host, and it auto-detects my personal/work keys per repository.
-
-## Images
-
-### Wallpaper
-
-Hyprlock and Hyprpaper configs look for their wallpaper at
-`~/.config/background`, so either copy your wallpaper there, or link to it with
-`ln -sf /path/to/some/image.jpg ~/.config/background`.
-
-### Lock screen profile picture
-
-Hyprlock looks for a profile picture at `~/.face`, so again, save the picture
-to that file, or link to it with `ln -sf /path/to/some/image.jpg ~/.face`.
