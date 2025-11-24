@@ -19,10 +19,12 @@ vim.keymap.set("n", "<Esc>", ":noh<CR>", opts)
 
 -- save file
 vim.keymap.set({ "n", "v" }, "<C-s>", "<cmd> w <CR>", opts)
+vim.keymap.set({ "n", "v" }, "S", "<cmd> w <CR>", opts)
 vim.keymap.set("i", "<C-s>", "<Esc><cmd> w <CR>", opts)
 
 -- quit file
 vim.keymap.set({ "n", "i" }, "<M-BS>", "<cmd>bd!<CR><ESC>", opts)
+vim.keymap.set({ "n" }, "<S-BS>", "<cmd>bd!<CR><ESC>", opts)
 
 -- Vertical scroll and center
 vim.keymap.set("n", "<C-d>", "<C-d>zz", opts)
@@ -95,15 +97,15 @@ vim.keymap.set("n", "<leader>do", function()
 	diagnostics_active = not diagnostics_active
 
 	if diagnostics_active then
-		vim.diagnostic.enable(0)
+		vim.diagnostic.enable(true)
 	else
-		vim.diagnostic.disable(0)
+		vim.diagnostic.enable(false)
 	end
 end)
 
 -- Diagnostic keymaps
-vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, { desc = "Go to previous diagnostic message" })
-vim.keymap.set("n", "]d", vim.diagnostic.goto_next, { desc = "Go to next diagnostic message" })
+vim.keymap.set("n", "[d", vim.diagnostic.get_prev, { desc = "Go to previous diagnostic message" })
+vim.keymap.set("n", "]d", vim.diagnostic.get_next, { desc = "Go to next diagnostic message" })
 vim.keymap.set("n", "<leader>df", vim.diagnostic.open_float, { desc = "Open floating diagnostic message" })
 vim.keymap.set("n", "<leader>dl", vim.diagnostic.setloclist, { desc = "Open diagnostics list" })
 
