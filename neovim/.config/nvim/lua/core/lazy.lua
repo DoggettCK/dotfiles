@@ -17,7 +17,7 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 -- Import color theme based on environment variable NVIM_THEME
-local nvim_theme = os.getenv("NVIM_THEME") or "catppuccin"
+local nvim_theme = os.getenv("NVIM_THEME") or "tokyonight-night"
 
 -- Setup lazy.nvim
 require("lazy").setup({
