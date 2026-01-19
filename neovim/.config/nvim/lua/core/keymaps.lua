@@ -113,3 +113,5 @@ vim.keymap.set("n", "<leader>dl", vim.diagnostic.setloclist, { desc = "Open diag
 -- typically the keys with raised bumps on them, so typing them without a bit
 -- of a delay between them in insert mode will escape out to normal mode.
 vim.keymap.set("i", "jf", "<Esc><Esc>", opts)
+
+vim.keymap.set("n", "<leader>rt", "<cmd>RustTest!<CR>", opts)
