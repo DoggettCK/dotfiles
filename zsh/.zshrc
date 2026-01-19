@@ -62,7 +62,8 @@ alias jrnl=" jrnl"
 
 LOCAL_BIN_PATH=~/.local/bin
 GIT_NUMBER_PATH=~/.local/git-number
-export PATH="$LOCAL_BIN_PATH:$GIT_NUMBER_PATH:$PATH"
+CARGO_BIN_PATH=~/.cargo/bin
+export PATH="$LOCAL_BIN_PATH:$GIT_NUMBER_PATH:$CARGO_BIN_PATH:$PATH"
 
 if hash -v asdf > /dev/null 2>&1; then
   export ASDF_FORCE_PREPEND=true
