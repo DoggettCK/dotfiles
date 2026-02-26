@@ -4,10 +4,10 @@ return {
 	config = true,
 	vim.keymap.set("n", "<F5>", function()
 		vim.notify("Session Saved")
-		vim.cmd("SessionSave")
+		vim.cmd(":Persisted save")
 	end, { noremap = true, silent = true }),
 	vim.keymap.set("n", "<F9>", function()
 		vim.notify("Session Loaded")
-		vim.cmd("SessionLoad")
+		vim.cmd(":Persisted load")
 	end, { noremap = true, silent = true }),
 }
