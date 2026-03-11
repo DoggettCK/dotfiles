@@ -251,12 +251,9 @@ _fzf_comprun() {
 }
 
 # Aliases
-alias ga='git number add'
 alias gcv='git commit -v' # Commit with editor to see changes
-alias gd='git number diff'
 alias gfp='git push -f origin $(git rev-parse --abbrev-ref HEAD)'
 alias glp='git log -p'
-alias gn='git number --column'
 alias gnb='git checkout -b' # Create new branch
 alias gpo='git pull origin --ff-only'
 alias gpu='git push -u'
