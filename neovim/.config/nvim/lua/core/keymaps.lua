@@ -19,7 +19,6 @@ vim.keymap.set("n", "<Esc>", ":noh<CR>", opts)
 
 -- save file
 vim.keymap.set({ "n", "v" }, "<C-s>", "<cmd> w <CR>", opts)
-vim.keymap.set({ "n", "v" }, "S", "<cmd> w <CR>", opts)
 vim.keymap.set("i", "<C-s>", "<Esc><cmd> w <CR>", opts)
 
 -- quit file
@@ -43,23 +42,20 @@ vim.keymap.set("n", "<A-Up>", "ddkP<S-v>")
 vim.keymap.set("n", "<A-Down>", "ddp<S-v>")
 
 -- Increment/decrement numbers
-vim.keymap.set("n", "<leader>+", "<C-a>", opts) -- increment
-vim.keymap.set("n", "<leader>-", "<C-x>", opts) -- decrement
+vim.keymap.set("n", "<leader>+", "<C-a>", opts)
+vim.keymap.set("n", "<leader>-", "<C-x>", opts)
 
--- Window management
-vim.keymap.set("n", "<leader>v", "<C-w>v", opts) -- split window vertically
-vim.keymap.set("n", "<leader>h", "<C-w>s", opts) -- split window horizontally
-vim.keymap.set("n", "<leader>se", "<C-w>=", opts) -- make split windows equal width & height
-vim.keymap.set("n", "<leader>xs", ":close<CR>", opts) -- close current split window
+-- Window management (<leader>w*)
+vim.keymap.set("n", "<leader>wv", "<C-w>v", opts)
+vim.keymap.set("n", "<leader>ws", "<C-w>s", opts)
+vim.keymap.set("n", "<leader>we", "<C-w>=", opts)
+vim.keymap.set("n", "<leader>wc", ":close<CR>", opts)
 
 -- Navigate between splits
 vim.keymap.set("n", "<C-k>", ":wincmd k<CR>", opts)
 vim.keymap.set("n", "<C-j>", ":wincmd j<CR>", opts)
 vim.keymap.set("n", "<C-h>", ":wincmd h<CR>", opts)
 vim.keymap.set("n", "<C-l>", ":wincmd l<CR>", opts)
-
--- Toggle line wrapping
-vim.keymap.set("n", "<leader>lw", "<cmd>set wrap!<CR>", opts)
 
 -- Stay in indent mode
 vim.keymap.set("v", "<", "<gv", opts)
@@ -69,7 +65,7 @@ vim.keymap.set("v", ">", ">gv", opts)
 -- vim.keymap.set("v", "p", '"_dP', opts)
 
 -- Replace word under cursor
-vim.keymap.set("n", "<leader>j", "*``cgn", opts)
+vim.keymap.set("n", "<leader>cw", "*``cgn", opts)
 
 -- Explicitly yank to system clipboard (highlighted and entire row)
 vim.keymap.set({ "n", "v" }, "<leader>y", [["+y]])
@@ -90,20 +86,7 @@ vim.keymap.set("v", "<leader>dd", "y :g/<C-r>0/d<CR>", { noremap = true, silent 
 -- Replace quoted string with contents of paste buffer
 vim.keymap.set("n", "<leader>p", 'ci"<C-r>0<Esc>', { noremap = true, silent = true })
 
--- Toggle diagnostics
-local diagnostics_active = true
-
-vim.keymap.set("n", "<leader>do", function()
-	diagnostics_active = not diagnostics_active
-
-	if diagnostics_active then
-		vim.diagnostic.enable(true)
-	else
-		vim.diagnostic.enable(false)
-	end
-end)
-
--- Diagnostic keymaps
+-- Diagnostic keymaps (<leader>d*)
 vim.keymap.set("n", "[d", vim.diagnostic.get_prev, { desc = "Go to previous diagnostic message" })
 vim.keymap.set("n", "]d", vim.diagnostic.get_next, { desc = "Go to next diagnostic message" })
 vim.keymap.set("n", "<leader>df", vim.diagnostic.open_float, { desc = "Open floating diagnostic message" })
