@@ -11,6 +11,9 @@ return {
 		notifier = {
 			enabled = true,
 			timeout = 3000,
+			filter = function(notif)
+				return not notif.msg:find("Did not detect DSR response", 1, true)
+			end,
 		},
 		quickfile = { enabled = true },
 		scroll = { enabled = false },
