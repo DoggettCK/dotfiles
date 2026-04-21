@@ -65,7 +65,7 @@ return {
 			desc = "[F]ind [O]ld (recent) files",
 		},
 		{
-			"<leader>fr",
+			"<leader>fR",
 			function()
 				require("fzf-lua").resume()
 			end,

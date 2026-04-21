@@ -15,19 +15,18 @@ vim.api.nvim_create_autocmd("LSPAttach", {
 
 		local fzf = require("fzf-lua")
 		map("gd", fzf.lsp_definitions, "Goto Definition")
-		map("<leader>fs", fzf.lsp_document_symbols, "Doc Symbols")
-		map("<leader>fS", fzf.lsp_live_workspace_symbols, "Dynamic Symbols")
-		map("<leader>ft", fzf.lsp_typedefs, "Goto Type")
-		map("<leader>fr", fzf.lsp_references, "Goto References")
-		map("<leader>fi", fzf.lsp_implementations, "Goto Impl")
+		map("<leader>ls", fzf.lsp_document_symbols, "Doc Symbols")
+		map("<leader>lS", fzf.lsp_live_workspace_symbols, "Dynamic Symbols")
+		map("<leader>lt", fzf.lsp_typedefs, "Goto Type")
+		map("<leader>lr", fzf.lsp_references, "Goto References")
+		map("<leader>li", fzf.lsp_implementations, "Goto Impl")
 
 		map("K", vim.lsp.buf.hover, "hover")
-		map("<leader>E", vim.diagnostic.open_float, "diagnostic")
-		map("<leader>rn", vim.lsp.buf.rename, "rename")
-		map("<leader>ca", vim.lsp.buf.code_action, "code action")
-		map("<leader>wf", vim.lsp.buf.format, "format")
+		map("<leader>lR", vim.lsp.buf.rename, "Rename")
+		map("<leader>la", vim.lsp.buf.code_action, "Code Action")
+		map("<leader>lf", vim.lsp.buf.format, "Format")
 
-		vim.keymap.set("v", "<leader>ca", vim.lsp.buf.code_action, { buffer = ev.buf, desc = "LSP: code_action" })
+		vim.keymap.set("v", "<leader>la", vim.lsp.buf.code_action, { buffer = ev.buf, desc = "LSP: code_action" })
 
 		-- local dap = require("dap")
 		-- map("<leader>dt", dap.toggle_breakpoint, "Toggle Break")
