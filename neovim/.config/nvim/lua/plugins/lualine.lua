@@ -1,6 +1,7 @@
 -- Set lualine as statusline
 return {
 	"nvim-lualine/lualine.nvim",
+	cond = not vim.g.vscode,
 	config = function()
 		local filename = {
 			"filename",

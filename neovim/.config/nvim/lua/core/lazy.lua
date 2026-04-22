@@ -56,4 +56,6 @@ require("lazy").setup({
 	ui = { border = "rounded" },
 })
 
-vim.cmd.colorscheme(nvim_theme)
+if not vim.g.vscode then
+	vim.cmd.colorscheme(nvim_theme)
+end

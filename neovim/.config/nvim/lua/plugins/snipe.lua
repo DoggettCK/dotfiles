@@ -1,5 +1,6 @@
 return {
 	"leath-dub/snipe.nvim",
+	cond = not vim.g.vscode,
 	keys = {
 		{
 			"gb",

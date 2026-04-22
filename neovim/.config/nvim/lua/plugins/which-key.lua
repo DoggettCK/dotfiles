@@ -1,6 +1,7 @@
 return {
 	-- Hints keybinds
 	"folke/which-key.nvim",
+	cond = not vim.g.vscode,
 	event = "VeryLazy",
 	opts = {
 		preset = "helix",
