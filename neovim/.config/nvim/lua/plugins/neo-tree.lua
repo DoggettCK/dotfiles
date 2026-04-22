@@ -1,5 +1,6 @@
 return {
 	"nvim-neo-tree/neo-tree.nvim",
+	cond = not vim.g.vscode,
 	event = "VeryLazy",
 	branch = "v3.x",
 	dependencies = {

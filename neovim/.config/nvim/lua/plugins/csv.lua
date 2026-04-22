@@ -1,5 +1,6 @@
 return {
 	"hat0uma/csvview.nvim",
+	cond = not vim.g.vscode,
 	---@module "csvview"
 	---@type CsvView.Options
 	opts = {

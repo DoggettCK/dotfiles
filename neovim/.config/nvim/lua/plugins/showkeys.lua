@@ -1,5 +1,6 @@
 return {
 	"nvzone/showkeys",
+	cond = not vim.g.vscode,
 	cmd = "ShowkeysToggle",
 	opts = {
 		maxkeys = 10,

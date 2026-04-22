@@ -1,5 +1,6 @@
 return {
 	"catppuccin/nvim",
+	cond = not vim.g.vscode,
 	name = "catppuccin",
 	priority = 1000,
 	config = function()

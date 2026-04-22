@@ -1,5 +1,6 @@
 return {
 	"ibhagwan/fzf-lua",
+	cond = not vim.g.vscode,
 	dependencies = { "echasnovski/mini.icons" },
 	config = function()
 		local actions = require("fzf-lua").actions

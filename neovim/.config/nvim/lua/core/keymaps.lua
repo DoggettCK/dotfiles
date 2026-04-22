@@ -86,15 +86,19 @@ vim.keymap.set("v", "<leader>dd", "y :g/<C-r>0/d<CR>", { noremap = true, silent 
 -- Replace quoted string with contents of paste buffer
 vim.keymap.set("n", "<leader>p", 'ci"<C-r>0<Esc>', { noremap = true, silent = true })
 
--- Diagnostic keymaps (<leader>d*)
-vim.keymap.set("n", "[d", vim.diagnostic.get_prev, { desc = "Go to previous diagnostic message" })
-vim.keymap.set("n", "]d", vim.diagnostic.get_next, { desc = "Go to next diagnostic message" })
-vim.keymap.set("n", "<leader>df", vim.diagnostic.open_float, { desc = "Open floating diagnostic message" })
-vim.keymap.set("n", "<leader>dl", vim.diagnostic.setloclist, { desc = "Open diagnostics list" })
+-- Diagnostic keymaps (<leader>d*) — overridden by core/vscode.lua in VS Code
+if not vim.g.vscode then
+	vim.keymap.set("n", "[d", vim.diagnostic.get_prev, { desc = "Go to previous diagnostic message" })
+	vim.keymap.set("n", "]d", vim.diagnostic.get_next, { desc = "Go to next diagnostic message" })
+	vim.keymap.set("n", "<leader>df", vim.diagnostic.open_float, { desc = "Open floating diagnostic message" })
+	vim.keymap.set("n", "<leader>dl", vim.diagnostic.setloclist, { desc = "Open diagnostics list" })
+end
 
 -- Easy escape to normal mode. No english words contain 'jf', and they're
 -- typically the keys with raised bumps on them, so typing them without a bit
 -- of a delay between them in insert mode will escape out to normal mode.
 vim.keymap.set("i", "jf", "<Esc><Esc>", opts)
 
-vim.keymap.set("n", "<leader>rt", "<cmd>RustTest!<CR>", opts)
+if not vim.g.vscode then
+	vim.keymap.set("n", "<leader>rt", "<cmd>RustTest!<CR>", opts)
+end
