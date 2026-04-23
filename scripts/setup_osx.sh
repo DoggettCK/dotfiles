@@ -44,7 +44,7 @@ install_or_update_brew() {
 
 stow_everything() {
     info_msg "Symlinking configs via Stow"
-    stow_packages "fzf" "git-number" "kitty" "lazygit" "neovim" "tmux" "vim" "zsh"
+    stow_packages "fzf" "kitty" "lazygit" "neovim" "tmux" "vim" "zsh" "starship"
 }
 
 main() {
