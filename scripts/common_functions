@@ -40,9 +40,9 @@ stow_packages() {
     done
 }
 
-# Installs git packages (fzf-git and git-number)
+# Installs git packages (fzf-git)
 initialize_submodules() {
-    # Git submodules include fzf-git.sh and git-number
+    # Git submodules include fzf-git.sh
     info_msg "Updating git submodules"
     git submodule update --init --recursive --remote
 }
