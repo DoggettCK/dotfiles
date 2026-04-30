@@ -213,10 +213,6 @@ if hash -v yazi >/dev/null 2>&1; then
   }
 fi
 
-if [[ -d "$HOME/.diversion/bin" ]]; then
-  export PATH="$HOME/.diversion/bin:$PATH"
-fi
-
 # Add Rust tools to path if installed
 [[ -f ~/.cargo/env ]] && source ~/.cargo/env
 
@@ -243,6 +239,8 @@ _fzf_comprun() {
   local command=$1
   shift
 
+  # Tab completion for things like `ssh **<Tab>` to get a list of
+  # hosts.
   case "$command" in
     export|unset) fzf --preview "eval 'echo \${}' {}" "$@" ;;
     ssh)          fzf --preview 'dig {}' "$@" ;;
@@ -252,6 +250,7 @@ _fzf_comprun() {
 
 # Aliases
 alias gcv='git commit -v' # Commit with editor to see changes
+alias gd_format='find . -path ./addons -prune -o -type f -name "*.gd" -exec gdscript-formatter {} \;'
 alias gfp='git push -f origin $(git rev-parse --abbrev-ref HEAD)'
 alias glp='git log -p'
 alias gnb='git checkout -b' # Create new branch
