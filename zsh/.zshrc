@@ -32,6 +32,8 @@ export FZF_CTRL_T_OPTS="--preview 'bat -n --color=always --line-range :500 {}'"
 bindkey -e
 bindkey '^p' history-search-backward
 bindkey '^n' history-search-forward
+bindkey "^[[5~" history-search-backward   # PgUp
+bindkey "^[[6~" history-search-forward    # PgDn
 
 if [[ $(uname) =~ "Darwin" ]]; then
   bindkey '\e[A' history-substring-search-up
