@@ -253,6 +253,7 @@ _fzf_comprun() {
 # Aliases
 alias gcv='git commit -v' # Commit with editor to see changes
 alias gd_format='find . -path ./addons -prune -o -type f -name "*.gd" -exec gdscript-formatter {} \;'
+alias gd_reorder='find . -path ./addons -prune -o -type f -name "*.gd" -exec gdscript-formatter -c {} \;'
 alias gfp='git push -f origin $(git rev-parse --abbrev-ref HEAD)'
 alias glp='git log -p'
 alias gnb='git checkout -b' # Create new branch
