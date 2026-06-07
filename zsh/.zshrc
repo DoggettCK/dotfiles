@@ -267,6 +267,7 @@ alias lg="lazygit"
 alias mt='mix test'
 alias mtw='mix test.watch'
 alias phx='iex --no-pry -S mix phx.server'
+alias quit='exit'
 alias rm='rm -iv'
 alias whatis='yay -Qi'
 alias ls='ls --color=auto'
