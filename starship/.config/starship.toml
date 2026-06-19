@@ -2,7 +2,6 @@
 
 command_timeout=1000
 format = """\
-$os\
 $hostname\
 $directory\
 $fill\
@@ -45,10 +44,6 @@ crust = '#11111b'
 [os]
 disabled = false
 style = "fg:crust bg:rosewater bold"
-
-[os.symbols]
-EndeavourOS = " "
-Macos = " "
 
 [hostname]
 style = "fg:crust bg:rosewater bold"
