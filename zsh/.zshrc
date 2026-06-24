@@ -253,6 +253,8 @@ _fzf_comprun() {
 # Aliases
 alias gcv='git commit -v' # Commit with editor to see changes
 alias gd_format="git diff --diff-filter=d --name-only HEAD -- '*.gd' | xargs -r gdscript-formatter"
+alias gd_lint="git diff --diff-filter=d --name-only HEAD -- '*.gd' | xargs -r gdscript-formatter lint --max-line-length 100"
+alias gd_lint_all="find . -type f -name '*.gd' | xargs -r gdscript-formatter lint --max-line-length 100"
 alias gd_reorder="git diff --diff-filter=d --name-only HEAD -- '*.gd' | xargs -r gdscript-formatter -c"
 alias gfp='git push -f origin $(git rev-parse --abbrev-ref HEAD)'
 alias glp='git log -p'
@@ -281,3 +283,6 @@ alias .....='cd ../../../..'
 
 # Uncomment for profiling data
 # zprof
+### bling.sh source start
+test -f /usr/share/bazzite-cli/bling.sh && source /usr/share/bazzite-cli/bling.sh
+### bling.sh source end
