@@ -252,10 +252,10 @@ _fzf_comprun() {
 
 # Aliases
 alias gcv='git commit -v' # Commit with editor to see changes
-alias gd_format="git diff --diff-filter=d --name-only HEAD -- '*.gd' | xargs -r gdscript-formatter"
-alias gd_lint="git diff --diff-filter=d --name-only HEAD -- '*.gd' | xargs -r gdscript-formatter lint --max-line-length 100 --pretty"
+alias gd_format='{ git diff --diff-filter=d --name-only HEAD -- "*.gd"; git ls-files --others --exclude-standard -- "*.gd"; } | sort -u | xargs -r gdscript-formatter'
 alias gd_lint_all="find . -path ./addons -prune -o -type f -name '*.gd' -print | xargs -r gdscript-formatter lint --max-line-length 100 --pretty"
-alias gd_reorder="git diff --diff-filter=d --name-only HEAD -- '*.gd' | xargs -r gdscript-formatter --reorder-code"
+alias gd_lint='{ git diff --diff-filter=d --name-only HEAD -- "*.gd"; git ls-files --others --exclude-standard -- "*.gd"; } | sort -u | xargs -r gdscript-formatter lint --max-line-length 100 --pretty'
+alias gd_reorder='{ git diff --diff-filter=d --name-only HEAD -- "*.gd"; git ls-files --others --exclude-standard -- "*.gd"; } | sort -u | xargs -r gdscript-formatter --reorder-code'
 alias gfp='git push -f origin $(git rev-parse --abbrev-ref HEAD)'
 alias glp='git log -p'
 alias gnb='git checkout -b' # Create new branch
