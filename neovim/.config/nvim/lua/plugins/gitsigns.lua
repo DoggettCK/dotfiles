@@ -2,6 +2,9 @@
 return {
   'lewis6991/gitsigns.nvim',
   cond = not vim.g.vscode,
+  keys = {
+    { '<leader>gF', '<cmd>Gitsigns blame<CR>', desc = 'Git Blame File' },
+  },
   opts = {
     -- See `:help gitsigns.txt`
     signs = {

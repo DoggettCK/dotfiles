@@ -6,8 +6,14 @@ return {
 		maxkeys = 10,
 		show_count = true,
 	},
-	vim.keymap.set("n", "<leader>uk", function()
-		vim.notify("Toggling Show Keys")
-		vim.cmd("ShowkeysToggle")
-	end, { silent = true, noremap = true }),
+	keys = {
+		{
+			"<leader>uk",
+			function()
+				vim.notify("Toggling Show Keys")
+				vim.cmd("ShowkeysToggle")
+			end,
+			desc = "Toggle Show Keys",
+		},
+	},
 }

@@ -1,9 +1,8 @@
 return {
-	-- high-performance color highlighter
+	-- high-performance color highlighter (maintained fork of norcalli's)
 	-- example: #a6e3a1
-	"norcalli/nvim-colorizer.lua",
+	"NvChad/nvim-colorizer.lua",
 	cond = not vim.g.vscode,
-	config = function()
-		require("colorizer").setup()
-	end,
+	event = { "BufReadPost", "BufNewFile" },
+	opts = {},
 }

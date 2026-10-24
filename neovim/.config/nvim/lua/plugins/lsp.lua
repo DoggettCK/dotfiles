@@ -1,83 +1,56 @@
+-- Native LSP (nvim 0.11+). nvim-lspconfig only supplies the default server
+-- configs (its lsp/*.lua files); per-server overrides go in this config's
+-- lsp/<name>.lua and are merged on top. Capabilities come from blink.cmp,
+-- which registers them via vim.lsp.config("*") itself.
 return {
-	"mason-org/mason-lspconfig.nvim",
+	"neovim/nvim-lspconfig",
 	cond = not vim.g.vscode,
-	opts = {},
+	lazy = false,
 	dependencies = {
+		-- mason must set up first so its bin dir is on PATH
 		{ "mason-org/mason.nvim", opts = {} },
-		{
-			"neovim/nvim-lspconfig",
-			opts = {
-				servers = {
-					lua_ls = {
-						settings = {
-							Lua = {
-								library = vim.api.nvim_get_runtime_file("", true),
-								runtime = {
-									version = "LuaJIT",
-									path = vim.split(package.path, ";"),
-								},
-								diagnostics = {
-									globals = { "vim" },
-								},
-								workspace = {
-									-- Make the server aware of Neovim runtime files and plugins
-									library = { vim.env.VIMRUNTIME },
-									checkThirdParty = false,
-								},
-								telemetry = {
-									enable = false,
-								},
-							},
-						},
-					},
-				},
-			},
-			config = function(_, opts)
-				for server, config in pairs(opts.servers) do
-					config.capabilities = require("blink.cmp").get_lsp_capabilities(config.capabilities)
-					vim.lsp.config(server, config)
-				end
-			end,
-		},
 		{
 			"WhoIsSethDaniel/mason-tool-installer.nvim",
 			opts = {
-				integrations = { ["mason-lspconfig"] = true },
+				ensure_installed = {
+					-- language servers
+					"css-lsp",
+					"eslint-lsp",
+					"html-lsp",
+					"json-lsp",
+					"lua-language-server",
+					"pyright",
+					"tailwindcss-language-server",
+					"typescript-language-server",
+					-- formatters
+					"black",
+					"isort",
+					"prettier",
+					"prettierd",
+					"stylua",
+				},
 			},
 		},
-		{
-			"j-hui/fidget.nvim",
-			opts = {
-				-- options
-			},
-		},
+		{ "j-hui/fidget.nvim", opts = {} },
 	},
 	config = function()
-		require("mason").setup()
-
-		require("mason-lspconfig").setup({
-			automatic_installation = true,
-			ensure_installed = {
-				"cssls",
-				"eslint",
-				"html",
-				"jsonls",
-				"ts_ls",
-				"pyright",
-				"tailwindcss",
-			},
+		vim.diagnostic.config({
+			severity_sort = true,
+			virtual_text = true,
+			float = { border = "rounded" },
 		})
 
-		require("mason-tool-installer").setup({
-			ensure_installed = {
-				"prettier",
-				"prettierd",
-				"stylua", -- lua formatter
-				"isort", -- python formatter
-				"black", -- python formatter
-				"pylint",
-				"eslint_d",
-			},
+		-- rust_analyzer is owned by rustaceanvim; gdscript connects to a running Godot editor
+		vim.lsp.enable({
+			"cssls",
+			"eslint",
+			"gdscript",
+			"html",
+			"jsonls",
+			"lua_ls",
+			"pyright",
+			"tailwindcss",
+			"ts_ls",
 		})
 	end,
 }

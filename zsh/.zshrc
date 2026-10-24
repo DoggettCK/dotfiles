@@ -3,7 +3,7 @@
 # shellcheck disable=1091
 # shellcheck disable=2086 # don't want double quotes on zstyle matcher-list
 # shellcheck disable=2016 # don't want to expand expressions on zstyle matcher-list
-# shellcheck disable=2034 # starship var use verified
+# shellcheck disable=2034 # zsh's $path array is tied to $PATH, not unused
 # shellcheck disable=2296 # syntax is correct for zstyle list-colors
 
 # Uncomment this and last line if startup is slow to enable profiling
@@ -20,13 +20,15 @@ export GIT_EDITOR="nvim"
 export LANG=en_US.UTF-8
 export LS_COLORS=$LS_COLORS:"ow=34;40:"
 export TERM=xterm-256color
-export XDG_CONFIG_HOME="$HOME/.config/"
 
 # use fd instead of fzf
 export FZF_DEFAULT_COMMAND="fd --hidden --strip-cwd-prefix --exclude .git"
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 export FZF_ALT_C_COMMAND="fd --type d --hidden --strip-cwd-prefix --exclude .git"
-export FZF_CTRL_T_OPTS="--preview 'bat -n --color=always --line-range :500 {}'"
+# Tree for directories, syntax-highlighted contents for files
+show_file_or_dir_preview='if [ -d {} ]; then eza --tree --color=always {} | head -200; else bat -n --color=always --line-range :500 {}; fi'
+export FZF_CTRL_T_OPTS="--preview '$show_file_or_dir_preview'"
+export FZF_ALT_C_OPTS="--preview 'eza --tree --color=always {} | head -200'"
 
 # Keybindings
 bindkey -e
@@ -50,12 +52,9 @@ fi
 export HISTSIZE=5000
 export HISTFILE=~/.zsh_history
 export SAVEHIST=$HISTSIZE
-export HISTDUP=erase
-setopt appendhistory
 setopt sharehistory
 setopt hist_ignore_all_dups
 setopt hist_save_no_dups
-setopt hist_ignore_dups
 setopt hist_find_no_dups
 setopt hist_ignore_space
 # history will ignore anything starting with a space, but zsh doesn't respect
@@ -63,33 +62,49 @@ setopt hist_ignore_space
 alias jrnl=" jrnl"
 
 LOCAL_BIN_PATH=~/.local/bin
-GIT_NUMBER_PATH=~/.local/git-number
-CARGO_BIN_PATH=~/.cargo/bin
-export PATH="$LOCAL_BIN_PATH:$GIT_NUMBER_PATH:$CARGO_BIN_PATH:$PATH"
+export PATH="$LOCAL_BIN_PATH:$PATH"
+# Drop duplicate PATH entries (nested shells, re-sourcing .zshrc, cargo env)
+typeset -U path PATH
 
-if hash -v asdf > /dev/null 2>&1; then
-  export ASDF_FORCE_PREPEND=true
-  export PATH="${ASDF_DATA_DIR:-$HOME/.asdf}/shims:$PATH"
-fi
-
-if hash -v xdg-open >/dev/null 2>&1; then
-  alias open="xdg-open"
-fi
-
-# Brew configuration
+# Brew configuration. Must come before anything that checks for brew-installed
+# commands (asdf, keychain, starship, ...) since it puts brew on PATH.
 case "$(uname)" in
   Darwin) BREW_EXE=/opt/homebrew/bin/brew ;;
   *) BREW_EXE=/home/linuxbrew/.linuxbrew/bin/brew ;;
 esac
 
 if [[ -x "$BREW_EXE" ]]; then
-  eval "$($BREW_EXE shellenv)"
+  eval "$("$BREW_EXE" shellenv)"
   # Elixir/Erlang compilation flags
   # Compile Erlang Docs
   export KERL_BUILD_DOCS=yes
   # Use correct ssl installation dir for Erlang compiler
-  OPENSSL_DIR=$(eval "$BREW_EXE --prefix openssl")
+  OPENSSL_DIR=$("$BREW_EXE" --prefix openssl)
   export KERL_CONFIGURE_OPTIONS="--without-javac --with-ssl=${OPENSSL_DIR}"
+fi
+
+# After brew so asdf's shims end up ahead of brew's bin on PATH
+if command -v asdf >/dev/null; then
+  export ASDF_FORCE_PREPEND=true
+  export PATH="${ASDF_DATA_DIR:-$HOME/.asdf}/shims:$PATH"
+fi
+
+unalias open 2>/dev/null
+
+# Linux only: macOS ships a real `open` binary, so skip this there
+if (( ! $+commands[open] )); then
+  open() {
+    if (( $# == 0 )); then
+      xdg-open . >/dev/null 2>&1 &!
+      return
+    fi
+
+    local f
+    for f in "$@"; do
+      xdg-open "$f" >/dev/null 2>&1 &!
+      (( $# > 1 )) && sleep 0.2
+    done
+  }
 fi
 
 # Functions
@@ -100,20 +115,20 @@ git_reset() {
 
 # Reset and update all git submodules
 git_submodule_reset() {
-  rm -rf submodules && git submodule init & git submodule update
+  rm -rf submodules && git submodule init && git submodule update
 }
 
 # Delete all local git branches except the one passed in (defaults to main)
 git_nuke() {
-  branch=${1:-main}
+  local branch=${1:-main}
   echo -n "Are you sure you want to delete all git branches except \"$branch\"? " 
   read -r -k1
   echo
   if [[ $REPLY =~ ^[Yy]$ ]]; then
     echo "git checkout $branch"
     git checkout "$branch"
-    printf "git branch --no-color | awk '{gsub(/^[ \t*]+| [ \t]+$/,\"\"); print \$0}' | grep -v \"%s\" | xargs git branch -D\n" "$branch"
-    git branch --no-color | awk '{gsub(/^[ \t*]+| [ \t]+$/,""); print $0}' | grep -v "$branch" | xargs git branch -D
+    printf "git branch --no-color | awk '{gsub(/^[ \t*]+| [ \t]+$/,\"\"); print \$0}' | grep -vxF \"%s\" | xargs git branch -D\n" "$branch"
+    git branch --no-color | awk '{gsub(/^[ \t*]+| [ \t]+$/,""); print $0}' | grep -vxF "$branch" | xargs git branch -D
   fi
 }
 
@@ -130,7 +145,9 @@ alias clean_yts="find . -maxdepth 1 -type d | f2 -id -f ' \[\D+\]' -r '' -f ' \[
 alias rename_md5="f2 -f '^[^_]+$' -r '{hash.md5}{ext}'"
 
 # Load all SSH keys into a singleton ssh-agent
-eval "$(keychain --eval --quiet)"
+if command -v keychain >/dev/null; then
+  eval "$(keychain --eval --quiet)"
+fi
 
 # Enable shell history for iex
 export ERL_AFLAGS="-kernel shell_history enabled"
@@ -153,6 +170,9 @@ fi
 
 # Add in zsh plugins
 zinit light zsh-users/zsh-completions
+# Must load before plugins that wrap widgets (autosuggestions, syntax-highlighting)
+# and before `fzf --zsh`, which then falls back to fzf-tab for non-** completion
+zinit light Aloxaf/fzf-tab
 zinit light zsh-users/zsh-autosuggestions
 zinit light zsh-users/zsh-history-substring-search
 zinit light zsh-users/zsh-syntax-highlighting
@@ -162,50 +182,49 @@ zinit snippet OMZP::jump
 
 # Load completions
 autoload -Uz compinit
-if [ "$(date +'%j')" != "$(stat -f '%Sm' -t '%j' ~/.zcompdump 2>/dev/null)" ]; then
-    compinit
+# Full compinit (with security audit) at most once a day; otherwise trust the
+# cached dump. The (N.mh+24) glob qualifier matches the dump only if it's older
+# than 24 hours, and works on both macOS and Linux unlike stat's flags.
+_stale_zcompdump=(~/.zcompdump(N.mh+24))
+if (( $#_stale_zcompdump )); then
+  compinit
+  # compinit only rewrites the dump when completions change, so bump its mtime
+  touch ~/.zcompdump
 else
-    compinit -C
+  compinit -C
 fi
+unset _stale_zcompdump
 
 zinit cdreplay -q
 
 # Completion styling
 zstyle ':completion:*' matcher-list '' 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=*' 'l:|=* r:|=*'
 zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
-zstyle ':fzf-tab:complete:cd:*' fzf-preview 'ls --color $realpath'
+zstyle ':completion:*' menu no                         # let fzf-tab replace the menu
+zstyle ':completion:*:descriptions' format '[%d]'      # enables group headers
+zstyle ':completion:*:git-checkout:*' sort false       # keep git's own ordering
+zstyle ':fzf-tab:*' switch-group '<' '>'               # cycle completion groups
+# __zoxide_z because `zoxide init --cmd cd` replaces cd
+zstyle ':fzf-tab:complete:(cd|__zoxide_z):*' fzf-preview 'eza -1 --color=always $realpath'
 
 # Shell integrations
-if hash -v starship >/dev/null 2>&1; then
-  SPACESHIP_PROMPT_ASYNC=true
-  SPACESHIP_PROMPT_ADD_NEWLINE=true
-  SPACESHIP_CHAR_SYMBOL="⚡"
-
-  # Only load what you actually use
-  SPACESHIP_PROMPT_ORDER=(
-    time
-    user
-    dir
-    git
-    line_sep
-    char
-  )
+if command -v starship >/dev/null; then
   eval "$(starship init zsh)"
 fi
 
-if hash -v fzf >/dev/null 2>&1; then
+if command -v fzf >/dev/null; then
   eval "$(fzf --zsh)"
 fi
 
-if hash -v zoxide >/dev/null 2>&1; then
+if command -v zoxide >/dev/null; then
   eval "$(zoxide init --cmd cd zsh)"
 fi
 
-if hash -v direnv >/dev/null 2>&1; then
+if command -v direnv >/dev/null; then
   eval "$(direnv hook zsh)"
 fi
 
-if hash -v yazi >/dev/null 2>&1; then
+if command -v yazi >/dev/null; then
   function y() {
       local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
       yazi "$@" --cwd-file="$tmp"
@@ -244,9 +263,10 @@ _fzf_comprun() {
   # Tab completion for things like `ssh **<Tab>` to get a list of
   # hosts.
   case "$command" in
-    export|unset) fzf --preview "eval 'echo \${}' {}" "$@" ;;
+    cd)           fzf --preview 'eza --tree --color=always {} | head -200' "$@" ;;
+    export|unset) fzf --preview "eval 'echo \${}'" "$@" ;;
     ssh)          fzf --preview 'dig {}' "$@" ;;
-    *)            fzf --preview "--preview 'bat -n --color=always --line-range :500 {}'" "$@" ;;
+    *)            fzf --preview "$show_file_or_dir_preview" "$@" ;;
   esac
 }
 

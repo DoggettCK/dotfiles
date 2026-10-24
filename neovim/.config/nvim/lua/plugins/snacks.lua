@@ -143,6 +143,18 @@ return {
 				Snacks.toggle.inlay_hints():map("<leader>uh")
 				Snacks.toggle.indent():map("<leader>ug")
 				Snacks.toggle.dim():map("<leader>uD")
+				Snacks.toggle
+					.new({
+						id = "transparent",
+						name = "Transparent Background",
+						get = function()
+							return vim.g.transparent
+						end,
+						set = function(state)
+							require("core.transparency").toggle(state)
+						end,
+					})
+					:map("<leader>ut")
 			end,
 		})
 	end,

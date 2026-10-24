@@ -2,6 +2,7 @@ return {
 	"ibhagwan/fzf-lua",
 	cond = not vim.g.vscode,
 	dependencies = { "echasnovski/mini.icons" },
+	event = "VeryLazy",
 	config = function()
 		local actions = require("fzf-lua").actions
 		require("fzf-lua").setup({
@@ -14,6 +15,10 @@ return {
 				},
 			},
 		})
+		-- Use fzf-lua for vim.ui.select (code actions, etc.)
+		require("fzf-lua").register_ui_select()
+		-- fzf-lua defines its own highlights on load, after the startup transparency pass
+		require("core.transparency").apply()
 	end,
 	keys = {
 		{
@@ -71,6 +76,13 @@ return {
 				require("fzf-lua").resume()
 			end,
 			desc = "[F]ind [R]esume",
+		},
+		{
+			"<leader>fk",
+			function()
+				require("fzf-lua").keymaps()
+			end,
+			desc = "[F]ind [K]eymaps",
 		},
 		{
 			"<leader><leader>",

@@ -12,19 +12,33 @@ return {
 			},
 		}
 
+		-- Rebuilt by lualine on every ColorScheme event, so it follows the transparency toggle
+		local theme = function()
+			local t = vim.deepcopy(require("lualine.utils.loader").load_theme("auto"))
+			if vim.g.transparent then
+				for _, mode in pairs(t) do
+					if mode.c then
+						mode.c.bg = "NONE"
+					end
+				end
+			end
+			return t
+		end
+
 		local hide_in_width = function()
 			return vim.fn.winwidth(0) > 100
 		end
 
 		require("lualine").setup({
 			options = {
+				theme = theme,
 				icons_enabled = true,
 				-- Some useful glyphs:
 				-- https://www.nerdfonts.com/cheat-sheet
 				--        
 				section_separators = { left = "", right = "" },
 				component_separators = { left = "", right = "" },
-				disabled_filetypes = { "alpha", "neo-tree", "Avante" },
+				disabled_filetypes = { "alpha", "neo-tree" },
 				always_divide_middle = true,
 			},
 			sections = {

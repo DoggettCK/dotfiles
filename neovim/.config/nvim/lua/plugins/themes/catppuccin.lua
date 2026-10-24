@@ -3,25 +3,20 @@ return {
 	cond = not vim.g.vscode,
 	name = "catppuccin",
 	priority = 1000,
-	config = function()
-		require("catppuccin").setup({
-			flavour = "mocha",
-			transparent_background = true,
-			term_colors = true,
-			integrations = {
-				cmp = true,
-				gitsigns = true,
-				nvimtree = true,
-				treesitter = true,
-				notify = true,
-				mini = {
-					enabled = true,
-					indentscope_color = "",
-				},
-			},
-		})
-
-		-- setup must be called before loading
-		vim.cmd.colorscheme("catppuccin")
-	end,
+	opts = {
+		flavour = "mocha",
+		transparent_background = false, -- handled by core/transparency.lua for every theme
+		term_colors = true,
+		integrations = {
+			blink_cmp = true,
+			dropbar = { enabled = true },
+			fidget = true,
+			gitsigns = true,
+			mini = { enabled = true },
+			neotree = true,
+			snacks = { enabled = true },
+			treesitter = true,
+			which_key = true,
+		},
+	},
 }
