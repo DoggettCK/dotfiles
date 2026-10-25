@@ -41,6 +41,7 @@ vim.o.writebackup = false -- if a file is being edited by another program (or wa
 vim.o.whichwrap = "bs<>[]hl" -- which "horizontal" keys are allowed to travel to prev/next line
 vim.o.wrap = false -- display lines as one long line
 vim.o.linebreak = true -- companion to wrap don't split words
+vim.o.foldenable = false -- disable folds
 
 -- Miscellaneous
 vim.o.updatetime = 250 -- Decrease update time
