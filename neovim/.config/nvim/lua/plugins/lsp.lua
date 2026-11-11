@@ -14,16 +14,20 @@ return {
 			opts = {
 				ensure_installed = {
 					-- language servers
+					"clangd",
 					"css-lsp",
 					"eslint-lsp",
 					"html-lsp",
 					"json-lsp",
 					"lua-language-server",
+					"ols",
 					"pyright",
 					"tailwindcss-language-server",
 					"typescript-language-server",
+					"zls",
 					-- formatters
 					"black",
+					"clang-format",
 					"isort",
 					"prettier",
 					"prettierd",
@@ -42,15 +46,18 @@ return {
 
 		-- rust_analyzer is owned by rustaceanvim; gdscript connects to a running Godot editor
 		vim.lsp.enable({
+			"clangd",
 			"cssls",
 			"eslint",
 			"gdscript",
 			"html",
 			"jsonls",
 			"lua_ls",
+			"ols",
 			"pyright",
 			"tailwindcss",
 			"ts_ls",
+			"zls",
 		})
 	end,
 }

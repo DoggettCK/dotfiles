@@ -7,7 +7,9 @@ return {
 	config = function()
 		require("nvim-treesitter").install({
 			"bash",
+			"c",
 			"c_sharp",
+			"cpp",
 			"css",
 			"diff",
 			"dockerfile",
@@ -26,6 +28,7 @@ return {
 			"lua",
 			"markdown",
 			"markdown_inline",
+			"odin",
 			"python",
 			"query",
 			"regex",
@@ -37,6 +40,7 @@ return {
 			"vim",
 			"vimdoc",
 			"yaml",
+			"zig",
 		})
 		-- Start treesitter for any filetype with an installed parser
 		vim.api.nvim_create_autocmd("FileType", {

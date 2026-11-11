@@ -299,6 +299,9 @@ alias ...='cd ../..'
 alias ....='cd ../../..'
 alias .....='cd ../../../..'
 
+# Scaffold new C++ projects (cppnew)
+[[ ! -f ~/.config/zsh/cppnew.zsh ]] || source ~/.config/zsh/cppnew.zsh
+
 # Load override config that I don't want in source control
 [[ ! -f ~/.zshrc.override ]] || source ~/.zshrc.override
 

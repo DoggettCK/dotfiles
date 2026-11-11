@@ -6,6 +6,11 @@ return {
 	opts = {
 		formatters_by_ft = {
 			lua = { "stylua" },
+			c = { "clang-format" },
+			cpp = { "clang-format" },
+			odin = { "odinfmt" },
+			-- zls formats via the LSP (no zig binary needed)
+			zig = { lsp_format = "prefer" },
 			elixir = { "mix" },
 			gdscript = { "gdscript_formatter" },
 			-- Conform will run multiple formatters sequentially
