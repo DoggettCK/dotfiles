@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+# TODO: Since you're now on Bazzite, rewrite this to require Brew, same as on OSX
+
 SCRIPT_DIR=$(
     # shellcheck disable=2164
     cd "$(dirname "${BASH_SOURCE[0]}")"
@@ -44,7 +46,7 @@ install_or_update_brew() {
 
 stow_everything() {
     info_msg "Symlinking configs via Stow"
-    stow_packages "fzf" "kitty" "lazygit" "neovim" "tmux" "vim" "zsh" "starship"
+    stow_packages "fzf" "kitty" "ghostty" "lazygit" "neovim" "vim" "zsh" "starship"
 }
 
 main() {

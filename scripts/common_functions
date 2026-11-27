@@ -22,7 +22,6 @@ get_os_name() {
     shopt -s nocasematch
     case $(uname -a) in
     *"Darwin"*) echo "OSX" ;;
-    *"Arch"*) echo "Arch" ;;
     *) echo "Unknown" ;;
     esac
 }
